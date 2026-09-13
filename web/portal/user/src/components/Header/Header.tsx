@@ -82,7 +82,7 @@ export default function Header(props: headerProps): JSX.Element {
                   >
                     Powered by <Logo />
                   </Box>
-                  <p>©2026 Irontec | All rights reserved</p>
+                  <p>©2026 Axion Communications Platform | All rights reserved</p>
                 </DialogContent>
                 <DialogActions>
                   <SolidButton
