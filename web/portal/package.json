@@ -6,6 +6,9 @@
     "client",
     "user"
   ],
+  "scripts": {
+    "postinstall": "patch-package"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -56,6 +59,7 @@
     "hygen": "^6.2.11",
     "i18next-parser": "^7.7.0",
     "json-server": "^0.17.2",
+    "patch-package": "^8.0.1",
     "prettier": "^2.6.2",
     "rollup-plugin-react-scoped-css": "^0.8.2",
     "sass": "^1.59",
