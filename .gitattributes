@@ -1,0 +1,12 @@
+# Axion Communications Platform branding overrides.
+# These files carry our own branding and must never be silently replaced by
+# upstream (irontec/ivozprovider) logo/branding changes during a merge.
+# Requires: git config merge.ours.driver true (run once per clone).
+web/portal/*/public/logo.svg merge=ours
+web/portal/*/public/logo192.png merge=ours
+web/portal/*/public/logo512.png merge=ours
+web/portal/*/public/favicon.ico merge=ours
+web/portal/*/public/manifest.json merge=ours
+web/rest/*/public/logo.png merge=ours
+web/rest/*/public/favicon.ico merge=ours
+web/rest/*/public/apple-touch-icon.png merge=ours
