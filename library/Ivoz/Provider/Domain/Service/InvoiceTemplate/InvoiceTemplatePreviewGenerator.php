@@ -114,7 +114,7 @@ class InvoiceTemplatePreviewGenerator
                 ),
             'company' =>
                 array(
-                    'name' => 'IRONTEC Internet y Sistemas sobre GNU/Linux S.L.',
+                    'name' => 'Sample Company S.L.',
                     'nif' => 'B-95274890',
                     'postalAddress' => ' Uribitarte 6, 2º',
                     'postalCode' => '48001',
@@ -123,7 +123,7 @@ class InvoiceTemplatePreviewGenerator
                 ),
             'brand' =>
                 array(
-                    'name' => 'Ivoz Provider',
+                    'name' => 'Axion Communications Platform',
                     'nif' => 'B-95274890',
                     'postalAddress' => ' Uribitarte 6, 2º',
                     'postalCode' => '48001',
