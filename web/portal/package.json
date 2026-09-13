@@ -6,13 +6,10 @@
     "client",
     "user"
   ],
-  "scripts": {
-    "postinstall": "patch-package"
-  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
-    "@irontec/ivoz-ui": "^1.8.2",
+    "@irontec/ivoz-ui": "airsay/ivoz-ui#axion-branding-dist",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.12.1",
     "@mui/styles": "^5.12.0",
@@ -59,7 +56,6 @@
     "hygen": "^6.2.11",
     "i18next-parser": "^7.7.0",
     "json-server": "^0.17.2",
-    "patch-package": "^8.0.1",
     "prettier": "^2.6.2",
     "rollup-plugin-react-scoped-css": "^0.8.2",
     "sass": "^1.59",
