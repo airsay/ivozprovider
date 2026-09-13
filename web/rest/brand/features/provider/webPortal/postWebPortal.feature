@@ -33,7 +33,7 @@ Feature: Create web portals
           "urlType": "user",
           "name": "Platform user Portal",
           "color": "#000000",
-          "productName": "Ivoz Provider",
+          "productName": "Axion Communications Platform",
           "id": 7,
           "logo": {
               "fileSize": null,
@@ -58,7 +58,7 @@ Feature: Create web portals
           "urlType": "user",
           "name": "Platform user Portal",
           "color": "#000000",
-          "productName": "Ivoz Provider",
+          "productName": "Axion Communications Platform",
           "id": 7,
           "logo": {
               "fileSize": null,

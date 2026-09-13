@@ -27,7 +27,7 @@ Feature: Create web portals
           "urlType": "brand",
           "name": "Platform brand Portal",
           "color": "#000000",
-          "productName": "Ivoz Provider",
+          "productName": "Axion Communications Platform",
           "id": 7,
           "logo": {
               "fileSize": null,
@@ -59,7 +59,7 @@ Feature: Create web portals
               "mimeType": null,
               "baseName": null
           },
-          "productName": "Ivoz Provider",
+          "productName": "Axion Communications Platform",
           "company": null,
           "brand": {
               "name": "DemoBrand",
@@ -103,7 +103,7 @@ This is file content
           "urlType": "brand",
           "name": "Platform brand Portal",
           "color": "#000000",
-          "productName": "Ivoz Provider",
+          "productName": "Axion Communications Platform",
           "id": 7,
           "logo": {
               "fileSize": 20,

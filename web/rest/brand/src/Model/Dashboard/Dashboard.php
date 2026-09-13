@@ -60,7 +60,7 @@ class Dashboard
         int $clientNum,
         int $ddiNum,
         int $carrierNum,
-        string $productName = 'Ivoz Provider'
+        string $productName = 'Axion Communications Platform'
     ) {
         $this->brand = $brand;
         $this->recentActivity = $recentActivity;

@@ -19,7 +19,7 @@ class GetVpbxInfo
     ) {
     }
 
-    public function execute(CompanyInterface $company, string $productName = 'Ivoz Provider'): Dashboard
+    public function execute(CompanyInterface $company, string $productName = 'Axion Communications Platform'): Dashboard
     {
         $client = DashboardClient::fromCompany($company);
 

@@ -116,7 +116,7 @@ class Dashboard
         int $residentialDeviceNum = null,
         int $voiceMailNum = null,
         int $retailsAccountNum = null,
-        string $productName = 'Ivoz Provider'
+        string $productName = 'Axion Communications Platform'
     ) {
         $this->client = $client;
         $this->latestBillableCalls = $latestBillableCalls;
