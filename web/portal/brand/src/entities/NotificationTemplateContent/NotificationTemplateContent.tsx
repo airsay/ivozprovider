@@ -14,7 +14,7 @@ const properties: NotificationTemplateContentProperties = {
     label: _('From name'),
     maxLength: 255,
     helpText: _(
-      'Name shown as source when sending mails (e.g. IvozProvider Notifications)'
+      'Name shown as source when sending mails (e.g. Axion Communications Platform Notifications)'
     ),
     required: true,
   },

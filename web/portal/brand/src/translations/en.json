@@ -394,7 +394,7 @@
   "Must start with '+' followed by zero or more digits.": "Must start with '+' followed by zero or more digits.",
   "Must start with sip or sips followed by colon": "Must start with sip or sips followed by colon",
   "Name": "Name",
-  "Name shown as source when sending mails (e.g. IvozProvider Notifications)": "Name shown as source when sending mails (e.g. IvozProvider Notifications)",
+  "Name shown as source when sending mails (e.g. Axion Communications Platform Notifications)": "Name shown as source when sending mails (e.g. Axion Communications Platform Notifications)",
   "National": "National",
   "National number length": "National number length",
   "Next execution": "Next execution",
