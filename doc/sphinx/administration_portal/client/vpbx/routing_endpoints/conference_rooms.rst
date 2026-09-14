@@ -4,7 +4,7 @@
 Conference rooms
 ################
 
-IvozProvider supports Conference rooms that can be configured in the section
+Axion Communications Platform supports Conference rooms that can be configured in the section
 **Client configuration** > **Conference rooms**.
 
 **In distributed installations** using Conferences is only compatible with an static

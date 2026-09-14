@@ -11,7 +11,7 @@ a global music will be played.
 
 Multiple files can be added to be played as Music on Hold. The system will choose them randomly for each call.
 
-.. warning:: IvozProvider will play MOH only for vPBX and Residential clients. Remaining client
+.. warning:: Axion Communications Platform will play MOH only for vPBX and Residential clients. Remaining client
              types don't have MOH capabilities as their calls don't traverse any Application Server.
 
 .. note:: Residential client listen the MOH defined by the brand operator in this section. If none is configured,

@@ -4,7 +4,7 @@
 Anti brute-force attacks
 ########################
 
-IvozProvider ships a simple anti brute-force attack in KamUsers that bans sources after continuous SIP auth failures
+Axion Communications Platform ships a simple anti brute-force attack in KamUsers that bans sources after continuous SIP auth failures
 from same IP address.
 
 It works like this:

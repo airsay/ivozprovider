@@ -4,7 +4,7 @@
 Platform roles
 ##############
 
-IvozProvider is a multilevel role provider solution.
+Axion Communications Platform is a multilevel role provider solution.
 
 The following images shows the different available levels and the
 relation between them:

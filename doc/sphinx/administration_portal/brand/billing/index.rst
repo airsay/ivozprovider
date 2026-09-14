@@ -8,11 +8,11 @@ Billing a call is the **action of setting a price** to a call that implies cost.
 
 Billing calls depends upon an automatic process:
 
-- When a call is about to be established, IvozProvider verifies that it will be able to bill it.
+- When a call is about to be established, Axion Communications Platform verifies that it will be able to bill it.
 
 .. error:: If with the current configuration (active and applicable rating plans for
            a given client and for the specific destination) it won't be possible to
-           bill the call, IvozProvider will prevent its establishment.
+           bill the call, Axion Communications Platform will prevent its establishment.
 
 - Once a call that implies cost is hung up and is parsed by an asynchronous process, it is listed in :ref:`external_calls`.
 
@@ -20,7 +20,7 @@ Billing calls depends upon an automatic process:
 Billing methods
 ***************
 
-IvozProvider supports 3 different billing methods. Billing method is configured at client level via *Billing method* parameter.
+Axion Communications Platform supports 3 different billing methods. Billing method is configured at client level via *Billing method* parameter.
 
 .. _postpaid billing:
 

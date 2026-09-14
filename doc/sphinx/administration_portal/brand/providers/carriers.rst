@@ -22,7 +22,7 @@ This are the fields that define a carrier:
         (see :ref:`Numeric transformations`).
 
     Calculate cost
-        If set, IvozProvider will calculate the cost of the call using the carrier's active rating profile.
+        If set, Axion Communications Platform will calculate the cost of the call using the carrier's active rating profile.
 
     Currency
         Chosen currency will be used in cost calculation, balance movements and
@@ -110,7 +110,7 @@ are used for placing outgoing calls by using :ref:`Outgoing routings`.
    won't).
 
 .. warning:: In case of defining multiple Carrier Servers for a single
-   Carrier, IvozProvider will balance and failover using all of them.
+   Carrier, Axion Communications Platform will balance and failover using all of them.
    Like with Application Servers, it will disable those who doesn't respond to
    our requests.
 

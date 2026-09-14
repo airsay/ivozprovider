@@ -22,7 +22,7 @@ Once the music has been *encoded* the **Status** fill will display *ready* and
 the music will be used for the next calls.
 
 
-.. tip:: IvozProvider supports most of the common audio formats and *encodes* 
+.. tip:: Axion Communications Platform supports most of the common audio formats and *encodes* 
    them to the optimal format for the platform. 
 
 After the *encoding*, we can download both the original and the converted 

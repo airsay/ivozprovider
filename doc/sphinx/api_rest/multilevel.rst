@@ -2,7 +2,7 @@
 Multi-level API
 ################
 
-IvozProvider API is divided in same three levels as the web administration portal plus user API:
+Axion Communications Platform API is divided in same three levels as the web administration portal plus user API:
 
 - God
 

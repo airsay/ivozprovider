@@ -23,7 +23,7 @@ make sure the external calls are properly setup, it must also manage:
 
 As you can see, the task of brand operator has little in common with the
 global operator, but their importance is vital so the final users can use
-all the features includes in IvozProvider
+all the features includes in Axion Communications Platform
 
 .. _brand_responsibilities:
 

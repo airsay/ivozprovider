@@ -1,8 +1,8 @@
 ############################
-Introduction to IvozProvider
+Introduction to Axion Communications Platform
 ############################
 
-The following sections will serve as general introduction to IvozProvider:
+The following sections will serve as general introduction to Axion Communications Platform:
 
 .. toctree::
 

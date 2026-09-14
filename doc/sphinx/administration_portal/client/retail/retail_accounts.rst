@@ -7,7 +7,7 @@ Retail Accounts
 Retail Accounts are the main routable option in Retail clients.
 More or less like :ref:`friends` are to Virtual PBX Clients, devices
 contain the required configurable options to provide a SIP connectivity
-service with IvozProvider and an external SIP entity.
+service with Axion Communications Platform and an external SIP entity.
 
 .. warning:: Although both **Carriers/DDI Providers** and **Retail Accounts** are defined by the
              **brand operator**, the former are designed to connect with the public switched telephony network
@@ -16,14 +16,14 @@ service with IvozProvider and an external SIP entity.
 Types of retail accounts
 ========================
 
-There are 2 main types of SIP endpoints that can use retail with IvozProvider:
+There are 2 main types of SIP endpoints that can use retail with Axion Communications Platform:
 
-- **Direct connection endpoint**: IvozProvider must be able to talk SIP directly with
+- **Direct connection endpoint**: Axion Communications Platform must be able to talk SIP directly with
   this kind of devices by just forwarding the traffic to the proper port of
   the public IP address of the PBX.
 
 - **Endpoint behind NAT**: Not directly reachable. This kind of endpoint must register at
-  IvozProvider (just like all the :ref:`Terminals <terminals>` do).
+  Axion Communications Platform (just like all the :ref:`Terminals <terminals>` do).
 
 What kind of calls can be routed through a *Retail Account*?
 ============================================================
@@ -48,7 +48,7 @@ These are the configurable settings of *Retail accounts*:
         Optional. Extra information for this *retail account*.
 
     Password
-        When the *retail account* send requests, IvozProvider will authenticate it using
+        When the *retail account* send requests, Axion Communications Platform will authenticate it using
         this password. **Using password IS A MUST in "Register" mode**. In "Direct" mode,
         leaving it blank disables SIP authentication and enables IP source check.
 
@@ -64,7 +64,7 @@ These are the configurable settings of *Retail accounts*:
         the source presented matches a DDI belonging to the retail client**.
 
     From domain
-        Request from IvozProvider to this account will include this domain in
+        Request from Axion Communications Platform to this account will include this domain in
         the From header.
 
     DDI In
@@ -73,7 +73,7 @@ These are the configurable settings of *Retail accounts*:
         endpoints with direct connectivity). Defaults to 'Yes'.
 
     Enable T.38 passthrough
-        If set to 'yes', this SIP endpoint must be a **T.38 capable fax sender/receiver**. IvozProvider
+        If set to 'yes', this SIP endpoint must be a **T.38 capable fax sender/receiver**. Axion Communications Platform
         will act as a T.38 gateway, bridging fax-calls of a T.38 capable carrier and a T.38 capable device.
 
     RTP Encryption
@@ -132,7 +132,7 @@ Asterisk as a retail account
 
 At the other end of a account can be any kind of SIP entity. This section takes
 as example an Asterisk PBX system using SIP channel driver that wants to connect
-to IvozProvider.
+to Axion Communications Platform.
 
 Account register
 ----------------
@@ -165,7 +165,7 @@ Account peer
     sendrpid=pai
     directmedia=no
 
-.. warning:: *Retail accounts* MUST NOT challenge IvozProvider. That's
+.. warning:: *Retail accounts* MUST NOT challenge Axion Communications Platform. That's
              why the *insecure* setting is used here.
 
 .. note:: As From username is used to identify the retail account, P-Asserted-Identity (or P-Preferred-Identity or Remote-Party-Id) must be used to specify caller number.

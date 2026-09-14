@@ -2,15 +2,15 @@
 Analyzing SIP traffic
 #####################
 
-Although all production IvozProvider installations maintained by
+Although all production Axion Communications Platform installations maintained by
 `Irontec <https://www.irontec.com>`_ include a `Homer SIP Capture Server
 <https://www.sipcapture.org/>`_, it is not installed in the standalone version
-of IvozProvider. The reason behind this is that we prefer awesome SIPCAPTURE
+of Axion Communications Platform. The reason behind this is that we prefer awesome SIPCAPTURE
 stack running on an additional machine.
 
 `sngrep Ncurses SIP Messages flow viewer developed by Irontec
 <https://github.com/irontec/sngrep>`_ is currently
-the preferred tool to inspect SIP traffic included in IvozProvider.
+the preferred tool to inspect SIP traffic included in Axion Communications Platform.
 
 .. image:: img/sngrep_sample.png
 
@@ -40,7 +40,7 @@ For more reference, visit `sngrep official site <https://github.com/irontec/sngr
 Other capturing tools
 =====================
 
-Although sngrep is our preferred capturing tool, IvozProvider ships other tools 
+Although sngrep is our preferred capturing tool, Axion Communications Platform ships other tools 
 to capture SIP/RTP traffic, such as `tcpdump <http://www.tcpdump.org>`_ and
 `ngrep <http://ngrep.sourceforge.net>`_.
 

@@ -17,4 +17,4 @@ the corresponding client <emulate_client>` previously.
 
 .. tip:: We could have set the same DDI as Default Outgoing DDI at client level, editing *democompany* client.
 
-.. error:: Calls from users without an outgoing DDI will be rejected by IvozProvider.
+.. error:: Calls from users without an outgoing DDI will be rejected by Axion Communications Platform.

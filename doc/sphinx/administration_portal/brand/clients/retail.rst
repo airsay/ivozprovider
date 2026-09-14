@@ -43,7 +43,7 @@ But they also have benefits that make them ideal for some situations:
 
 .. warning:: Residential devices are force to talk the codec selected in their configuration (just one).
              Retail clients, on the other hand, can talk in the codecs they offer in their SDP and in the
-             codecs selected in IvozProvider: IvozProvider will make transcoding when necessary.
+             codecs selected in Axion Communications Platform: Axion Communications Platform will make transcoding when necessary.
 
 .. tip:: Use retail client type unless you need any of the services provided by application servers (fax or voicemails).
 

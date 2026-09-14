@@ -2,14 +2,14 @@
 Debian packages install
 #######################
 
-IvozProvider is designed to be installed and updated using Debian packages.
+Axion Communications Platform is designed to be installed and updated using Debian packages.
 More exactly, the current release is ready to be installed on
 `Debian Bookworm 12 <https://www.debian.org/releases/bookworm>`_.
 
 It's recommended to use one of the `official installation guides
 <https://www.debian.org/releases/bookworm/installmanual>`_ to install the minimum
 base system. The rest of required  dependencies will be installed automatically
-with IvozProvider meta packages.
+with Axion Communications Platform meta packages.
 
 No matter if you are installing a :ref:`StandAlone install` or a
 :ref:`Distributed install`, it's required to configure Irontec debian
@@ -65,7 +65,7 @@ metapackage depending on the type of installation.
 Finish the installation
 ***********************
 Standalone installation have a menu that can be used to configure the basic
-services used in IvozProvider. Most of the services are automatically configured
+services used in Axion Communications Platform. Most of the services are automatically configured
 to work in the same machine with the default values.
 
 This menu allows:

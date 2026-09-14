@@ -5,7 +5,7 @@
 Automatic ISO CD image
 ######################
 
-You can download one of the `IvozProvider Automatic ISO CD images
+You can download one of the `Axion Communications Platform Automatic ISO CD images
 <https://github.com/irontec/ivozprovider>`_ (generated using
 `simplecdd <https://wiki.debian.org/Simple-CDD>`_) in stable or nightly versions:
 
@@ -44,10 +44,10 @@ You can download one of the `IvozProvider Automatic ISO CD images
 .. image:: img/installcd-mysqlpass.png
 
 .. important:: MySQL password must be set in this screen and again in the following
-      Ivozprovider configuration menu. If you leave this field empty, the default password
+      Axion Communications Platform configuration menu. If you leave this field empty, the default password
       will be used (see below).
 
-* Configure IvozProvider:
+* Configure Axion Communications Platform:
 
 .. image:: img/installcd-ivozmenu.png
 

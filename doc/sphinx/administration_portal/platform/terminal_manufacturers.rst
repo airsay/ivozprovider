@@ -7,7 +7,7 @@ Terminal manufacturers
 Overview
 ========
 
-IvozProvider supports provisioning of terminals via HTTP/HTTPS that fulfill the
+Axion Communications Platform supports provisioning of terminals via HTTP/HTTPS that fulfill the
 following requirements:
 
 - Assuming a just unboxed terminal, just plugged and connected to the network:
@@ -50,17 +50,17 @@ the section **Platform Configuration > Terminal manufacturers**.
    - SIP Domain
 
 
-.. note:: IvozProvider provisioning system, right now, only has one goal:
+.. note:: Axion Communications Platform provisioning system, right now, only has one goal:
           provide credentials and language settings for the terminals.
 
 Configuration of supported models
 =================================
 
-IvozProvider uses a template system that allows global operator (God) to
+Axion Communications Platform uses a template system that allows global operator (God) to
 define new models and configure what files will be served.
 
 The help section of **Terminal manufacturers** has examples for some models
-that work (in the moment of writting this) with IvozProvider provisioning system.
+that work (in the moment of writting this) with Axion Communications Platform provisioning system.
 
 .. hint:: These models will be available after the initial installation, but
           you must edit them and load the default configuration before

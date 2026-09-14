@@ -60,7 +60,7 @@ configuration** > **Services**:
         Calling this service code will change the current status of no answer call forward (only available for
         residential clients, see :ref:`Residential device call forward settings <residential_devices_cfw>`).it di
 
-As soon as new services are implemented into IvozProvider, they will be listed
+As soon as new services are implemented into Axion Communications Platform, they will be listed
 in this section.
 
 .. attention:: This section lists the available services and the default codes

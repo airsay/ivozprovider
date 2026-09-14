@@ -14,7 +14,7 @@ G.729
    use G.729 codec to their patent holders. We're not legal advisers regarding
    active or withdrawn world patents.
 
-You can use G.729 with IvozProvider, but installation must be done manually.
+You can use G.729 with Axion Communications Platform, but installation must be done manually.
 G.729 codec is optimized for each CPU type and version of asterisk, so each
 installation may require a different codec module.
 

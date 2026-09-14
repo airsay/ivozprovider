@@ -54,6 +54,6 @@ The purpose of these additional addresses is to talk to different Providers usin
 
   - Each Provider (both Carriers and DDI Providers) must have one address.
 
-- IvozProvider will use assigned addresses in SIP signalling with those Carriers / DDI Providers.
+- Axion Communications Platform will use assigned addresses in SIP signalling with those Carriers / DDI Providers.
 
 .. note:: Be aware that it only applies to SIP signalling, no changes are made in RTP media handling.

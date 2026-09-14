@@ -5,7 +5,7 @@
 Default Notification Templates
 ##############################
 
-Brand administrators can configure the notifications sent by IvozProvider:
+Brand administrators can configure the notifications sent by Axion Communications Platform:
 
 - Email sent when a new voicemail is received
 

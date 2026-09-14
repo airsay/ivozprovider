@@ -2,7 +2,7 @@
 Firewall
 ########
 
-**IvozProvider does not currently include a firewall** but...
+**Axion Communications Platform does not currently include a firewall** but...
 
 .. danger:: We **strongly encourage any production installation to implement
               a firewall** to protect the platform from the wild Internet.
@@ -18,7 +18,7 @@ The protection method could be:
 Exposed ports/services
 ----------------------
 
-These are the **ports IvozProvider needs to expose** to work properly:
+These are the **ports Axion Communications Platform needs to expose** to work properly:
 
 **Client side SIP signalling**:
 

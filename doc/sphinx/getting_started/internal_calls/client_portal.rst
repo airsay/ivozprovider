@@ -4,7 +4,7 @@
 Client Configuration
 ********************
 
-We're close to make our fist call in our fresh installed IvozProvider, there
+We're close to make our fist call in our fresh installed Axion Communications Platform, there
 are only 6 steps to configure in our DemoClient virtual pbx.
 
 - 2 terminals

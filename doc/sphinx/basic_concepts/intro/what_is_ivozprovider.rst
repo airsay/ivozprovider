@@ -1,8 +1,8 @@
 *********************
-What is IvozProvider?
+What is Axion Communications Platform?
 *********************
 
-IvozProvider is a :ref:`provider oriented <operator_oriented>`
+Axion Communications Platform is a :ref:`provider oriented <operator_oriented>`
 :ref:`multilevel <multilevel>` :ref:`IP telephony <voip>` solution
 :ref:`exposed to the public network <exposed>`.
 
@@ -11,17 +11,17 @@ IvozProvider is a :ref:`provider oriented <operator_oriented>`
 IP Telephony
 ============
 
-IvozProvider supports telephony systems that use *Session Initiation
+Axion Communications Platform supports telephony systems that use *Session Initiation
 Protocol*, **SIP**, described in `RFC 3261
 <https://tools.ietf.org/html/rfc3261>`_ and any `related RFCs
 <https://www.packetizer.com/ipmc/sip/standards.html>`_ independent of
 manufacturers.
 
 This allows total freedom to choose *softphones*, *hardphones* and the
-rest of elements that interact with IvozProvider, without any kind of
+rest of elements that interact with Axion Communications Platform, without any kind of
 binding with a manufacturer.
 
-Right now, IvozProvider supports the following **transport protocols**
+Right now, Axion Communications Platform supports the following **transport protocols**
 for SIP:
 
    - UDP
@@ -51,7 +51,7 @@ The **supported audio codec** list is:
 Multilevel
 ==========
 
-The web portal design of IvozProvider allows **multiple actors within the
+The web portal design of Axion Communications Platform allows **multiple actors within the
 same infrastructure**:
 
 .. ifconfig:: language == 'en'
@@ -91,14 +91,14 @@ ways:
 Provider oriented
 =================
 
-IvozProvider is a telephony solution **designed with horizontal scaling
+Axion Communications Platform is a telephony solution **designed with horizontal scaling
 in mind**. This allows handling a great amount of **traffic and users**
 only by increasing the machines and resources of them.
 
 This are the main ideas that makes this product provider oriented:
 
 - Despite the fact that all machine profiles can run in the same host,
-  what makes it easier for the initial testing, each profile of IvozProvider
+  what makes it easier for the initial testing, each profile of Axion Communications Platform
   can be separated from the rest to make it run in its own machine.
 
 - A **distributed installation** allows to distribute the correct amount of
@@ -123,7 +123,7 @@ use to be:
 
 - Databases of configuration and records.
 
-IvozProvider was designed always keeping in mind the **horizontal
+Axion Communications Platform was designed always keeping in mind the **horizontal
 scaling** of each of its elements, so it **can handle thousands concurrent calls**
 and what is more important, **adapt the platform resources to the expected service quality**:
 
@@ -155,9 +155,9 @@ and what is more important, **adapt the platform resources to the expected servi
 Exposed to the public network
 =============================
 
-As showed in the installation process, **IvozProvider is designed to serve
+As showed in the installation process, **Axion Communications Platform is designed to serve
 users directly from Internet**. Although it can be used in local
-environments, IvozProvider is designed to use public IP addresses for its
+environments, Axion Communications Platform is designed to use public IP addresses for its
 services, removing the need of VPN or IPSec tunnels that connect the
 infrastructure with the final users
 
@@ -175,10 +175,10 @@ Highlights:
 
 - Each client concurrent calls can be limited to a fixed amount.
 
-- IvozProvider supports connection from terminals behind
+- Axion Communications Platform supports connection from terminals behind
   `NAT <https://en.wikipedia.org/wiki/Network_address_translation>`_.
 
-- IvozProvider keep track of those NAT windows and keep them alive with
+- Axion Communications Platform keep track of those NAT windows and keep them alive with
   *nat-piercing* mechanisms.
 
 .. [*] The global administrator can assign Application Servers to some client types but

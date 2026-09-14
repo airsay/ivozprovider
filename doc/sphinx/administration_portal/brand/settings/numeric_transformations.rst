@@ -6,7 +6,7 @@
 Numeric transformations
 #######################
 
-**IvozProvider** is designed to provide service **anywhere in the planet**, not
+**Axion Communications Platform** is designed to provide service **anywhere in the planet**, not
 only the original country where the platform is installed.
 
 A very important concept to achieve this goal is the numeric transformation,
@@ -15,14 +15,14 @@ defined in `E.164 <https://www.itu.int/rec/T-REC-E.164/es>`_ **to a neutral form
 
 .. note:: Numeric transformation *sets* must be assigned to :ref:`Carriers`, :ref:`DDI Providers`, **Clients** and **User
           endpoints** (Users, Friends, retail accounts, residential devices, etc.) to define the way every entity talks
-          with IvozProvider.
+          with Axion Communications Platform.
 
 There are two different transformation scenarios:
 
 Incoming transformations
 ========================
 
-When a new call is received in IvozProvider matching a provider that has been
+When a new call is received in Axion Communications Platform matching a provider that has been
 configured for *peering*, we must adapt the numbers that make reference to:
 
 - Origin of the call
@@ -86,7 +86,7 @@ For example, for a number with spanish number system:
 Add a new transformation set
 ****************************
 
-IvozProvider comes with an automatic transformation rules generator that fits
+Axion Communications Platform comes with an automatic transformation rules generator that fits
 with most of the countries.
 
 In order to create a new set of transformations use **Add Numeric transformations**:
@@ -169,7 +169,7 @@ destination numbers.
 Conclusion
 **********
 
-This is a key section that allows creating sets that will allow IvozProvider make needed numeric translations to 'talk'
+This is a key section that allows creating sets that will allow Axion Communications Platform make needed numeric translations to 'talk'
 with all the external entities:
 
 - Providers (carriers and DDI Providers)

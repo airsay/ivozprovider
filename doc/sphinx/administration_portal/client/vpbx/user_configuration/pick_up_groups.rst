@@ -8,7 +8,7 @@ Call pickup is the process where a user can answer a call that is being ringing
 in another terminal. No need to say that, somehow (sound, flashing lights,
 notification, etc) the users must know that the call is ringing elsewhere. 
 
-IvozProvider supports two kind of call pickups:
+Axion Communications Platform supports two kind of call pickups:
 
     Direct pickup
         In this type of pickup, the user that is trying to capture the ringing 
@@ -44,7 +44,7 @@ in the user's edit screen.
 Group pickup service code
 *************************
 
-IvozProvider supports 2 different configuration levels for defining the service
+Axion Communications Platform supports 2 different configuration levels for defining the service
 codes for pickup:
 
 - At brand level: **Brand configuration** > **Services**.

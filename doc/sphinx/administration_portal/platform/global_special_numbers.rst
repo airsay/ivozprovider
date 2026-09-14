@@ -3,7 +3,7 @@
 Global Special Numbers
 ======================
 
-This section allows adding external numbers that will be handled in a different way by IvozProvider when a client
+This section allows adding external numbers that will be handled in a different way by Axion Communications Platform when a client
 calls to those destinations (**only for external outgoing calls**).
 
 .. note:: Numbers listed here will apply in every brand. Brand operator may add numbers too using :ref:`Special Numbers`.

@@ -1,10 +1,10 @@
 <img src="doc/images/logoprovider.png" width="350"> ![stable](https://raster.shields.io/badge/latest-4.8-blue.png) ![release](https://raster.shields.io/badge/release-tempest-14b9bc.png)
 
-Ivoz Provider is a multitenant solution for VoIP telephony providers designed for horizontal scaling and load balancing.
+Axion Communications Platform is a multitenant solution for VoIP telephony providers designed for horizontal scaling and load balancing.
 
 ## Features
 #### Multitenancy
-IvozProvider supports multiple management levels, from Global platform administrator to final user, each of them having its own web interface with visibility to perform configuration tasks.
+Axion Communications Platform supports multiple management levels, from Global platform administrator to final user, each of them having its own web interface with visibility to perform configuration tasks.
 
  * Global Administrator manages multiple Brands
  * Brand Administrators manage multiple Companies
@@ -12,7 +12,7 @@ IvozProvider supports multiple management levels, from Global platform administr
  * Users manage their preferences
 
 #### Scaling
-From its beginning, IvozProvider was designed to be installed distributed between multiple machines, each one fullfilling one of the existing profiles:
+From its beginning, Axion Communications Platform was designed to be installed distributed between multiple machines, each one fullfilling one of the existing profiles:
 
  * Proxy:
    - Provides **SIP communication** with Providers and Users terminals
@@ -37,11 +37,11 @@ And [many others](https://irontec.github.io/ivozprovider/en/basic_concepts/intro
 Bear in mind that, while at least one of each profile must be installed for the platform to work, there can be multiple machines of each profile and all of them can also be installed in the same machine (a.k.a. standalone installation).
 
 #### Cloud Service
-IvozProvider is designed to work directly from the Internet. Although it can be used in local environments, being exposed to the public network [has it's advantages](https://irontec.github.io/ivozprovider/en/basic_concepts/intro/what_is_ivozprovider.html#exposed-to-the-public-network)
+Axion Communications Platform is designed to work directly from the Internet. Although it can be used in local environments, being exposed to the public network [has it's advantages](https://irontec.github.io/ivozprovider/en/basic_concepts/intro/what_is_ivozprovider.html#exposed-to-the-public-network)
 
 ## Installation
 
-There are [several ways](https://irontec.github.io/ivozprovider/en/basic_concepts/installation/index.html) to install IvozProvider.
+There are [several ways](https://irontec.github.io/ivozprovider/en/basic_concepts/installation/index.html) to install Axion Communications Platform.
 
 If you want to test an [standalone](https://irontec.github.io/ivozprovider/en/basic_concepts/installation/install_types.html#standalone-install) installation, we recommend using one of auto-install CDs based on Debian Bookworm 12 amd64.
 

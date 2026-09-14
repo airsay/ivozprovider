@@ -8,10 +8,10 @@ Minimum requirements
 *******************
 System requirements
 *******************
-IvozProvider is designed to be installed using Debian GNU/Linux APT package
+Axion Communications Platform is designed to be installed using Debian GNU/Linux APT package
 system.
 
-.. important:: It's recommended to install IvozProvider in a dedicated server
+.. important:: It's recommended to install Axion Communications Platform in a dedicated server
    for the platform. Many of the installed software may not work properly with
    other pre-installed services (like MySQL or DNS servers).
 

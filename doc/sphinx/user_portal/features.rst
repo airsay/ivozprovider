@@ -2,7 +2,7 @@
 Features
 ********
 
-IvozProvider provides a web portal where final users can do the following
+Axion Communications Platform provides a web portal where final users can do the following
 actions:
 
 - See all calls he or she has been involved.

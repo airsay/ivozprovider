@@ -4,7 +4,7 @@
 SIP Antiflooding
 ################
 
-SIP Proxies included in IvozProvider installation for SIP signalling use
+SIP Proxies included in Axion Communications Platform installation for SIP signalling use
 `PIKE module <http://kamailio.org/docs/modules/5.1.x/modules/pike.html>`_ to avoid DoS attacks.
 
 This module keeps trace of incoming request's IP address and blocks the ones that exceed the limit on a given time

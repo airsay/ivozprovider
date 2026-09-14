@@ -4,7 +4,7 @@
 Wholesale
 *********
 
-Wholesale clients are the simplest client type in IvozProvider.
+Wholesale clients are the simplest client type in Axion Communications Platform.
 
 It allows trunking services with Carriers without any application server features,
 focusing on concurrency and quality rather on having lots of services.

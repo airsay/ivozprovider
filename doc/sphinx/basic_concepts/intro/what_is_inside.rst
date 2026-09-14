@@ -1,13 +1,13 @@
 ****************************
-What is inside IvozProvider?
+What is inside Axion Communications Platform?
 ****************************
 
-IvozProvider uses well-known and stable `Free Software
+Axion Communications Platform uses well-known and stable `Free Software
 <https://www.gnu.org/philosophy/free-sw.en.html>`_ projects to fulfill
 the different required task of the platform.
 
 Nothing better than an image to show all the software that its integrated
-into IvozProvider:
+into Axion Communications Platform:
 
 .. image:: img/ivozprovider_logos.png
     :align: center

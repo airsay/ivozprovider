@@ -5,7 +5,7 @@ Friends
 *******
 
 **Friends** section in the **Client configuration** allows interconnection of
-IvozProvider with other SIP PBX systems through a SIP *trunk*. The most typical
+Axion Communications Platform with other SIP PBX systems through a SIP *trunk*. The most typical
 use case is when a client have multiple PBX systems that want to integrate in
 a single flow.
 
@@ -33,9 +33,9 @@ There are 2 main types of Friends:
 What kind of calls can be routed through an *internal friend*?
 --------------------------------------------------------------
 
-IvozProvider will route a call received by a :ref:`user <users>` or a :ref:`friend <friends>` following this logic:
+Axion Communications Platform will route a call received by a :ref:`user <users>` or a :ref:`friend <friends>` following this logic:
 
-#. Destination matches an existing IvozProvider extension?
+#. Destination matches an existing Axion Communications Platform extension?
 #. If not: Destination matches any *friend* regular expression (for remote friends) or extensions (for internal ones)? Ordered by priority (lower has precedence).
 #. If not: This is an external call.
 
@@ -69,7 +69,7 @@ These are the fields and available values:
             - Unconditional: always
             - No answer: when the call is not answered in X seconds
             - Busy: When the friend rejects an incoming call.
-            - Not registered: when the friend is not registered against IvozProvider.
+            - Not registered: when the friend is not registered against Axion Communications Platform.
 
     Target type
         What route will use the forwarded call.

@@ -2,7 +2,7 @@
 Making internal calls
 #####################
 
-The goal of this block will be to configure IvozProvider in order to make
+The goal of this block will be to configure Axion Communications Platform in order to make
 internal calls, using as the starting point the base installation described
 in the previous step.
 

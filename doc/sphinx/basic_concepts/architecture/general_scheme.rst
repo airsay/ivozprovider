@@ -1,5 +1,5 @@
 
-Following diagram shows the global architecture of IvozProvider solution, 
+Following diagram shows the global architecture of Axion Communications Platform solution, 
 with all its components:
 
 .. ifconfig:: language == 'en'

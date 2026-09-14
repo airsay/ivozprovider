@@ -20,7 +20,7 @@ If calling to an extension in another vPBX causes an external call, it is allowe
 What kind of calls can be routed through an *internal friend*?
 --------------------------------------------------------------
 
-IvozProvider will route any call matching an Extension in vpbx client connected by the internal friend.
+Axion Communications Platform will route any call matching an Extension in vpbx client connected by the internal friend.
 
 Configuration of internal friends
 ---------------------------------

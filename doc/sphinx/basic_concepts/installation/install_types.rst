@@ -9,7 +9,7 @@ Installation Types
 Distributed Install
 *******************
 
-IvozProvider software is designed to run distributed between multiple systems
+Axion Communications Platform software is designed to run distributed between multiple systems
 in what we call profiles:
 
 Each profile is in charge of performing one of the platform functions:

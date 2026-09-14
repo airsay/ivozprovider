@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 ###################################
-IvozProvider Official Documentation
+Axion Communications Platform Official Documentation
 ###################################
 
 .. toctree::

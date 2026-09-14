@@ -2,7 +2,7 @@
 Client Configuration
 ********************
 
-Currently, there are 4 different types of client in IvozProvider.
+Currently, there are 4 different types of client in Axion Communications Platform.
 
 Each of them is thoroughly described in the following sections:
 

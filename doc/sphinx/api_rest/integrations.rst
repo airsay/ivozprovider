@@ -2,10 +2,10 @@
 Third party integrations
 ########################
 
-Ivoz Provider makes use of **OpenAPI Specification 2.0** (which is identical to the Swagger 2.0 specification before it was
+Axion Communications Platform makes use of **OpenAPI Specification 2.0** (which is identical to the Swagger 2.0 specification before it was
 renamed to "OpenAPI Specification").
 
-APIs are supposed to be the way to integrate third party applications with IvozProvider. Some community tools, such as
+APIs are supposed to be the way to integrate third party applications with Axion Communications Platform. Some community tools, such as
 `swagger-codegen <https://github.com/swagger-api/swagger-codegen>`_, may be of great help during the client development.
 According to their github page the following language/framework code auto-generation is supported:
 

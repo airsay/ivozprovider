@@ -7,7 +7,7 @@ In most scenarios, Brands administrators are responsible for configuring
 their clients. But in some cases, clients want to choose the outgoing routing to
 use per call.
 
-A Routing tag is **a code that will prefix the destination number when placing calls to IvozProvider** and allow clients
+A Routing tag is **a code that will prefix the destination number when placing calls to Axion Communications Platform** and allow clients
 to choose different routes for same destinations.
 
 Add/Edit/Delete a routing tag

@@ -2,7 +2,7 @@
 Making external calls
 #####################
 
-The goal of this section is configuring IvozProvider to make external outgoing
+The goal of this section is configuring Axion Communications Platform to make external outgoing
 calls, taking previous section configuration as a starting point.
 
 We will follow these steps:

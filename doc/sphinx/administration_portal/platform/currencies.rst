@@ -5,7 +5,7 @@ Currencies
 This section allows adding as many currencies as wanted. It is a multilanguage field with a symbol that will be used
 in invoices, balance movements, etc.
 
-These IvozProvider elements have an assigned currency:
+These Axion Communications Platform elements have an assigned currency:
 
     Brand
         Used as default currency for all underlying items that have currency.

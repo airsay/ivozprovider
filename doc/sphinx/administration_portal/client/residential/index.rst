@@ -15,7 +15,7 @@ service with carriers through residential devices.
 .. hint:: Residential clients can be enabled per Brand basis via Features.
 
 The goal of this section will be describe each of the configuration settings
-associated with Residential clients included in IvozProvider:
+associated with Residential clients included in Axion Communications Platform:
 
 .. toctree::
     :maxdepth: 2

@@ -2,7 +2,7 @@
 Where do I call?
 ################
 
-At this point of the configuration, we have to configure IvozProvider to use the
+At this point of the configuration, we have to configure Axion Communications Platform to use the
 already configured *Carrier* to place the external calls we are making.
 
 To achieve this, in first place, we need that the dialed external numbers fall

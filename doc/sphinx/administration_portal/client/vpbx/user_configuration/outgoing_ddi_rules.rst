@@ -4,7 +4,7 @@
 Outgoing DDI Rules
 ##################
 
-Most calling entities in IvozProvider require an outgoing DDI when placing calls
+Most calling entities in Axion Communications Platform require an outgoing DDI when placing calls
 to external numbers. This includes: Users, Friends, Faxes, Retail Accounts, and
 so on..
 

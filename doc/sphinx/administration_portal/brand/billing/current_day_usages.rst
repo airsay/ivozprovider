@@ -28,7 +28,7 @@ This section lists current day usage for each client in the brand:
          re-enabled at midnight.
 
 
-.. error:: This is one of main :ref:`security` mechanisms available in IvozProvider. Use it to avoid toll fraud calls
+.. error:: This is one of main :ref:`security` mechanisms available in Axion Communications Platform. Use it to avoid toll fraud calls
            (see :ref:`Current day max usage`).
 
 This section shows runtime value obtained asking to CGRateS (value actually applying) that should be equal to the one

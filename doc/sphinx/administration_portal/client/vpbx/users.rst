@@ -171,7 +171,7 @@ These are the fields and available values:
               disabled), when *Do not disturb* is enabled or when the user 
               rejects an incoming call.
             - Not registered: when the user SIP terminal is not registered 
-              against IvozProvider.
+              against Axion Communications Platform.
 
     Target type
         What route will use the forwarded call.

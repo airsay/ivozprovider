@@ -53,7 +53,7 @@ Some DDI providers require a `SIP Register
 incoming calls to our DDIs. Some of them, even require this register in order
 to process our outgoing calls through their services.
 
-.. note:: IvozProvider supports any kind of *peering*, but we highly recommend
+.. note:: Axion Communications Platform supports any kind of *peering*, but we highly recommend
    *peer to peer peerings*: without authentication, without registry and
    validated by IP. This will avoid unnecessary traffic (authentication in each
    session and periodic registers) and simplifies its configuration, leaving this list empty.

@@ -5,13 +5,13 @@
 Routing patterns
 ****************
 
-When a user dials an external phone number, IvozProvider tries to categorize
+When a user dials an external phone number, Axion Communications Platform tries to categorize
 this call into one of the routing patterns defined in this section. Once categorized,
 the pattern will be used in routing process described in :ref:`Outgoing Routings`.
 
 Usually, it will we useful to have one routing pattern for the countries
 defined in the `ISO 3166
-<https://en.wikipedia.org/wiki/ISO_3166>`_. That's why IvozProvider automatically
+<https://en.wikipedia.org/wiki/ISO_3166>`_. That's why Axion Communications Platform automatically
 includes all this countries and their prefixes.
 
 .. tip:: Brand operator can choose between keeping this routing pattern if

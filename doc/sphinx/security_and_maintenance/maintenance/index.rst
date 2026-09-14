@@ -2,7 +2,7 @@
 Troubleshooting
 ###############
 
-This section talks about included and non-included (but recommended and shipped in all production IvozProvider
+This section talks about included and non-included (but recommended and shipped in all production Axion Communications Platform
 installations maintained by `Irontec <https://www.irontec.com>`_) tools to troubleshoot any problem you may have:
 
 .. toctree::

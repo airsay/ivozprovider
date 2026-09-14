@@ -6,7 +6,7 @@ Terminals
 
 The section **Client configuration** > **Terminals** allows creating new
 SIP credentials that can be used by multiple SIP devices to place and receive
-calls from IvozProvider.
+calls from Axion Communications Platform.
 
 The best way to understand this section is creating a new item and see the 
 fields that must be filled.
@@ -16,7 +16,7 @@ Login information
 *****************
     Name
         Username that will use the terminal during the SIP authentication phase
-        with IvozProvider.
+        with Axion Communications Platform.
 
     Password
         Password that will use the terminal to answer the SIP authentication
@@ -36,7 +36,7 @@ Connection configuration
         case of doubt.
 
     Enable T.38 passthrough
-        If set to 'yes', this SIP endpoint must be a **T.38 capable fax sender/receiver**. IvozProvider
+        If set to 'yes', this SIP endpoint must be a **T.38 capable fax sender/receiver**. Axion Communications Platform
         will act as a T.38 gateway, bridging fax-calls of a T.38 capable carrier and a T.38 capable device.
 
     RTP Encryption
@@ -53,7 +53,7 @@ Provisioning
         does not require provisioning, just select *Generic*.
 
     MAC
-        Optional field that is only required if you plan to use IvozProvider 
+        Optional field that is only required if you plan to use Axion Communications Platform 
         :ref:`terminal provisioning <provisioning>`. This is the `physical
         address <https://wikipedia.org/wiki/MAC_Address>`_ of the network 
         adapter of the SIP device.

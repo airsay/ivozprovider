@@ -6,14 +6,14 @@ Remote friends connect a vPBX client with an external SIP entity.
 Types of remote friends
 -----------------------
 
-There are 2 main types of SIP PBX that can be integrate with IvozProvider:
+There are 2 main types of SIP PBX that can be integrate with Axion Communications Platform:
 
-- **Direct connection PBX** (Connectivity mode: direct): IvozProvider must be able to talk SIP directly with
+- **Direct connection PBX** (Connectivity mode: direct): Axion Communications Platform must be able to talk SIP directly with
   this kind of friends by just redirecting the traffic to the proper port of
   the public IP address of the PBX.
 
 - **PBX behind NAT** (Connectivity mode: register): Not directly accessible. This kind of PBX must register at
-  IvozProvider (just like all the :ref:`Terminals <terminals>` do).
+  Axion Communications Platform (just like all the :ref:`Terminals <terminals>` do).
 
 What do remote friends allow?
 -----------------------------
@@ -22,14 +22,14 @@ This section allows not just communication between users at boths ends of the
 SIP *trunk*, but also:
 
 - Users "from the other side" can call to the public network just like native
-  Ivozprovider :ref:`Users <users>`.
+  Axion Communications Platform :ref:`Users <users>`.
 
 - Public network calls can be routed to the other SIP *trunk* end.
 
 What kind of calls can be routed through a *remote friend*?
 -----------------------------------------------------------
 
-IvozProvider must know what calls must be routed to the different defined *remote friends*.
+Axion Communications Platform must know what calls must be routed to the different defined *remote friends*.
 For that, **client administrator** will configure regular expressions that
 describe the numbers that *can be reached* through the **friend**.
 
@@ -58,7 +58,7 @@ These are the configurable settings of *friends*:
         the call will be routed through the friend with **less priority value**.
 
     Password
-        When the *friend* send requests, IvozProvider will authenticate it using
+        When the *friend* send requests, Axion Communications Platform will authenticate it using
         this password. **Using password IS A MUST in "Register" mode**. In "Direct" mode,
         leaving it blank disables SIP authentication and enables IP source check.
 
@@ -81,11 +81,11 @@ These are the configurable settings of *friends*:
         Like a terminal, *friends* will talk the selected codec.
 
     From user
-        Request from IvozProvider to this friend will include this user in
+        Request from Axion Communications Platform to this friend will include this user in
         the From header.
 
     From domain
-        Request from IvozProvider to this friend will include this domain in
+        Request from Axion Communications Platform to this friend will include this domain in
         the From header.
 
     DDI In
@@ -94,7 +94,7 @@ These are the configurable settings of *friends*:
         endpoints with direct connectivity). Defaults to 'Yes'.
 
     Enable T.38 passthrough
-        If set to 'yes', this SIP endpoint must be a **T.38 capable fax sender/receiver**. IvozProvider
+        If set to 'yes', this SIP endpoint must be a **T.38 capable fax sender/receiver**. Axion Communications Platform
         will act as a T.38 gateway, bridging fax-calls of a T.38 capable carrier and a T.38 capable device.
 
     Always apply transformations
@@ -123,7 +123,7 @@ Asterisk as a remote friend
 
 At the other end of a friend can be any kind of SIP entity. This section takes
 as example an Asterisk PBX system using SIP channel driver that wants to connect
-to IvozProvider.
+to Axion Communications Platform.
 
 .. rubric:: register
 
@@ -154,7 +154,7 @@ Configuration will be something like this:
     sendrpid=pai
     directmedia=no
 
-.. warning:: *Friends*, like terminals, MUST NOT challenge IvozProvider. That's
+.. warning:: *Friends*, like terminals, MUST NOT challenge Axion Communications Platform. That's
              why the *insecure* setting is used here.
 
 .. note:: As From username is used to identify the friend, P-Asserted-Identity (or P-Preferred-Identity or Remote-Party-Id) must be used to specify caller number.
@@ -172,10 +172,10 @@ extension-user-terminal trio:
 
 - Display their configured outgoing DDI when calling to external entities
 
-- Never challenge IvozProvider requests (don't request authentication on received requests)
+- Never challenge Axion Communications Platform requests (don't request authentication on received requests)
 
-- Answers IvozProvider authentication challenges (All request from them to
-  IvozProvider must be authenticated for security reasons)
+- Answers Axion Communications Platform authentication challenges (All request from them to
+  Axion Communications Platform must be authenticated for security reasons)
 
 - Only connects with *Users SIP Proxy*, like terminals. In fact, SIP traffic from
   friends are identical to any other user terminal traffic in format.

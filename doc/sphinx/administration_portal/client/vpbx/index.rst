@@ -5,7 +5,7 @@
 vPBX Clients
 ************
 
-This section will explain all these topics related to the most feature-full type of client in IvozProvider:
+This section will explain all these topics related to the most feature-full type of client in Axion Communications Platform:
 
 .. toctree::
     :maxdepth: 2

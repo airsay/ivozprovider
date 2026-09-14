@@ -2,7 +2,7 @@
 Receiving external calls
 ########################
 
-The goal of this block will be configure IvozProvider to receive incoming
+The goal of this block will be configure Axion Communications Platform to receive incoming
 external calls.
 
 In order to achieve this, this steps will be followed:

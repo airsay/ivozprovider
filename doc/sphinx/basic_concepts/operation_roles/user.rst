@@ -3,7 +3,7 @@ its client administrator:
 
 - User portal access credentials
 
-- SIP credentials used to register terminals to IvozProvider
+- SIP credentials used to register terminals to Axion Communications Platform
 
 Through the user portal, it can browse their call registry and configure:
 

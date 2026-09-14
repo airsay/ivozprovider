@@ -4,7 +4,7 @@
 Getting help
 ************
 
-IvozProvider is an alive and highly developed project. There are
+Axion Communications Platform is an alive and highly developed project. There are
 multiple channels to get information or report bugs.
 
 In order of preference:

@@ -135,7 +135,7 @@ routing logic, no doubt here).
 
 DDI Provider detection logic is directly related to underlying DDI detection logic.
 
-When IvozProvider receives an INVITE to KamTrunks from an outside entity:
+When Axion Communications Platform receives an INVITE to KamTrunks from an outside entity:
 
 #. Source IP is compared against all DDI Providers addresses (from all brands).
 

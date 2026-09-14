@@ -24,5 +24,5 @@ To accomplish that, it's required:
 
 .. important:: To sum up, the client administrators are responsible for
                **configuring the telephony system and make use of all the
-               features available in IvozProvider**.
+               features available in Axion Communications Platform**.
 

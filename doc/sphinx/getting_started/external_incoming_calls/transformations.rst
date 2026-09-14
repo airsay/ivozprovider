@@ -2,7 +2,7 @@
 Transformations configuration
 #############################
 
-**IvozProvider** is designed to provide service **anywhere in the planet**, not
+**Axion Communications Platform** is designed to provide service **anywhere in the planet**, not
 only the original country where the platform is installed.
 
 A very important concept to achieve this goal are the numeric transformations,

@@ -6,7 +6,7 @@ User Portal
 
 :ref:`Virtual PBX` clients have an additional role apart from god, brand and client: **user role**.
 
-As remaining IvozProvider levels, final users have an independent web portal.
+As remaining Axion Communications Platform levels, final users have an independent web portal.
 
 This section will cover these topics:
 

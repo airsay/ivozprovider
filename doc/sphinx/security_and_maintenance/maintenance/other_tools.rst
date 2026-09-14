@@ -2,10 +2,10 @@
 Other tools
 ###########
 
-Although IvozProvider does not include any of the tools mentioned here, we consider them crucial for dealing with
+Although Axion Communications Platform does not include any of the tools mentioned here, we consider them crucial for dealing with
 production environments.
 
-We list here tools configured in all production IvozProvider installations maintained by
+We list here tools configured in all production Axion Communications Platform installations maintained by
 `Irontec <https://www.irontec.com>`_.
 
 **************
@@ -29,5 +29,5 @@ metrics happen or certain thresholds are exceeded.
 Active monitoring
 *****************
 
-All IvozProvider installations maintained by `Irontec <https://www.irontec.com>`_ are thoroughly monitored to solve problems
+All Axion Communications Platform installations maintained by `Irontec <https://www.irontec.com>`_ are thoroughly monitored to solve problems
 as soon as possible and to prevent future problems when possible.

@@ -1,13 +1,13 @@
 **Aux profile** runs software that, even though is not vital for calls placing,
-makes IvozProvider maintainer's life much easier.
+makes Axion Communications Platform maintainer's life much easier.
 
 In fact, without them, debugging problems would be much harder and the quality
 of given service would be damaged.
 
-Although IvozProvider does not include any of the tools mentioned here, we consider them crucial for dealing with
+Although Axion Communications Platform does not include any of the tools mentioned here, we consider them crucial for dealing with
 production environments.
 
-We list here tools configured in all production IvozProvider installations maintained by
+We list here tools configured in all production Axion Communications Platform installations maintained by
 `Irontec <https://www.irontec.com>`_:
 
 - **Homer SIP capture**: This amazing software lets us capture all the SIP traffic

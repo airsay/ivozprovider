@@ -5,7 +5,7 @@
 Wholesale clients
 #################
 
-Wholesale clients are the most lightweight client type in IvozProvider.
+Wholesale clients are the most lightweight client type in Axion Communications Platform.
 
 .. tip:: You can read the details about this client type :ref:`here <wholesale_clients>`.
 

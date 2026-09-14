@@ -5,7 +5,7 @@
 Notification Templates
 ######################
 
-Brand administrators can configure the notifications sent by IvozProvider:
+Brand administrators can configure the notifications sent by Axion Communications Platform:
 
 - Email sent when a new voicemail is received
 
@@ -45,7 +45,7 @@ Fields are nearly self-explanatory:
 Adding Notification contents
 ****************************
 
-Once the notification has been created, you can add different language contents. IvozProvider will automatically use
+Once the notification has been created, you can add different language contents. Axion Communications Platform will automatically use
 the proper language based on the destination:
 
  - For Voicemails, the user language will be used
@@ -58,7 +58,7 @@ Configurable fields of each content:
         Language of the contents.
 
     From Name
-        The from name used while sending emails (p.e. IvozProvider Voicemail Notifications)
+        The from name used while sending emails (p.e. Axion Communications Platform Voicemail Notifications)
 
     From Address
         The from address used while sending emails (p.e. no-reply@ivozprovider.com)

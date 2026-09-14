@@ -4,11 +4,11 @@
 Queues
 ######
 
-Easy queue behaviour was included in IvozProvider in 1.3 version. It is a simple
+Easy queue behaviour was included in Axion Communications Platform in 1.3 version. It is a simple
 approach with **the unique goal to provide the capability to handle more calls
 than users attending them**.
 
-.. warning:: Queues and callcenter are close terms but different. **IvozProvider
+.. warning:: Queues and callcenter are close terms but different. **Axion Communications Platform
              is not a suitable product for callcenters**, as it does not provide
              advanced features that are crucial to them (reports, RT visualization,
              queue related stat, etc.).
@@ -88,7 +88,7 @@ penalty is available**.
 
 
 .. hint:: A call can be sent to a queue selecting it in the "Route type" selectors
-          available in multiple sections of IvozProvider (extension to queue, DDI
+          available in multiple sections of Axion Communications Platform (extension to queue, DDI
           to queue, etc.)
 
 .. tip:: When configuring a queue, you can prevent missed calls on called members with **Prevent missed calls** setting:
