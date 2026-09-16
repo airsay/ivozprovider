@@ -294,11 +294,13 @@ const properties: CompanyProperties = {
   },
   language: {
     label: _('Language', { count: 1 }),
-    default: 1,
+    null: _('Default language'),
+    default: '__null__',
   },
   defaultTimezone: {
     label: _('Default timezone'),
-    default: 145,
+    null: _('Default timezone'),
+    default: '__null__',
   },
   country: {
     label: _('Country code'),
