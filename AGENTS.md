@@ -98,6 +98,36 @@ cd schema && bin/console doctrine:migrations:diff   # review the migration in sc
 - Tests: Cypress e2e with Pact intercepts. `bin/test-pact` fails if fixtures aren't `jq`-formatted or pacts differ from the committed ones. `bin/test-sync-api-spec <app>` regenerates `cypress/fixtures/apiSpec.json`; commit it when the API changes.
 - Lint: per-app `.eslintrc.js` + `.prettierrc.json`; `yarn lint` covers `src` and `cypress`.
 
+## New frontend (`web/portal-next`)
+
+Ground-up replacement for the four ivoz-ui portals, running in parallel at
+`/<app>-next` until cutover. See `web/portal-next/README.md` for the full guide.
+
+- Yarn workspaces: `packages/core` (HTTP + auth, ACL, descriptor model, CRUD
+  engine, design system, shell), `packages/codegen`, `apps/<app>`,
+  `tools/mock-api`. Only `user` exists so far.
+- Stack: Vite + React + TypeScript (strict), Tailwind v4 + Radix, TanStack Query,
+  zod. No MUI, no `@irontec/ivoz-ui`.
+- **The API spec is a build-time input.** `yarn codegen` turns
+  `web/rest/<app>/public/apiSpec.json` into types, field metadata and resource
+  manifests under `packages/core/src/api/generated/`. Commit the output;
+  `bin/test-codegen` fails on drift, like `schema/bin/test-generators` does for
+  the backend. Never hand-edit generated files.
+- Entities are descriptors (`apps/<app>/src/entities/`) merged over the generated
+  metadata — descriptor wins. The descriptor carries what the spec cannot: labels,
+  enum captions, conditional visibility (`toggles`), ACL iden. Permissions are
+  intersected with the operations the API actually exposes, so a granted `delete`
+  on a resource with no DELETE shows no button.
+- i18n keys are the English source strings, as before, so the old `es`/`ca`/`eu`/`it`
+  catalogues carry over: `yarn workspace @axion/portal-codegen migrate <app>`
+  rebuilds them and lists what is still untranslated. `bin/test-i18n` fails on drift.
+- Tests: vitest in `packages/*/src/**/*.test.ts`. Run everything with
+  `bin/test-typecheck`, `bin/test-unit`, `bin/test-codegen` plus the per-app
+  `bin/test-lint` / `test-i18n` / `test-build`. All of it runs in the
+  `web-next` stage of the `Jenkinsfile`.
+- Develop without Docker: `node tools/mock-api/server.mjs` and
+  `BACKEND_URL=http://127.0.0.1:8099 yarn dev` in `apps/user`.
+
 ## Testing
 
 Everything implemented or changed ships with its corresponding tests in the same PR:
