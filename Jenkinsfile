@@ -42,6 +42,7 @@ pipeline {
         HASH_FRONT_BRAND = getCurrentHash("web/portal/brand web/portal/yarn.lock")
         HASH_FRONT_CLIENT = getCurrentHash("web/portal/client web/portal/yarn.lock")
         HASH_FRONT_USER = getCurrentHash("web/portal/user web/portal/yarn.lock")
+        HASH_FRONT_NEXT = getCurrentHash("web/portal-next")
         HASH_FILE = "${JENKINS_HOME}/jobs/${JOB_NAME}/../cached_pipelines.txt"
         MAX_HASHES = 400
     }
@@ -671,6 +672,42 @@ pipeline {
                                         always { archiveArtifacts artifacts: "web/portal/user/cypress/screenshots/**/*.png", allowEmptyArchive: true }
                                     }
                                 }
+                            }
+                        }
+                        stage('web-next') {
+                            when {
+                                anyOf {
+                                    expression { hasLabel("ci-force-tests-front") }
+                                    expression { hasLabel("ci-force-tests") }
+                                    expression { hasCommitTag("portal-next:") }
+                                    expression { hasCommitTag("portal-next/user:") }
+                                    expression { hasCommitTag("portal:") }
+                                    expression { hasCommitTag("tests:") }
+                                    branch "main"
+                                    branch "tempest"
+                                }
+                            }
+                            agent {
+                                docker {
+                                    image "ironartemis/ivozprovider-testing-base:${env.DOCKER_TAG}"
+                                    args '--volume ${WORKSPACE}:/opt/irontec/ivozprovider'
+                                    reuseNode true
+                                }
+                            }
+                            steps {
+                                // The generated API artefacts must match the committed
+                                // specs, the same contract schema/bin/test-generators
+                                // enforces on the backend.
+                                sh '/opt/irontec/ivozprovider/web/portal-next/bin/test-codegen'
+                                sh '/opt/irontec/ivozprovider/web/portal-next/bin/test-typecheck'
+                                sh '/opt/irontec/ivozprovider/web/portal-next/bin/test-unit'
+                                sh '/opt/irontec/ivozprovider/web/portal-next/apps/user/bin/test-lint'
+                                sh '/opt/irontec/ivozprovider/web/portal-next/apps/user/bin/test-i18n'
+                                sh '/opt/irontec/ivozprovider/web/portal-next/apps/user/bin/test-build'
+                            }
+                            post {
+                                success { notifySuccessGithub() }
+                                failure { notifyFailureGithub() }
                             }
                         }
                     }
