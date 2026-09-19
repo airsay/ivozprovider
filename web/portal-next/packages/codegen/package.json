@@ -1,0 +1,23 @@
+{
+  "name": "@axion/portal-codegen",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "axion-codegen": "./bin/axion-codegen.js"
+  },
+  "scripts": {
+    "generate": "tsx src/cli.ts generate",
+    "migrate": "tsx src/cli.ts migrate",
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ts-morph": "^24.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "~5.9.3",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Strict TypeScript across the shared packages and every app.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+yarn --silent workspace @axion/portal-core run build
+
+for app in apps/*/; do
+    [ -f "${app}tsconfig.json" ] || continue
+    echo "typechecking ${app}"
+    (cd "$app" && ../../node_modules/.bin/tsc -p tsconfig.json --noEmit)
+done

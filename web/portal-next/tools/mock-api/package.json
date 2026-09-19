@@ -1,0 +1,8 @@
+{
+  "name": "@axion/mock-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": { "axion-mock-api": "./server.mjs" },
+  "scripts": { "start": "node server.mjs" }
+}

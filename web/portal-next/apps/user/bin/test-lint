@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Lint and formatting for the user portal.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+../../node_modules/.bin/eslint src --ext .ts,.tsx --max-warnings 0
+../../node_modules/.bin/prettier --check 'src/**/*.{ts,tsx}'

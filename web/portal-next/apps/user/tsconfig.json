@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vite/client"],
+    "paths": {
+      "@axion/portal-core": ["../../packages/core/src/index.ts"],
+      "@axion/portal-core/*": ["../../packages/core/src/*"]
+    }
+  },
+  "include": ["src", "vite.config.ts"]
+}

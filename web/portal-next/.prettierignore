@@ -1,0 +1,4 @@
+dist
+node_modules
+packages/core/src/api/generated
+apps/*/src/translations/*.json

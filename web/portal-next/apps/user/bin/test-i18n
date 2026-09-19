@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# Fails when the translation catalogues drift from the strings in the source,
+# mirroring the old portals' `bin/test-i18n`.
+#
+# Re-running the migration is idempotent: it re-extracts every translatable
+# string and re-applies the translations already carried over, so any diff means
+# a string was added or removed without the catalogues being regenerated.
+set -euo pipefail
+
+cd "$(dirname "$0")/../../.."
+
+yarn --silent workspace @axion/portal-codegen run migrate user > /dev/null
+
+status="$(git status --porcelain -- apps/user/src/translations)"
+
+if [ -n "$status" ]; then
+    if [ -z "$(echo "$status" | grep -v '^??' || true)" ]; then
+        echo "Translation catalogues are not committed yet:"
+        echo "$status"
+        echo
+        echo "Add them to the repository; CI needs them tracked to detect drift."
+    else
+        echo "Translation catalogues are out of date."
+        echo "Run 'yarn workspace @axion/portal-codegen migrate user' and commit the result."
+        git --no-pager diff --stat -- apps/user/src/translations
+    fi
+    exit 1
+fi
+
+# Every key must at least exist in English; a missing one would render as a raw key.
+node --input-type=module -e "
+import { readFileSync } from 'node:fs';
+const en = JSON.parse(readFileSync('apps/user/src/translations/en.json', 'utf8'));
+const empty = Object.entries(en).filter(([, value]) => !value);
+if (empty.length > 0) {
+  console.error('Empty English strings: ' + empty.map(([key]) => key).join(', '));
+  process.exit(1);
+}
+console.log(Object.keys(en).length + ' strings, all present in English.');
+"

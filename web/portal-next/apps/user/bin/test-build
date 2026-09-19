@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# Production build of the user portal.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+../../node_modules/.bin/tsc -p tsconfig.json --noEmit
+../../node_modules/.bin/vite build

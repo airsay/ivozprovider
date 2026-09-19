@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Unit and component tests for the shared packages and every app.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+yarn --silent vitest run

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+#
+# Fails when the committed API artefacts no longer match the specs they were
+# generated from — the frontend counterpart of `schema/bin/test-generators`.
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+yarn --silent codegen
+
+status="$(git status --porcelain -- packages/core/src/api/generated)"
+[ -z "$status" ] && { echo "Generated API artefacts are up to date."; exit 0; }
+
+if [ -z "$(echo "$status" | grep -v '^??' || true)" ]; then
+    echo "Generated API artefacts are not committed yet:"
+    echo "$status"
+    echo
+    echo "Add them to the repository; CI needs them tracked to detect drift."
+    exit 1
+fi
+
+echo "Generated API artefacts are out of date."
+echo "Run 'yarn codegen' in web/portal-next and commit the result."
+git --no-pager diff --stat -- packages/core/src/api/generated
+exit 1

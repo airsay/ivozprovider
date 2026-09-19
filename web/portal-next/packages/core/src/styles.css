@@ -1,0 +1,173 @@
+@import 'tailwindcss';
+
+/*
+ * Tailwind v4 discovers utilities by scanning source files near the stylesheet.
+ * This stylesheet lives in `packages/core`, while the markup using it lives both
+ * here and in each app under `apps/*`, so both trees have to be declared —
+ * otherwise only the handful of classes used inside this file get emitted.
+ * Paths are relative to this file.
+ */
+@source './**/*.{ts,tsx}';
+@source '../../../apps/*/src/**/*.{ts,tsx}';
+
+/*
+ * Design tokens for the Axion portals.
+ *
+ * Runtime branding: `GET /my/theme` returns a single hex `color` per brand (and
+ * per company, since `WebPortal` rows are per-tenant). Everything brand-coloured
+ * is derived from `--brand` with `color-mix()`, so applying a brand at runtime
+ * is one custom-property write and no JavaScript colour maths — the old portal
+ * hand-rolled hexToRgb/hexToHsl and still ended up with MUI's palette built from
+ * the pre-brand value on first paint.
+ */
+
+@theme {
+  --font-sans: 'Public Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', monospace;
+
+  --radius-control: 0.5rem;
+  --radius-surface: 0.75rem;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Overwritten at runtime from /my/theme; this is the Axion default. */
+  --brand: #0277bd;
+  --brand-contrast: #ffffff;
+
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-raised: #ffffff;
+  --border: #dfe3e8;
+  --border-strong: #c3cad3;
+
+  --fg: #15202b;
+  --fg-muted: #5b6876;
+  --fg-subtle: #8a95a1;
+
+  --success: #17803d;
+  --warning: #b45309;
+  --danger: #c02626;
+  --info: #0f6fa8;
+
+  --ring: color-mix(in srgb, var(--brand) 45%, transparent);
+  --brand-tint: color-mix(in srgb, var(--brand) 10%, var(--surface));
+  --brand-tint-strong: color-mix(in srgb, var(--brand) 18%, var(--surface));
+  --brand-hover: color-mix(in srgb, var(--brand) 88%, black);
+
+  --shadow-surface: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
+  --shadow-raised: 0 4px 12px rgb(16 24 40 / 0.08), 0 2px 4px rgb(16 24 40 / 0.04);
+}
+
+:root[data-theme='dark'],
+:root:not([data-theme='light']) {
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+
+    --bg: #0e1319;
+    --surface: #161c24;
+    --surface-raised: #1c242e;
+    --border: #2a333f;
+    --border-strong: #3b4654;
+
+    --fg: #e8edf3;
+    --fg-muted: #9aa7b5;
+    --fg-subtle: #6b7785;
+
+    --success: #3ec16c;
+    --warning: #e0a034;
+    --danger: #f06a6a;
+    --info: #4aa8dd;
+
+    --brand-tint: color-mix(in srgb, var(--brand) 22%, var(--surface));
+    --brand-tint-strong: color-mix(in srgb, var(--brand) 32%, var(--surface));
+    --brand-hover: color-mix(in srgb, var(--brand) 82%, white);
+
+    --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-raised: 0 8px 24px rgb(0 0 0 / 0.45);
+  }
+}
+
+/* An explicit choice always wins over the media query above. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #0e1319;
+  --surface: #161c24;
+  --surface-raised: #1c242e;
+  --border: #2a333f;
+  --border-strong: #3b4654;
+
+  --fg: #e8edf3;
+  --fg-muted: #9aa7b5;
+  --fg-subtle: #6b7785;
+
+  --success: #3ec16c;
+  --warning: #e0a034;
+  --danger: #f06a6a;
+  --info: #4aa8dd;
+
+  --brand-tint: color-mix(in srgb, var(--brand) 22%, var(--surface));
+  --brand-tint-strong: color-mix(in srgb, var(--brand) 32%, var(--surface));
+  --brand-hover: color-mix(in srgb, var(--brand) 82%, white);
+
+  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-raised: 0 8px 24px rgb(0 0 0 / 0.45);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border-subtle: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-brand: var(--brand);
+  --color-brand-contrast: var(--brand-contrast);
+  --color-brand-tint: var(--brand-tint);
+  --color-brand-tint-strong: var(--brand-tint-strong);
+  --color-brand-hover: var(--brand-hover);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* A single, consistent focus treatment everywhere. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: var(--radius-control);
+}
+
+/* Respect a user who does not want motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
