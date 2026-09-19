@@ -26,6 +26,8 @@ microservices/workers
 microservices/webhooks
 pkg
 portal
+portal-next
+portal-next/user
 portal/brand
 portal/client
 portal/platform
