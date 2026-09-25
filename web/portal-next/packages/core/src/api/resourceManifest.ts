@@ -16,7 +16,13 @@ export type FilterOperator =
   | 'gte'
   | 'lt'
   | 'lte'
-  | 'between';
+  | 'between'
+  // api-platform DateFilter. The spec lists these on date fields, but codegen
+  // does not map them into the manifest yet, so only hand-written queries use them.
+  | 'after'
+  | 'before'
+  | 'strictly_after'
+  | 'strictly_before';
 
 export interface SubresourceManifest {
   /** Derived from the trailing path segments, e.g. `file`, `mass_import`, `status`. */

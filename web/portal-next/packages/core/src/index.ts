@@ -1,6 +1,8 @@
 export * from './acl';
 export * from './api';
 export * from './auth';
+export * from './brand';
+export * from './charts';
 export * from './crud';
 export * from './descriptor';
 export * from './i18n';
@@ -12,6 +14,8 @@ export {
   applyTheme,
   type ColorScheme,
   contrastColor,
+  rememberColorScheme,
+  storedColorScheme,
   type WebTheme,
 } from './lib/theme';
 export type { NavItem, NavSection, PortalConfig } from './runtime/config';
@@ -31,6 +35,7 @@ export {
 export { PortalApp, type PortalAppProps } from './runtime/PortalApp';
 export {
   createQueryClient,
+  type Identity,
   PortalProvider,
   useAcl,
   useApi,

@@ -33,7 +33,7 @@ export function THead({
 }: HTMLAttributes<HTMLTableSectionElement>): React.JSX.Element {
   return (
     <thead
-      className={cn('border-b border-border-subtle', className)}
+      className={cn('border-b border-border-subtle bg-bg-subtle', className)}
       {...props}
     />
   );
@@ -55,7 +55,7 @@ export function TR({
   return (
     <tr
       className={cn(
-        'border-b border-border-subtle transition-colors hover:bg-brand-tint/60',
+        'border-b border-border-subtle transition-colors hover:bg-bg-subtle',
         className
       )}
       {...props}
@@ -70,7 +70,7 @@ export function TH({
   return (
     <th
       className={cn(
-        'px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-fg-subtle',
+        'h-10 px-4 text-left text-xs font-medium text-fg-muted [&_button]:font-medium',
         className
       )}
       {...props}
@@ -84,7 +84,7 @@ export function TD({
 }: TdHTMLAttributes<HTMLTableCellElement>): React.JSX.Element {
   return (
     <td
-      className={cn('px-4 py-2.5 align-middle text-fg', className)}
+      className={cn('h-12 px-4 align-middle text-fg', className)}
       {...props}
     />
   );

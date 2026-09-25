@@ -37,6 +37,11 @@ export interface PortalConfig {
   nav: NavSection[];
   /** Product name shown before `/my/theme` answers. */
   fallbackProductName: string;
+  /**
+   * Marketing copy for the brand panel of the sign-in screen, as translation
+   * keys. Each portal speaks to a different audience, so each sets its own.
+   */
+  loginTagline?: { title: string; body?: string };
 }
 
 export interface NavSection {

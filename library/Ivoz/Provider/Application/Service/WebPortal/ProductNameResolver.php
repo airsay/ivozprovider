@@ -7,7 +7,7 @@ use Ivoz\Provider\Domain\Model\WebPortal\WebPortalInterface;
 
 class ProductNameResolver
 {
-    private const DEFAULT_PRODUCT_NAME = 'Axion Communications Platform';
+    private const DEFAULT_PRODUCT_NAME = 'Tervian One';
 
     public function __construct(
         private WebPortalRepository $webPortalRepository

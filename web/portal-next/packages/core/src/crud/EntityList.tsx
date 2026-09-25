@@ -154,7 +154,7 @@ export function EntityList<TRow extends Row = Row>({
 
       <Card>
         {effectiveSearchField ? (
-          <div className='border-b border-border-subtle p-3'>
+          <div className='border-b border-border-subtle px-4 py-3'>
             <div className='relative max-w-xs'>
               <Search
                 className='pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-fg-subtle'
@@ -226,7 +226,9 @@ export function EntityList<TRow extends Row = Row>({
                     </TH>
                   );
                 })}
-                <TH className='w-24 text-right'>{t('Actions')}</TH>
+                <TH className='w-24 text-right'>
+                  <span className='sr-only'>{t('Actions')}</span>
+                </TH>
               </tr>
             </THead>
 

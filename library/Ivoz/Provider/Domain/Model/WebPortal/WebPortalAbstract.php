@@ -42,12 +42,12 @@ abstract class WebPortalAbstract
     /**
      * @var string
      */
-    protected $color = '#000000';
+    protected $color = '#087F6D';
 
     /**
      * @var string
      */
-    protected $productName = 'Ivoz Provider';
+    protected $productName = 'Tervian One';
 
     /**
      * @var Logo

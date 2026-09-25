@@ -1,5 +1,13 @@
 import { cva, type VariantProps } from 'class-variance-authority';
-import { AlertCircle, CheckCircle2, Info, TriangleAlert } from 'lucide-react';
+import {
+  AlertCircle,
+  ArrowDown,
+  ArrowUp,
+  CheckCircle2,
+  Info,
+  Minus,
+  TriangleAlert,
+} from 'lucide-react';
 import type { ComponentType, HTMLAttributes, ReactNode } from 'react';
 
 import { cn } from '../lib/cn';
@@ -11,7 +19,7 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-[--radius-surface] border border-border-subtle bg-surface shadow-[var(--shadow-surface)]',
+        'rounded-(--radius-surface) border border-border-subtle bg-surface shadow-(--shadow-surface)',
         className
       )}
       {...props}
@@ -26,7 +34,7 @@ export function CardHeader({
   return (
     <div
       className={cn(
-        'flex items-start justify-between gap-4 border-b border-border-subtle px-5 py-4',
+        'flex items-center justify-between gap-4 border-b border-border-subtle px-5 py-3.5',
         className
       )}
       {...props}
@@ -39,7 +47,10 @@ export function CardTitle({
   ...props
 }: HTMLAttributes<HTMLHeadingElement>): React.JSX.Element {
   return (
-    <h2 className={cn('text-sm font-semibold text-fg', className)} {...props} />
+    <h2
+      className={cn('text-sm font-semibold tracking-tight text-fg', className)}
+      {...props}
+    />
   );
 }
 
@@ -51,16 +62,16 @@ export function CardBody({
 }
 
 const badge = cva(
-  'inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium',
+  'inline-flex items-center gap-1.5 rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset',
   {
     variants: {
       tone: {
-        neutral: 'bg-brand-tint text-fg-muted',
-        brand: 'bg-brand-tint-strong text-brand',
-        success: 'bg-success/12 text-success',
-        warning: 'bg-warning/12 text-warning',
-        danger: 'bg-danger/12 text-danger',
-        info: 'bg-info/12 text-info',
+        neutral: 'bg-bg-subtle text-fg-muted ring-border-subtle',
+        brand: 'bg-brand-tint text-brand ring-brand/20',
+        success: 'bg-success/10 text-success ring-success/20',
+        warning: 'bg-warning/10 text-warning ring-warning/20',
+        danger: 'bg-danger/10 text-danger ring-danger/20',
+        info: 'bg-info/10 text-info ring-info/20',
       },
     },
     defaultVariants: { tone: 'neutral' },
@@ -68,14 +79,26 @@ const badge = cva(
 );
 
 export interface BadgeProps
-  extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badge> {}
+  extends HTMLAttributes<HTMLSpanElement>, VariantProps<typeof badge> {
+  /** Prefix a status dot in the badge's own colour. */
+  dot?: boolean;
+}
 
 export function Badge({
   className,
   tone,
+  dot = false,
+  children,
   ...props
 }: BadgeProps): React.JSX.Element {
-  return <span className={cn(badge({ tone }), className)} {...props} />;
+  return (
+    <span className={cn(badge({ tone }), className)} {...props}>
+      {dot ? (
+        <span aria-hidden className='size-1.5 rounded-full bg-current' />
+      ) : null}
+      {children}
+    </span>
+  );
 }
 
 const ALERT_ICON = {
@@ -110,7 +133,7 @@ export function Alert({
     <div
       role={tone === 'danger' ? 'alert' : 'status'}
       className={cn(
-        'flex items-start gap-3 rounded-[--radius-control] border px-4 py-3 text-sm',
+        'flex items-start gap-3 rounded-(--radius-control) border px-4 py-3 text-sm',
         toneClass,
         className
       )}
@@ -132,7 +155,7 @@ export function Skeleton({
     <div
       aria-hidden
       className={cn(
-        'animate-pulse rounded-[--radius-control] bg-border-subtle',
+        'animate-pulse rounded-(--radius-control) bg-border-subtle',
         className
       )}
       {...props}
@@ -178,11 +201,64 @@ export function EmptyState({
   );
 }
 
+/**
+ * Change against the previous period. Direction is carried by an arrow and a
+ * sign as well as colour, and `goodWhen` decides which way is green: fewer
+ * missed calls is good news.
+ */
+export function Delta({
+  value,
+  goodWhen = 'up',
+  unit = 'percent',
+  className,
+}: {
+  /** Fractional change, e.g. -0.74 for a 74% drop; null when not comparable. */
+  value: number | null;
+  goodWhen?: 'up' | 'down' | 'neither';
+  /** `percent` for a relative change; `points` for a change in a rate. */
+  unit?: 'percent' | 'points';
+  className?: string;
+}): React.JSX.Element {
+  if (value === null || !Number.isFinite(value)) {
+    // Nothing to compare with (e.g. none in the previous period): say so.
+    return (
+      <span className={cn('text-xs text-fg-subtle', className)}>
+        <span aria-hidden>—</span>
+        <span className='sr-only'>no comparison</span>
+      </span>
+    );
+  }
+  const percent = Math.round(Math.abs(value) * 1000) / 10;
+  const suffix = unit === 'points' ? ' pts' : '%';
+  const flat = percent === 0;
+  const up = value > 0;
+  const good =
+    flat || goodWhen === 'neither' ? null : up === (goodWhen === 'up');
+  const Arrow = flat ? Minus : up ? ArrowUp : ArrowDown;
+
+  return (
+    <span
+      className={cn(
+        'inline-flex items-center gap-0.5 text-xs font-medium tabular-nums',
+        good === null ? 'text-fg-muted' : good ? 'text-success' : 'text-danger',
+        className
+      )}
+    >
+      <Arrow className='size-3' aria-hidden />
+      <span className='sr-only'>{up ? 'up' : flat ? 'no change' : 'down'}</span>
+      {percent}
+      {suffix}
+    </span>
+  );
+}
+
 /** A labelled statistic, the building block of every dashboard here. */
 export interface StatProps {
   label: ReactNode;
   value: ReactNode;
   hint?: ReactNode;
+  /** Usually a `<Delta>`; shown between the value and the hint. */
+  change?: ReactNode;
   icon?: ComponentType<{ className?: string }>;
   className?: string;
 }
@@ -191,27 +267,81 @@ export function Stat({
   label,
   value,
   hint,
+  change,
   icon: Icon,
   className,
 }: StatProps): React.JSX.Element {
   return (
-    <Card className={cn('p-5', className)}>
-      <div className='flex items-start justify-between gap-3'>
-        <div className='min-w-0'>
-          <p className='text-xs font-medium uppercase leading-tight tracking-wide text-fg-subtle'>
-            {label}
-          </p>
-          <p className='mt-2 text-3xl font-semibold tabular-nums text-fg'>
-            {value}
-          </p>
-          {hint ? <p className='mt-1 text-xs text-fg-muted'>{hint}</p> : null}
-        </div>
+    <Card className={cn('p-4', className)}>
+      <div className='flex items-start gap-3'>
         {Icon ? (
-          <div className='rounded-[--radius-control] bg-brand-tint p-2'>
-            <Icon className='size-5 text-brand' />
+          <div className='grid size-9 shrink-0 place-items-center rounded-(--radius-control) bg-brand-tint-strong text-brand-fg'>
+            <Icon className='size-[1.125rem]' />
           </div>
         ) : null}
+        <div className='min-w-0 flex-1'>
+          <p className='truncate text-[0.8125rem] font-medium text-fg-muted'>
+            {label}
+          </p>
+          <div className='mt-1 text-2xl font-semibold leading-tight tracking-tight tabular-nums text-fg'>
+            {value}
+          </div>
+          {change ? <div className='mt-1'>{change}</div> : null}
+          {hint ? (
+            <div className='mt-0.5 text-[0.6875rem] leading-snug text-fg-subtle'>
+              {hint}
+            </div>
+          ) : null}
+        </div>
       </div>
     </Card>
+  );
+}
+
+export interface SegmentedOption<T extends string> {
+  value: T;
+  label: ReactNode;
+}
+
+/** A one-of-N toggle, e.g. a date range. */
+export function Segmented<T extends string>({
+  value,
+  options,
+  onChange,
+  label,
+  className,
+}: {
+  value: T;
+  options: SegmentedOption<T>[];
+  onChange: (value: T) => void;
+  label: string;
+  className?: string;
+}): React.JSX.Element {
+  return (
+    <div
+      role='group'
+      aria-label={label}
+      className={cn(
+        'inline-flex rounded-(--radius-control) border border-border-subtle bg-surface p-1',
+        className
+      )}
+    >
+      {options.map((option) => (
+        <button
+          key={option.value}
+          type='button'
+          aria-pressed={value === option.value}
+          onClick={() => onChange(option.value)}
+          className={cn(
+            'rounded-[calc(var(--radius-control)-3px)] px-3 py-1.5 text-[0.8125rem] font-medium transition-colors',
+            value === option.value
+              ? 'bg-brand text-brand-contrast shadow-(--shadow-button)'
+              : 'text-fg-muted hover:text-fg'
+          )}
+        >
+          {option.label}
+        </button>
+      ))}
+    </div>
   );
 }

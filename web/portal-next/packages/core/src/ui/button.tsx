@@ -6,21 +6,24 @@ import { type ButtonHTMLAttributes, forwardRef } from 'react';
 import { cn } from '../lib/cn';
 
 const button = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-[--radius-control] ' +
-    'font-medium transition-colors disabled:pointer-events-none disabled:opacity-50 ' +
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-(--radius-control) ' +
+    'font-medium transition-[background-color,box-shadow,color,transform] active:translate-y-px ' +
+    'disabled:pointer-events-none disabled:opacity-50 ' +
     '[&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        primary: 'bg-brand text-brand-contrast hover:bg-brand-hover',
+        primary:
+          'bg-brand text-brand-contrast shadow-(--shadow-button) hover:bg-brand-hover',
         secondary:
-          'bg-surface text-fg border border-border-strong hover:bg-brand-tint',
-        ghost: 'text-fg-muted hover:bg-brand-tint hover:text-fg',
-        danger: 'bg-danger text-white hover:brightness-95',
+          'bg-surface text-fg border border-border-subtle shadow-(--shadow-xs) hover:border-border-strong hover:bg-bg-subtle',
+        ghost: 'text-fg-muted hover:bg-bg-subtle hover:text-fg',
+        danger:
+          'bg-danger text-white shadow-(--shadow-button) hover:brightness-95',
         link: 'text-brand underline-offset-4 hover:underline',
       },
       size: {
-        sm: 'h-8 px-3 text-sm',
+        sm: 'h-8 px-3 text-[0.8125rem]',
         md: 'h-9 px-4 text-sm',
         lg: 'h-11 px-6 text-base',
         icon: 'size-9',

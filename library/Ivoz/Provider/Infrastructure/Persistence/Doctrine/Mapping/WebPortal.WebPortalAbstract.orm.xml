@@ -25,13 +25,13 @@
     <field name="color" type="string" column="color" length="10" nullable="false">
       <options>
         <option name="fixed"/>
-        <option name="default">#000000</option>
+        <option name="default">#087F6D</option>
       </options>
     </field>
     <field name="productName" type="string" column="productName" length="64" nullable="false">
       <options>
         <option name="fixed"/>
-        <option name="default">Axion Communications Platform</option>
+        <option name="default">Tervian One</option>
       </options>
     </field>
     <many-to-one field="brand" target-entity="Ivoz\Provider\Domain\Model\Brand\BrandInterface" inversed-by="urls" fetch="LAZY">

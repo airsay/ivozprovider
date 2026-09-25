@@ -7,6 +7,15 @@ import * as locales from '@mui/material/locale';
 import { useEffect, useState } from 'react';
 import { useStoreActions } from 'store';
 
+import {
+  applyBranding,
+  Branding,
+  BrandingContext,
+  defaultBranding,
+  isUploadedLogo,
+  resolveBranding,
+  wordmarkLogo,
+} from './components/Branding';
 import i18n from './i18n';
 
 interface ThemeProps {
@@ -19,12 +28,14 @@ interface WebTheme {
   logo: string;
   color: string;
   title: string;
+  productName?: string;
 }
 
 export default function Theme(props: ThemeProps): JSX.Element {
   const { children } = props;
 
   const [, setTimestamp] = useState(new Date().getTime());
+  const [branding, setBranding] = useState<Branding>(defaultBranding);
   const themeActions = useStoreActions((actions) => actions.theme);
   const apiGet = useStoreActions((actions) => actions.api.get);
 
@@ -47,9 +58,18 @@ export default function Theme(props: ThemeProps): JSX.Element {
 
         setThemeColor(response.color);
 
+        const resolved = resolveBranding(response);
+        const logo =
+          resolved.whiteLabel && !isUploadedLogo(response.logo)
+            ? wordmarkLogo(resolved.productName)
+            : response.logo;
+
+        setBranding(resolved);
+        applyBranding(resolved, logo, response.color);
+
         themeActions.setName(response.name);
         themeActions.setTheme(response.theme);
-        themeActions.setLogo(response.logo as string);
+        themeActions.setLogo(logo);
 
         document.title = response.title;
       },
@@ -76,14 +96,18 @@ export default function Theme(props: ThemeProps): JSX.Element {
     },
     typography: {
       allVariants: {
-        fontFamily: ['PublicSans', 'Roboto', 'Arial', 'sans-serif'].join(','),
+        fontFamily: ['Inter', 'Roboto', 'Arial', 'sans-serif'].join(','),
       },
     },
   });
 
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <BrandingContext.Provider value={branding}>
+          {children}
+        </BrandingContext.Provider>
+      </ThemeProvider>
     </StyledEngineProvider>
   );
 }
@@ -114,7 +138,8 @@ function hexToRgb(value: string): string {
   const green = (num >> 8) & 255;
   const blue = num & 255;
 
-  return `rgb(${red}, ${green}, ${blue})`;
+  // A bare triplet: ivoz-ui uses it as rgba(var(--color-primary-rgb), 0.1).
+  return `${red}, ${green}, ${blue}`;
 }
 
 function hexToHsl(value: string) {

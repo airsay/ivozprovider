@@ -161,7 +161,7 @@ export function CallHistoryScreen(): React.JSX.Element {
       />
 
       <Card>
-        <div className='flex flex-wrap items-center gap-3 border-b border-border-subtle p-3'>
+        <div className='flex flex-wrap items-center gap-3 border-b border-border-subtle px-4 py-3'>
           <SegmentedControl
             label={t('Direction')}
             value={direction}
@@ -213,7 +213,7 @@ export function CallHistoryScreen(): React.JSX.Element {
           <Table>
             <THead>
               <tr>
-                <TH className='w-10' aria-label={t('Direction')} />
+                <TH className='w-14' aria-label={t('Direction')} />
                 <TH>{t('When')}</TH>
                 <TH>{t('Caller')}</TH>
                 <TH>{t('Callee')}</TH>
@@ -235,17 +235,7 @@ export function CallHistoryScreen(): React.JSX.Element {
                 : rows.map((row, index) => (
                     <TR key={String(row.id ?? index)}>
                       <TD>
-                        {row.direction === 'inbound' ? (
-                          <ArrowDownLeft
-                            className='size-4 text-info'
-                            aria-label={t('Received')}
-                          />
-                        ) : (
-                          <ArrowUpRight
-                            className='size-4 text-fg-subtle'
-                            aria-label={t('Placed')}
-                          />
-                        )}
+                        <DirectionIcon direction={row.direction} />
                       </TD>
                       <TD className='whitespace-nowrap tabular-nums text-fg-muted'>
                         {formatDateTime(row.startTime)}
@@ -328,7 +318,7 @@ function SegmentedControl({
     <div
       role='group'
       aria-label={label}
-      className='inline-flex rounded-[--radius-control] border border-border-strong bg-surface p-0.5'
+      className='inline-flex rounded-(--radius-control) bg-bg-subtle p-0.5 ring-1 ring-inset ring-border-subtle'
     >
       {options.map((option) => (
         <button
@@ -338,7 +328,7 @@ function SegmentedControl({
           onClick={() => onChange(option.value)}
           className={
             value === option.value
-              ? 'rounded-[calc(var(--radius-control)-2px)] bg-brand px-3 py-1 text-sm font-medium text-brand-contrast'
+              ? 'rounded-[calc(var(--radius-control)-2px)] bg-surface px-3 py-1 text-sm font-medium text-fg shadow-(--shadow-xs) ring-1 ring-border-subtle'
               : 'rounded-[calc(var(--radius-control)-2px)] px-3 py-1 text-sm text-fg-muted hover:text-fg'
           }
         >
@@ -349,7 +339,7 @@ function SegmentedControl({
   );
 }
 
-function DispositionBadge({
+export function DispositionBadge({
   value,
 }: {
   value: string | null | undefined;
@@ -375,5 +365,35 @@ function DispositionBadge({
             ? t('Failed')
             : '—';
 
-  return <Badge tone={tone}>{label}</Badge>;
+  return (
+    <Badge tone={tone} dot>
+      {label}
+    </Badge>
+  );
+}
+
+/** A round glyph for which way a call went, shared with the dashboard. */
+export function DirectionIcon({
+  direction,
+}: {
+  direction: string | null | undefined;
+}): React.JSX.Element {
+  const { t } = useTranslation();
+  const inbound = direction === 'inbound';
+  const Icon = inbound ? ArrowDownLeft : ArrowUpRight;
+
+  return (
+    <span
+      className={
+        inbound
+          ? 'grid size-7 place-items-center rounded-full bg-info/10 text-info'
+          : 'grid size-7 place-items-center rounded-full bg-bg-subtle text-fg-muted ring-1 ring-inset ring-border-subtle'
+      }
+    >
+      <Icon
+        className='size-3.5'
+        aria-label={inbound ? t('Received') : t('Placed')}
+      />
+    </span>
+  );
 }

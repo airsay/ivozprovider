@@ -1,3 +1,4 @@
+@import '@fontsource-variable/inter/opsz.css';
 @import 'tailwindcss';
 
 /*
@@ -11,113 +12,201 @@
 @source '../../../apps/*/src/**/*.{ts,tsx}';
 
 /*
- * Design tokens for the Axion portals.
+ * Tervian One design tokens.
  *
- * Runtime branding: `GET /my/theme` returns a single hex `color` per brand (and
- * per company, since `WebPortal` rows are per-tenant). Everything brand-coloured
- * is derived from `--brand` with `color-mix()`, so applying a brand at runtime
- * is one custom-property write and no JavaScript colour maths — the old portal
- * hand-rolled hexToRgb/hexToHsl and still ended up with MUI's palette built from
- * the pre-brand value on first paint.
+ * Source: Tervian One Brand Kit v1.0 (06_Brand_Tokens, 00_START_HERE).
+ *   Ink #111418 · Cloud #F4F6F5 · Emerald #087F6D · Signal #35D6AD
+ *   Slate #67727E · White #FFFFFF · Emerald-100 #D9EEE8 (derived UI tint)
+ *
+ * Light is the default theme; dark is the alternative. The navigation rail is
+ * Ink in both, as in the kit's "Iconography in the product UI" board.
+ *
+ * Tervian One is white-label by design: `GET /my/theme` may return a tenant
+ * colour, which replaces `--brand` at runtime. Everything brand-coloured is
+ * derived from `--brand` with `color-mix()`, so that is one property write.
+ *
+ * Typography: Inter for UI, Inter Display for headlines. The optical-size
+ * build of Inter (`opsz` axis) switches to its Display cut automatically at
+ * large sizes, so headings get Inter Display without a second family. It is
+ * self-hosted, so on-premise installs without internet render the same.
+ *
+ * Arbitrary-value classes must use the v4 form `rounded-(--radius-control)`.
+ * The v3 form `rounded-[--radius-control]` compiles to invalid CSS in v4.
  */
 
 @theme {
-  --font-sans: 'Public Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-sans:
+    'Inter Variable', Inter, ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', sans-serif;
   --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', monospace;
 
   --radius-control: 0.5rem;
-  --radius-surface: 0.75rem;
+  --radius-surface: 0.875rem;
+  --radius-panel: 1rem;
 }
 
 :root {
   color-scheme: light;
 
-  /* Overwritten at runtime from /my/theme; this is the Axion default. */
-  --brand: #0277bd;
-  --brand-contrast: #ffffff;
+  /* Brand constants (never themed). */
+  --tervian-ink: #111418;
+  --tervian-cloud: #f4f6f5;
+  --tervian-emerald: #087f6d;
+  --tervian-signal: #35d6ad;
+  --tervian-slate: #67727e;
+  --tervian-emerald-100: #d9eee8;
 
-  --bg: #f6f7f9;
+  /* Overwritten at runtime from /my/theme; Tervian Emerald by default. */
+  --brand: var(--tervian-emerald);
+  --brand-contrast: #ffffff;
+  /* The second stop of the master gradient (Emerald -> Signal). */
+  --brand-accent: var(--tervian-signal);
+
+  --canvas: var(--tervian-cloud);
+  --bg: var(--tervian-cloud);
+  --bg-subtle: #eef1f0;
   --surface: #ffffff;
   --surface-raised: #ffffff;
-  --border: #dfe3e8;
-  --border-strong: #c3cad3;
+  --border: #e2e7e5;
+  --border-strong: #cdd4d2;
 
-  --fg: #15202b;
-  --fg-muted: #5b6876;
-  --fg-subtle: #8a95a1;
+  --fg: var(--tervian-ink);
+  --fg-muted: #4f5964;
+  --fg-subtle: var(--tervian-slate);
 
-  --success: #17803d;
-  --warning: #b45309;
-  --danger: #c02626;
-  --info: #0f6fa8;
+  --success: #0b7a52;
+  --warning: #a15c07;
+  --danger: #c2413a;
+  --info: #2459c0;
 
-  --ring: color-mix(in srgb, var(--brand) 45%, transparent);
-  --brand-tint: color-mix(in srgb, var(--brand) 10%, var(--surface));
-  --brand-tint-strong: color-mix(in srgb, var(--brand) 18%, var(--surface));
-  --brand-hover: color-mix(in srgb, var(--brand) 88%, black);
+  /* Navigation rail: Ink in both themes. */
+  --rail: var(--tervian-ink);
+  --rail-border: #1f242a;
+  --rail-fg: #f4f6f5;
+  --rail-muted: #9aa4ae;
+  --rail-subtle: #6c7680;
+  --rail-hover: #1b2026;
+  --rail-active: color-mix(in srgb, var(--brand) 26%, var(--tervian-ink));
+  --rail-accent: var(--brand-accent);
 
-  --shadow-surface: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
-  --shadow-raised: 0 4px 12px rgb(16 24 40 / 0.08), 0 2px 4px rgb(16 24 40 / 0.04);
+  /*
+   * Chart marks. Categorical slots are Tervian product accents
+   * (Edge, Contact, Connect, Billing) in an order validated with the dataviz
+   * palette checker on #ffffff and on the dark surface: all checks pass.
+   */
+  --chart-grid: #e9edec;
+  --chart-line: var(--brand);
+  --series-1: #0097a7;
+  --series-2: #d95d4f;
+  --series-3: #2b6de0;
+  --series-4: #c9811a;
+
+  --ring: color-mix(in srgb, var(--brand) 35%, transparent);
+  --brand-tint: color-mix(in srgb, var(--brand) 7%, var(--surface));
+  --brand-tint-strong: color-mix(in srgb, var(--brand) 14%, var(--surface));
+  --brand-hover: color-mix(in srgb, var(--brand) 86%, black);
+  --brand-soft: color-mix(in srgb, var(--brand) 55%, white);
+  --brand-deep: color-mix(in srgb, var(--brand) 70%, black);
+  --brand-fg: var(--brand);
+
+  --shadow-xs: 0 1px 2px rgb(17 20 24 / 0.05);
+  --shadow-surface: 0 1px 2px rgb(17 20 24 / 0.04);
+  --shadow-raised:
+    0 12px 32px -8px rgb(17 20 24 / 0.16), 0 4px 8px -4px rgb(17 20 24 / 0.06);
+  --shadow-button:
+    0 1px 2px rgb(17 20 24 / 0.14), inset 0 1px 0 rgb(255 255 255 / 0.14);
 }
 
-:root[data-theme='dark'],
-:root:not([data-theme='light']) {
+/*
+ * Dark theme: Ink surfaces, Cloud text, Signal as the readable accent.
+ * Applies when chosen, or when "match system" is chosen on a dark OS.
+ */
+:root[data-theme='system'] {
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
 
-    --bg: #0e1319;
-    --surface: #161c24;
-    --surface-raised: #1c242e;
-    --border: #2a333f;
-    --border-strong: #3b4654;
+    --canvas: #0d1013;
+    --bg: var(--tervian-ink);
+    --bg-subtle: #161a1f;
+    --surface: #171b20;
+    --surface-raised: #1d2228;
+    --border: #262c33;
+    --border-strong: #353d46;
 
-    --fg: #e8edf3;
-    --fg-muted: #9aa7b5;
-    --fg-subtle: #6b7785;
+    --fg: var(--tervian-cloud);
+    --fg-muted: #aab3bc;
+    --fg-subtle: #7c8792;
 
-    --success: #3ec16c;
-    --warning: #e0a034;
-    --danger: #f06a6a;
-    --info: #4aa8dd;
+    --success: #3fcf95;
+    --warning: #e8a64a;
+    --danger: #f07268;
+    --info: #6fa0f5;
 
-    --brand-tint: color-mix(in srgb, var(--brand) 22%, var(--surface));
-    --brand-tint-strong: color-mix(in srgb, var(--brand) 32%, var(--surface));
-    --brand-hover: color-mix(in srgb, var(--brand) 82%, white);
+    --rail: #0b0e11;
+    --rail-border: #1c2126;
 
-    --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.4);
-    --shadow-raised: 0 8px 24px rgb(0 0 0 / 0.45);
+    --chart-grid: #232930;
+    --chart-line: color-mix(in srgb, var(--brand) 45%, var(--brand-accent));
+
+    --brand-tint: color-mix(in srgb, var(--brand) 16%, var(--surface));
+    --brand-tint-strong: color-mix(in srgb, var(--brand) 28%, var(--surface));
+    --brand-hover: color-mix(in srgb, var(--brand) 84%, white);
+    --brand-soft: color-mix(in srgb, var(--brand) 60%, white);
+    --brand-deep: color-mix(in srgb, var(--brand) 60%, black);
+    --brand-fg: color-mix(in srgb, var(--brand) 30%, var(--brand-accent));
+
+    --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.3);
+    --shadow-raised: 0 16px 40px -8px rgb(0 0 0 / 0.7);
+    --shadow-button:
+      0 1px 2px rgb(0 0 0 / 0.4), inset 0 1px 0 rgb(255 255 255 / 0.12);
   }
 }
 
-/* An explicit choice always wins over the media query above. */
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #0e1319;
-  --surface: #161c24;
-  --surface-raised: #1c242e;
-  --border: #2a333f;
-  --border-strong: #3b4654;
+  --canvas: #0d1013;
+  --bg: var(--tervian-ink);
+  --bg-subtle: #161a1f;
+  --surface: #171b20;
+  --surface-raised: #1d2228;
+  --border: #262c33;
+  --border-strong: #353d46;
 
-  --fg: #e8edf3;
-  --fg-muted: #9aa7b5;
-  --fg-subtle: #6b7785;
+  --fg: var(--tervian-cloud);
+  --fg-muted: #aab3bc;
+  --fg-subtle: #7c8792;
 
-  --success: #3ec16c;
-  --warning: #e0a034;
-  --danger: #f06a6a;
-  --info: #4aa8dd;
+  --success: #3fcf95;
+  --warning: #e8a64a;
+  --danger: #f07268;
+  --info: #6fa0f5;
 
-  --brand-tint: color-mix(in srgb, var(--brand) 22%, var(--surface));
-  --brand-tint-strong: color-mix(in srgb, var(--brand) 32%, var(--surface));
-  --brand-hover: color-mix(in srgb, var(--brand) 82%, white);
+  --rail: #0b0e11;
+  --rail-border: #1c2126;
 
-  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.4);
-  --shadow-raised: 0 8px 24px rgb(0 0 0 / 0.45);
+  --chart-grid: #232930;
+  --chart-line: color-mix(in srgb, var(--brand) 45%, var(--brand-accent));
+
+  --brand-tint: color-mix(in srgb, var(--brand) 16%, var(--surface));
+  --brand-tint-strong: color-mix(in srgb, var(--brand) 28%, var(--surface));
+  --brand-hover: color-mix(in srgb, var(--brand) 84%, white);
+  --brand-soft: color-mix(in srgb, var(--brand) 60%, white);
+  --brand-deep: color-mix(in srgb, var(--brand) 60%, black);
+  --brand-fg: color-mix(in srgb, var(--brand) 30%, var(--brand-accent));
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-surface: 0 1px 2px rgb(0 0 0 / 0.3);
+  --shadow-raised: 0 16px 40px -8px rgb(0 0 0 / 0.7);
+  --shadow-button:
+    0 1px 2px rgb(0 0 0 / 0.4), inset 0 1px 0 rgb(255 255 255 / 0.12);
 }
 
 @theme inline {
+  --color-canvas: var(--canvas);
   --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
   --color-surface: var(--surface);
   --color-surface-raised: var(--surface-raised);
   --color-border-subtle: var(--border);
@@ -129,9 +218,28 @@
 
   --color-brand: var(--brand);
   --color-brand-contrast: var(--brand-contrast);
+  --color-brand-accent: var(--brand-accent);
   --color-brand-tint: var(--brand-tint);
   --color-brand-tint-strong: var(--brand-tint-strong);
   --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-fg: var(--brand-fg);
+
+  --color-rail: var(--rail);
+  --color-rail-border: var(--rail-border);
+  --color-rail-fg: var(--rail-fg);
+  --color-rail-muted: var(--rail-muted);
+  --color-rail-subtle: var(--rail-subtle);
+  --color-rail-hover: var(--rail-hover);
+  --color-rail-active: var(--rail-active);
+  --color-rail-accent: var(--rail-accent);
+
+  --color-chart-grid: var(--chart-grid);
+  --color-series-1: var(--series-1);
+  --color-series-2: var(--series-2);
+  --color-series-3: var(--series-3);
+  --color-series-4: var(--series-4);
 
   --color-success: var(--success);
   --color-warning: var(--warning);
@@ -150,14 +258,60 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
+  font-feature-settings: 'cv11', 'ss01';
+  font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tabular numerals in tables and figures, as the type board specifies. */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 /* A single, consistent focus treatment everywhere. */
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: 2px solid var(--brand);
+  outline: 2px solid var(--ring);
   outline-offset: 2px;
-  border-radius: var(--radius-control);
+}
+
+:where(input, select, textarea):focus-visible {
+  outline: none;
+  border-color: var(--brand);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+
+/* The master gradient: Emerald -> Signal, top-left to bottom-right. */
+.bg-brand-gradient {
+  background-image: linear-gradient(
+    135deg,
+    var(--brand) 0%,
+    var(--brand-accent) 100%
+  );
+}
+
+/* The sign-in brand panel: Ink with an Emerald glow. */
+.bg-brand-panel {
+  background-color: var(--tervian-ink);
+  background-image:
+    radial-gradient(
+      ellipse 70% 55% at 100% 100%,
+      color-mix(in srgb, var(--brand-accent) 28%, transparent) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 80% 60% at 0% 0%,
+      color-mix(in srgb, var(--brand) 45%, transparent) 0%,
+      transparent 65%
+    );
+}
+
+/* Faint grid texture for the sign-in brand panel. */
+.bg-grid-faint {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 /* Respect a user who does not want motion. */

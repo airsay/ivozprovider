@@ -105,7 +105,7 @@ export function extractKeys(directory: string): Set<string> {
 
   const callPattern = /\bt\(\s*'((?:[^'\\]|\\.)+)'/g;
   const descriptorPattern =
-    /\b(?:label|helpText|legend|nullLabel|one|many)\s*:\s*'((?:[^'\\]|\\.)+)'/g;
+    /\b(?:label|helpText|legend|nullLabel|one|many|title|body)\s*:\s*'((?:[^'\\]|\\.)+)'/g;
   // Enum option labels: `inconditional: 'Always'` inside an `options` block.
   const optionsBlock = /options\s*:\s*\{([^}]*)\}/gs;
   const optionEntry = /:\s*'((?:[^'\\]|\\.)+)'/g;

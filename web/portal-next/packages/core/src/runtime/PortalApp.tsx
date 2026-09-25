@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { LoginScreen } from '../auth/LoginScreen';
 import { AppShell } from '../layout/AppShell';
+import { applyColorScheme, storedColorScheme } from '../lib/theme';
 import { Skeleton } from '../ui';
 import type { PortalConfig } from './config';
 import { PortalProvider, usePortal } from './PortalProvider';
@@ -21,6 +22,9 @@ export interface PortalAppProps {
  *
  * An app's own entry point is then four lines — see `apps/user/src/main.tsx`.
  */
+// Paint the saved scheme before the first render, so there is no light flash.
+if (typeof document !== 'undefined') applyColorScheme(storedColorScheme());
+
 export function PortalApp({
   config,
   i18n,

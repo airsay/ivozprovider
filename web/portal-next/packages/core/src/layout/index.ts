@@ -1,4 +1,4 @@
-export { AppShell, PageHeader } from './AppShell';
+export { AppShell, BrandMark, PageHeader } from './AppShell';
 export {
   type ResolvedNavItem,
   type ResolvedNavSection,

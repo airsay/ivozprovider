@@ -34,7 +34,7 @@ export const DialogPanel = forwardRef<HTMLDivElement, DialogPanelProps>(
           ref={ref}
           className={cn(
             'fixed left-1/2 top-1/2 z-50 w-[calc(100vw-2rem)] -translate-x-1/2 -translate-y-1/2',
-            'rounded-[--radius-surface] border border-border-subtle bg-surface shadow-[var(--shadow-raised)]',
+            'rounded-(--radius-surface) border border-border-subtle bg-surface shadow-[var(--shadow-raised)]',
             width,
             className
           )}
@@ -52,7 +52,7 @@ export const DialogPanel = forwardRef<HTMLDivElement, DialogPanelProps>(
               ) : null}
             </div>
             <DialogPrimitive.Close
-              className='rounded-[--radius-control] p-1 text-fg-subtle hover:bg-brand-tint hover:text-fg'
+              className='rounded-(--radius-control) p-1 text-fg-subtle hover:bg-brand-tint hover:text-fg'
               aria-label='Close'
             >
               <X className='size-4' />
@@ -87,7 +87,7 @@ export const DropdownMenuContent = forwardRef<
         ref={ref}
         sideOffset={sideOffset}
         className={cn(
-          'z-50 min-w-44 overflow-hidden rounded-[--radius-control] border border-border-subtle',
+          'z-50 min-w-44 overflow-hidden rounded-(--radius-control) border border-border-subtle',
           'bg-surface-raised p-1 shadow-[var(--shadow-raised)]',
           className
         )}

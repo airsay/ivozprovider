@@ -53450,17 +53450,17 @@
                     "type": "string"
                 },
                 "color": {
-                    "default": "#000000",
+                    "default": "#087F6D",
                     "maxLength": 10,
                     "description": "",
-                    "example": "#000000",
+                    "example": "#087F6D",
                     "type": "string"
                 },
                 "productName": {
-                    "default": "Ivoz Provider",
+                    "default": "Tervian One",
                     "maxLength": 64,
                     "description": "",
-                    "example": "Ivoz Provider",
+                    "example": "Tervian One",
                     "type": "string"
                 },
                 "id": {
@@ -53559,17 +53559,17 @@
                     "type": "string"
                 },
                 "color": {
-                    "default": "#000000",
+                    "default": "#087F6D",
                     "maxLength": 10,
                     "description": "",
-                    "example": "#000000",
+                    "example": "#087F6D",
                     "type": "string"
                 },
                 "productName": {
-                    "default": "Ivoz Provider",
+                    "default": "Tervian One",
                     "maxLength": 64,
                     "description": "",
-                    "example": "Ivoz Provider",
+                    "example": "Tervian One",
                     "type": "string"
                 },
                 "id": {

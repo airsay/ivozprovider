@@ -13,7 +13,8 @@ import {
 import { cn } from '../lib/cn';
 
 const controlBase =
-  'w-full rounded-[--radius-control] border border-border-strong bg-surface px-3 text-sm text-fg ' +
+  'w-full rounded-(--radius-control) border border-border-subtle bg-surface px-3 text-sm text-fg shadow-(--shadow-xs) ' +
+  'transition-[border-color,box-shadow] hover:border-border-strong ' +
   'placeholder:text-fg-subtle disabled:cursor-not-allowed disabled:opacity-60 ' +
   'aria-[invalid=true]:border-danger';
 

@@ -9,8 +9,8 @@
 const CALLERS = [
   '+34944000111',
   '+34944000222',
-  '201',
   '202',
+  '205',
   '+34600123456',
   '+441632960111',
 ];
@@ -21,11 +21,11 @@ function pick(list, seed) {
 }
 
 export const theme = {
-  name: 'Axion',
-  color: '#0277bd',
+  name: 'Tervian One',
+  color: '#087F6D',
   logo: null,
-  title: 'Axion Self Care',
-  productName: 'Axion Self Care',
+  title: 'Tervian One',
+  productName: 'Tervian One',
 };
 
 export const status = {
@@ -51,37 +51,95 @@ export const dashboard = {
   terminal: 'alex-desk',
   email: 'alex.ibarra@northwind.example.net',
   outgoingDdi: '+34 944 000 100',
-  productName: 'Axion Self Care',
+  productName: 'Tervian One',
 };
 
 export const callStats = { totalCalls: 318, totalDetours: 24 };
 export const lastMonthCalls = { inbound: 176, outbound: 142, total: 318 };
 
-/** 137 calls spread back over three weeks, newest first. */
-export const callHistory = Array.from({ length: 137 }, (_, index) => {
-  const startedAt = new Date(Date.now() - index * 3.4 * 3600 * 1000);
-  const inbound = index % 3 !== 0;
-  const disposition =
-    index % 9 === 0
-      ? 'missed'
-      : index % 13 === 0
-        ? 'busy'
-        : index % 29 === 0
-          ? 'error'
-          : 'answered';
-
-  return {
-    id: 5000 - index,
-    startTime: startedAt.toISOString(),
-    owner: '201',
-    direction: inbound ? 'inbound' : 'outbound',
-    caller: inbound ? pick(CALLERS, index) : '201',
-    callee: inbound ? '201' : pick(CALLEES, index),
-    duration: disposition === 'answered' ? 20 + ((index * 37) % 900) : 0,
-    disposition,
-    numRecordings: disposition === 'answered' && index % 6 === 0 ? 1 : 0,
+/**
+ * A deterministic pseudo-random source, so the fixtures are identical on
+ * every run and screenshots stay comparable.
+ */
+function prng(seed) {
+  let state = seed >>> 0;
+  return () => {
+    state = (state + 0x6d2b79f5) >>> 0;
+    let t = state;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
   };
-});
+}
+
+/**
+ * About four months of one user's calls, newest first: busier on weekdays,
+ * mostly during office hours, with the occasional quiet day — enough shape
+ * for the trend, hour and period-comparison views to have something to show.
+ */
+export const callHistory = (() => {
+  const random = prng(201);
+  const calls = [];
+  const now = Date.now();
+  const DAY = 24 * 3600 * 1000;
+
+  for (let daysAgo = 0; daysAgo < 120; daysAgo++) {
+    const day = new Date(now - daysAgo * DAY);
+    const weekday = day.getUTCDay();
+    const weekend = weekday === 0 || weekday === 6;
+    const base = weekend ? 1 : 5;
+    const count = Math.max(
+      0,
+      Math.round(base + (random() - 0.35) * (weekend ? 3 : 9))
+    );
+
+    for (let n = 0; n < count; n++) {
+      const hour = 8 + Math.floor(random() ** 1.3 * 11);
+      const minute = Math.floor(random() * 60);
+      const start = new Date(
+        Date.UTC(
+          day.getUTCFullYear(),
+          day.getUTCMonth(),
+          day.getUTCDate(),
+          hour,
+          minute
+        )
+      );
+      if (start.getTime() > now) continue;
+
+      const inbound = random() < 0.58;
+      const roll = random();
+      const disposition =
+        roll < 0.12
+          ? 'missed'
+          : roll < 0.19
+            ? 'busy'
+            : roll < 0.22
+              ? 'error'
+              : 'answered';
+      const counterpart = inbound
+        ? CALLERS[Math.floor(random() * CALLERS.length)]
+        : CALLEES[Math.floor(random() * CALLEES.length)];
+
+      calls.push({
+        startTime: start.toISOString(),
+        owner: '201',
+        direction: inbound ? 'inbound' : 'outbound',
+        caller: inbound ? counterpart : '201',
+        callee: inbound ? '201' : counterpart,
+        duration:
+          disposition === 'answered'
+            ? 15 + Math.floor(random() ** 2 * 1400)
+            : 0,
+        disposition,
+        numRecordings: disposition === 'answered' && random() < 0.15 ? 1 : 0,
+      });
+    }
+  }
+
+  calls.sort((a, b) => b.startTime.localeCompare(a.startTime));
+  return calls.map((call, index) => ({ id: 90000 - index, ...call }));
+})();
 
 export const callForwardSettings = [
   {

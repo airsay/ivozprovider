@@ -1,6 +1,5 @@
 import Breadcrumbs from '@irontec/ivoz-ui/components/layout/Header/Breadcrumbs';
 import Settings from '@irontec/ivoz-ui/components/layout/Header/Settings/Settings';
-import Logo from '@irontec/ivoz-ui/components/layout/Menu/Logo';
 import {
   LightButton,
   SolidButton,
@@ -22,6 +21,7 @@ import {
 import { useState } from 'react';
 import { useStoreActions, useStoreState } from 'store';
 
+import { AboutCredits } from '../Branding';
 import { Avatar } from './Avatar';
 
 export interface headerProps {
@@ -71,18 +71,7 @@ export default function Header(props: headerProps): JSX.Element {
                     {_('Version')}: {version} ({commit}) <br />
                     {_('Last update')}: {lastUpdated}
                   </p>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 1,
-                    }}
-                    className='logo'
-                  >
-                    Powered by <Logo />
-                  </Box>
-                  <p>©2026 Axion Communications Platform | All rights reserved</p>
+                  <AboutCredits />
                 </DialogContent>
                 <DialogActions>
                   <SolidButton

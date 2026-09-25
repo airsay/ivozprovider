@@ -28,9 +28,40 @@ interface PortalContextValue {
   acl: AccessControl | null;
   profileLoading: boolean;
   theme: WebTheme | null;
+  /** Who is signed in, for the avatar menu. Best-effort across the four profile shapes. */
+  identity: Identity | null;
   loggedIn: boolean;
   entitiesByIden: Record<string, EntityDescriptor<Row>>;
   logout: () => void;
+}
+
+export interface Identity {
+  name: string;
+  detail: string | null;
+}
+
+/**
+ * Pulls a display name out of whichever profile the portal loaded. The user API
+ * answers `/my/status` with `userName` and `companyName`; the admin APIs do not
+ * name the administrator at all, so those fall back to a generic label.
+ */
+function identityFrom(profile: unknown): Identity | null {
+  if (!profile || typeof profile !== 'object') return null;
+  const record = profile as Record<string, unknown>;
+  const text = (key: string): string | null =>
+    typeof record[key] === 'string' && record[key] !== ''
+      ? (record[key] as string)
+      : null;
+
+  const name = [
+    text('userName') ?? text('name') ?? text('username'),
+    text('lastname'),
+  ]
+    .filter(Boolean)
+    .join(' ');
+  if (!name) return null;
+
+  return { name, detail: text('companyName') ?? text('email') };
 }
 
 const PortalContext = createContext<PortalContextValue | null>(null);
@@ -130,7 +161,7 @@ export function PortalProvider({
   }, [config.entities]);
 
   const value = useMemo<
-    Omit<PortalContextValue, 'acl' | 'profileLoading' | 'theme'>
+    Omit<PortalContextValue, 'acl' | 'profileLoading' | 'theme' | 'identity'>
   >(
     () => ({
       config,
@@ -165,7 +196,10 @@ function SessionLayer({
   base,
   children,
 }: {
-  base: Omit<PortalContextValue, 'acl' | 'profileLoading' | 'theme'>;
+  base: Omit<
+    PortalContextValue,
+    'acl' | 'profileLoading' | 'theme' | 'identity'
+  >;
   children: ReactNode;
 }): React.JSX.Element {
   const { api, config, loggedIn } = base;
@@ -199,8 +233,16 @@ function SessionLayer({
       acl,
       profileLoading: loggedIn && profileQuery.isPending,
       theme: themeQuery.data ?? null,
+      identity: identityFrom(profileQuery.data),
     }),
-    [base, acl, loggedIn, profileQuery.isPending, themeQuery.data]
+    [
+      base,
+      acl,
+      loggedIn,
+      profileQuery.isPending,
+      profileQuery.data,
+      themeQuery.data,
+    ]
   );
 
   return (

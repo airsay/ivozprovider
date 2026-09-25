@@ -20,6 +20,7 @@ import { entities } from './entities';
  */
 const nav: NavSection[] = [
   {
+    label: 'Workspace',
     items: [
       { to: '', label: 'Overview', icon: LayoutDashboard },
       { to: 'calls', label: 'Call history', icon: Phone },
@@ -72,5 +73,9 @@ export const config: PortalConfig = {
   fieldsByDefinition,
   entities,
   nav,
-  fallbackProductName: 'Axion Self Care',
+  fallbackProductName: 'Tervian One',
+  loginTagline: {
+    title: 'Your phone service, under control.',
+    body: 'Check your calls, choose where they ring and pick up voicemail from anywhere.',
+  },
 };

@@ -33,12 +33,12 @@ abstract class WebPortalDtoAbstract implements DataTransferObjectInterface
     /**
      * @var string|null
      */
-    private $color = '#000000';
+    private $color = '#087F6D';
 
     /**
      * @var string|null
      */
-    private $productName = 'Ivoz Provider';
+    private $productName = 'Tervian One';
 
     /**
      * @var int|null

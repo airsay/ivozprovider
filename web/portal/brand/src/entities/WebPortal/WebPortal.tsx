@@ -19,7 +19,7 @@ const properties: WebPortalProperties = {
   color: {
     label: _('Color'),
     format: 'color',
-    default: '#000000',
+    default: '#087F6D',
   },
   urlType: {
     label: _('URL Type'),

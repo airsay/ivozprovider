@@ -192,6 +192,15 @@ function applyFilters(rows, url) {
       const needle = value.toLowerCase();
 
       switch (operator) {
+        // api-platform's DateFilter: `after`/`before` are inclusive.
+        case 'after':
+          return new Date(actual) >= new Date(value);
+        case 'strictly_after':
+          return new Date(actual) > new Date(value);
+        case 'before':
+          return new Date(actual) <= new Date(value);
+        case 'strictly_before':
+          return new Date(actual) < new Date(value);
         case 'partial':
           return text.includes(needle);
         case 'start':
