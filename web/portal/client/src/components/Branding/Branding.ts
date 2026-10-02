@@ -8,6 +8,30 @@ import { createContext, useContext } from 'react';
  * product name other than Tervian One. The colour alone doesn't count.
  */
 export const TERVIAN_ONE = 'Tervian One';
+export const TERVIAN_EMERALD = '#087F6D';
+
+/**
+ * Product names that were defaults, not choices: the stock IvozProvider
+ * default and the earlier Axion rebrand. Treated as Tervian One, so the UI
+ * is correct on a backend that hasn't run the Tervian migrations.
+ */
+const LEGACY_DEFAULT_PRODUCT_NAMES = [
+  'Ivoz Provider',
+  'Axion Communications Platform',
+];
+
+/**
+ * Colours that were defaults, not choices, per portal (keyed by base path):
+ * the '#000000' column default, the stock colour Version20231214112518 gave
+ * each portal type, and the Klear 'redmond' colour of the seeded platform
+ * portal. Mirrors the Tervian colour migrations.
+ */
+const DEFAULT_COLORS: Record<string, string[]> = {
+  '/platform/': ['#000000', '#2D333B', '#70A8D2'],
+  '/brand/': ['#000000', '#248475'],
+  '/client/': ['#000000', '#0277BD'],
+  '/user/': ['#000000', '#BF360C'],
+};
 
 export interface Branding {
   whiteLabel: boolean;
@@ -37,12 +61,31 @@ export function isUploadedLogo(logo?: string | null): boolean {
 }
 
 export function resolveBranding(theme: WebThemeBranding): Branding {
-  const productName = theme.productName?.trim() || TERVIAN_ONE;
+  const name = theme.productName?.trim();
+  const productName =
+    name && !LEGACY_DEFAULT_PRODUCT_NAMES.includes(name) ? name : TERVIAN_ONE;
 
   return {
     productName,
     whiteLabel: isUploadedLogo(theme.logo) || productName !== TERVIAN_ONE,
   };
+}
+
+/**
+ * The portal colour from /my/theme, or null when it is still a default, in
+ * which case the Tervian Emerald from index.css stays.
+ */
+export function resolveThemeColor(
+  color: string | null | undefined,
+  basePath: string = process.env.BASE_URL ?? '/'
+): string | null {
+  if (!color) {
+    return null;
+  }
+
+  const defaults = DEFAULT_COLORS[basePath] ?? ['#000000'];
+
+  return defaults.includes(color.toUpperCase()) ? null : color;
 }
 
 function escapeXml(value: string): string {

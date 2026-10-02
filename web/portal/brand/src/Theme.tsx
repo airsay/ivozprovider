@@ -14,6 +14,8 @@ import {
   defaultBranding,
   isUploadedLogo,
   resolveBranding,
+  resolveThemeColor,
+  TERVIAN_EMERALD,
   wordmarkLogo,
 } from './components/Branding';
 import i18n from './i18n';
@@ -56,7 +58,10 @@ export default function Theme(props: ThemeProps): JSX.Element {
       successCallback: async (value) => {
         const response = value as WebTheme;
 
-        setThemeColor(response.color);
+        const color = resolveThemeColor(response.color);
+        if (color) {
+          setThemeColor(color);
+        }
 
         const resolved = resolveBranding(response);
         const logo =
@@ -65,7 +70,7 @@ export default function Theme(props: ThemeProps): JSX.Element {
             : response.logo;
 
         setBranding(resolved);
-        applyBranding(resolved, logo, response.color);
+        applyBranding(resolved, logo, color ?? TERVIAN_EMERALD);
 
         themeActions.setName(response.name);
         themeActions.setTheme(response.theme);

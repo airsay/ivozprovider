@@ -4,6 +4,7 @@ import EntityInterface from '@irontec/ivoz-ui/entities/EntityInterface';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
 import StorageIcon from '@mui/icons-material/Storage';
 
+import customActions from './Action';
 import {
   CarrierServerProperties,
   CarrierServerPropertyList,
@@ -114,6 +115,7 @@ const CarrierServer: EntityInterface = {
   toStr: (row: CarrierServerPropertyList<EntityValues>) => `${row.id}`,
   properties,
   columns: ['sipProxy', 'outboundProxy', 'statusIcon'],
+  customActions,
   acl: {
     ...defaultEntityBehavior.acl,
     iden: 'CarrierServers',

@@ -4,6 +4,7 @@ import EntityInterface from '@irontec/ivoz-ui/entities/EntityInterface';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
 import CallIcon from '@mui/icons-material/Call';
 
+import customActions from './Action';
 import GenericTemplate from './Field/GenericTemplate/GenericTemplate';
 import SpecificTemplate from './Field/SpecificTemplate/SpecificTemplate';
 import {
@@ -57,6 +58,7 @@ const TerminalModel: EntityInterface = {
     'genericUrlPattern',
     'specificUrlPattern',
   ],
+  customActions,
   acl: {
     ...defaultEntityBehavior.acl,
     iden: 'TerminalModels',

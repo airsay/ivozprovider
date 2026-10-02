@@ -9,6 +9,7 @@ import store, { useStoreActions, useStoreState } from 'store';
 
 import { AppConstants } from '../src/config/AppConstants';
 import { StyledAppApiLoading } from './App.styles';
+import IdleLogout from './components/IdleLogout';
 import AppRoutesGuard from './router/AppRoutesGuard';
 import { languagesList } from './translations/languages';
 
@@ -94,6 +95,7 @@ export default function App(): JSX.Element {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <CssBaseline />
+      <IdleLogout storagePrefix='IP-brand-' />
       <div>
         <BrowserRouter>
           <AppRoutesGuard apiSpec={apiSpec} />

@@ -5,6 +5,7 @@ import _ from '@irontec/ivoz-ui/services/translations/translate';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import { getI18n } from 'react-i18next';
 
+import customActions from './Action';
 import { CurrencyProperties, CurrencyPropertyList } from './CurrencyProperties';
 
 const properties: CurrencyProperties = {
@@ -31,6 +32,7 @@ const Currency: EntityInterface = {
   title: _('Currency', { count: 2 }),
   path: '/currencies',
   columns: ['iden', 'name', 'symbol'],
+  customActions,
   acl: {
     ...defaultEntityBehavior.acl,
     iden: 'Currencies',

@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStoreActions } from 'store';
 
+import { useBranding } from '../Branding';
 import ForwardingCallIcon from './ForwardingIconCall';
 import IncomingCallIcon from './IncomingCallIcon';
 import OutgoingCallIcon from './OutgoingCallIcon';
@@ -55,6 +56,7 @@ const Dashboard = (props: DashboardProps) => {
   const { className } = props;
 
   const [data, setData] = useState<DashboardData | null>(null);
+  const branding = useBranding();
   const [lastMonthCalls, setLastMonthCalls] = useState<LastMonthCalls | null>(
     null
   );
@@ -142,7 +144,7 @@ const Dashboard = (props: DashboardProps) => {
           <div>
             <h3>
               {_('Welcome to <br />{{productName}} vPBX user portal', {
-                productName: data.productName,
+                productName: branding.productName,
               })}
             </h3>
             <p>

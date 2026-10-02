@@ -20,6 +20,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStoreActions } from 'store';
 
+import { useBranding } from '../Branding';
 import DialpadIcon from './DialpadIcon';
 import IconUsersDashboard from './IconUsers';
 import SuiteCaseIcon from './SuitCaseIcon';
@@ -63,6 +64,7 @@ const Dashboard = (props: DashboardProps) => {
   const { className } = props;
 
   const [data, setData] = useState<DashboardData | null>(null);
+  const branding = useBranding();
   const [activeCalls, setActiveCalls] = useState<ActiveCalls | null>(null);
   const apiGet = useStoreActions((store) => store.api.get);
   const [, cancelToken] = useCancelToken();
@@ -128,7 +130,7 @@ const Dashboard = (props: DashboardProps) => {
             <h3>
               {_(
                 'Welcome to <br />{{productName}} brand administrator portal',
-                { productName: data.productName }
+                { productName: branding.productName }
               )}
             </h3>
             <p>

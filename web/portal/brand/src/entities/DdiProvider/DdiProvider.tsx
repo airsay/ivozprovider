@@ -4,6 +4,7 @@ import EntityInterface from '@irontec/ivoz-ui/entities/EntityInterface';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
 import DynamicFormIcon from '@mui/icons-material/DynamicForm';
 
+import customActions from './Action';
 import {
   DdiProviderProperties,
   DdiProviderPropertyList,
@@ -51,6 +52,7 @@ const DdiProvider: EntityInterface = {
   path: '/ddi_providers',
   toStr: (row: DdiProviderPropertyList<EntityValues>) => `${row.name}`,
   properties,
+  customActions,
   defaultOrderBy: '',
   columns: [
     'name',

@@ -4,6 +4,7 @@ import EntityInterface from '@irontec/ivoz-ui/entities/EntityInterface';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
 import DnsIcon from '@mui/icons-material/Dns';
 
+import customActions from './Action';
 import {
   DdiProviderAddressProperties,
   DdiProviderAddressPropertyList,
@@ -33,6 +34,7 @@ const DdiProviderAddress: EntityInterface = {
   path: '/ddi_provider_addresses',
   toStr: (row: DdiProviderAddressPropertyList<EntityValues>) => `${row.id}`,
   properties,
+  customActions,
   acl: {
     ...defaultEntityBehavior.acl,
     iden: 'DDIProviderAddresses',

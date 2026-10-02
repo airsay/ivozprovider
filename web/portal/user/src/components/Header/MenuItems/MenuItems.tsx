@@ -1,9 +1,9 @@
 import _ from '@irontec/ivoz-ui/services/translations/translate';
+import { useStoreState } from 'store';
 
 import { Status } from '../../../store/userStatus/status';
 import StyledBadge from '../Avatar/StyledBadge';
 import { QrCode } from '../QrCode/QrCode';
-import useWebTheme from '../useWebTheme';
 import {
   ContainerStatus,
   Logo as LogoWrapper,
@@ -14,7 +14,7 @@ import {
 
 const TerminalStatus = (props: { status: Status }): JSX.Element => {
   const { status } = props;
-  const webTheme = useWebTheme();
+  const logo = useStoreState((state) => state.theme.logo);
 
   return (
     <StatusMenuItem key='status'>
@@ -23,7 +23,7 @@ const TerminalStatus = (props: { status: Status }): JSX.Element => {
           <QrCode {...status} />
         ) : (
           <LogoWrapper>
-            <img src={webTheme.logo} alt='' />
+            <img src={logo} alt='' />
           </LogoWrapper>
         )}
 

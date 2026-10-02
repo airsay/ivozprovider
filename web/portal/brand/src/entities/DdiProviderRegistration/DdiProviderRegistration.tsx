@@ -4,6 +4,7 @@ import EntityInterface from '@irontec/ivoz-ui/entities/EntityInterface';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
+import customActions from './Action';
 import {
   DdiProviderRegistrationProperties,
   DdiProviderRegistrationPropertyList,
@@ -89,6 +90,7 @@ const DdiProviderRegistration: EntityInterface = {
   toStr: (row: DdiProviderRegistrationPropertyList<EntityValues>) =>
     `${row.username}`,
   properties,
+  customActions,
   acl: {
     ...defaultEntityBehavior.acl,
     iden: 'DDIProviderRegistrations',

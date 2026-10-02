@@ -45,6 +45,7 @@ const properties: WebPortalProperties = {
   },
   productName: {
     label: _('Product Name'),
+    default: 'Tervian One',
     maxLength: 64,
     helpText: _(`Will be shown in Dashboard`),
   },

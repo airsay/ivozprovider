@@ -4,6 +4,7 @@ import EntityInterface from '@irontec/ivoz-ui/entities/EntityInterface';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
 import FaxIcon from '@mui/icons-material/Fax';
 
+import customActions from './Action';
 import {
   TerminalManufacturerProperties,
   TerminalManufacturerPropertyList,
@@ -32,6 +33,7 @@ const TerminalManufacturer: EntityInterface = {
     row.iden as string,
   properties,
   columns: ['iden', 'name', 'description'],
+  customActions,
   acl: {
     ...defaultEntityBehavior.acl,
     iden: 'TerminalManufacturers',

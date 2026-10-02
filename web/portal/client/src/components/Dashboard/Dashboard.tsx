@@ -8,6 +8,7 @@ import { styled, Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useStoreActions } from 'store';
 
+import { useBranding } from '../Branding';
 import { ActiveCalls, DashboardData } from './@types';
 import { CardsAmountFactory } from './cards/CardsAmountFactory';
 import { TableFactory } from './tables/TableFactory';
@@ -20,6 +21,7 @@ export interface DashboardProps {
 const Dashboard = (props: DashboardProps) => {
   const { className } = props;
   const [data, setData] = useState<DashboardData | null>(null);
+  const branding = useBranding();
   const [activeCalls, setActiveCalls] = useState<ActiveCalls | null>(null);
   const apiGet = useStoreActions((store) => store.api.get);
   const [, cancelToken] = useCancelToken();
@@ -81,7 +83,7 @@ const Dashboard = (props: DashboardProps) => {
     <section className={className}>
       <div className='card welcome'>
         <div className='card-container'>
-          <TitleDescription productName={data.productName} />
+          <TitleDescription productName={branding.productName} />
           <img src='assets/img/dashboard-welcome.svg' />
         </div>
       </div>
