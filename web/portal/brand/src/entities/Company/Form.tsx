@@ -12,6 +12,7 @@ import { useStoreState } from 'store';
 
 import { ClientFeatures, ClientTypes } from './ClientFeatures';
 import { foreignKeyGetter } from './ForeignKeyGetter';
+import useBrandCountry from './hooks/useBrandCountry';
 
 const Form = (props: EntityFormProps): JSX.Element | null => {
   const { entityService, row, match } = props;
@@ -26,6 +27,7 @@ const Form = (props: EntityFormProps): JSX.Element | null => {
   });
 
   const formik = useFormHandler(props);
+  useBrandCountry({ create: props.create, formik });
   const type = row?.type ?? formik.initialValues.type;
   const isVpbx = type === ClientTypes.vpbx;
   const isResidential = type === ClientTypes.residential;
