@@ -1,44 +1,39 @@
-import {
-  CircleChart,
-  CircleProps,
-} from '@irontec/ivoz-ui/components/Dashboard/CircleChart';
-import { LightButton } from '@irontec/ivoz-ui/components/shared/Button/Button.styles';
-import useCancelToken from '@irontec/ivoz-ui/hooks/useCancelToken';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
-import {
-  Paper,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useStoreActions } from 'store';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
+import DevicesRoundedIcon from '@mui/icons-material/DevicesRounded';
+import ElectricalServicesRoundedIcon from '@mui/icons-material/ElectricalServicesRounded';
+import PhoneInTalkRoundedIcon from '@mui/icons-material/PhoneInTalkRounded';
+import TagRoundedIcon from '@mui/icons-material/TagRounded';
+import { useStoreState } from 'store';
 
+import i18n from '../../i18n';
 import { useBranding } from '../Branding';
-import DialpadIcon from './DialpadIcon';
-import IconUsersDashboard from './IconUsers';
-import SuiteCaseIcon from './SuitCaseIcon';
-
-export interface DashboardProps {
-  className?: string;
-}
+import {
+  ActiveCallsSummary,
+  DashboardGrid,
+  Donut,
+  Hero,
+  InfoCard,
+  Pill,
+  RecentTable,
+  StatGrid,
+  Tone,
+  useMyResource,
+  useUsername,
+  Who,
+} from '../Redesign';
 
 interface DashboardBrand {
   id: number;
-  maxCalls: string;
+  maxCalls: number | string;
   name: string;
   nif: string;
   postalCode: string;
   sipDomain: string;
 }
 
-interface DashboardRecentActivity {
+interface DashboardClient {
   domainUsers: string;
   maxCalls: number;
   name: string;
@@ -47,272 +42,222 @@ interface DashboardRecentActivity {
 
 interface DashboardData {
   brand: DashboardBrand;
-  recentActivity: DashboardRecentActivity[];
+  recentActivity: DashboardClient[];
   carrierNum: number;
   clientNum: number;
   ddiNum: number;
   productName: string;
 }
 
-interface ActiveCalls {
-  inbound: number;
-  outbound: number;
+interface RegistrationSummary {
+  active: number;
   total: number;
 }
 
-const Dashboard = (props: DashboardProps) => {
-  const { className } = props;
+interface BrandDetail {
+  currency?: { iden?: string; name?: Record<string, string> } | null;
+  defaultTimezone?: { tz?: string } | null;
+}
 
-  const [data, setData] = useState<DashboardData | null>(null);
+const CLIENT_TYPES: Record<
+  string,
+  { label: string; tone: Tone; path: string }
+> = {
+  vpbx: { label: 'Client vpbx', tone: 'violet', path: '/vPbx' },
+  retail: { label: 'Client retail', tone: 'amber', path: '/retail' },
+  residential: {
+    label: 'Client residential',
+    tone: 'sky',
+    path: '/residential',
+  },
+  wholesale: { label: 'Client wholesale', tone: 'rose', path: '/wholesale' },
+};
+
+/** 0 means "no limit" for brand and client max calls. */
+const limit = (value: number | string | undefined) =>
+  Number(value) > 0 ? value : _('Unlimited');
+
+export interface DashboardProps {
+  className?: string;
+}
+
+const Dashboard = (props: DashboardProps): JSX.Element | null => {
   const branding = useBranding();
-  const [activeCalls, setActiveCalls] = useState<ActiveCalls | null>(null);
-  const apiGet = useStoreActions((store) => store.api.get);
-  const [, cancelToken] = useCancelToken();
+  const username = useUsername();
+  const features = useStoreState(
+    (state) => state.clientSession.aboutMe.profile?.features
+  );
 
-  useEffect(() => {
-    apiGet({
-      path: '/my/dashboard',
-      params: {},
-      cancelToken: cancelToken,
-      successCallback: async (response) => {
-        setData(response as DashboardData);
-      },
-    });
+  const data = useMyResource<DashboardData>('/my/dashboard');
+  const calls = useMyResource<ActiveCallsSummary>('/my/active_calls', 30000);
+  const registrations = useMyResource<RegistrationSummary>(
+    '/my/registration_summary'
+  );
+  const detail = useMyResource<BrandDetail>(
+    data?.brand?.id ? `/brands/${data.brand.id}` : null
+  );
 
-    apiGet({
-      path: '/my/active_calls',
-      params: {},
-      cancelToken: cancelToken,
-      successCallback: async (response) => {
-        setActiveCalls(response as ActiveCalls);
-      },
-    });
-  }, [apiGet, cancelToken]);
-
-  if (!data || !activeCalls) {
+  if (!data) {
     return null;
   }
 
-  const circleActiveCallsData = (props: ActiveCalls): CircleProps => {
-    const { inbound, outbound, total } = props;
+  const productName = data.productName || branding.productName;
+  // The first client type this brand offers: target of "New client".
+  const clientType =
+    Object.keys(CLIENT_TYPES).find((type) =>
+      (features as string[] | undefined)?.includes(type)
+    ) ?? 'vpbx';
+  const clientsPath = CLIENT_TYPES[clientType].path;
 
-    const inboundPercentage = (inbound / total) * 100;
-    const outboundPercentage = (outbound / total) * 100;
-
-    const circleProps: CircleProps = { data: [] };
-
-    if (inboundPercentage) {
-      circleProps.data.push({
-        key: 'inbound',
-        color: '#dad9bb',
-        percentage: `${inboundPercentage}%`,
-      });
-    }
-
-    if (outboundPercentage) {
-      circleProps.data.push({
-        key: 'outbound',
-        color: '#89b58a',
-        percentage: `${outboundPercentage}%`,
-      });
-    }
-
-    return circleProps;
-  };
-
-  const circleProps: CircleProps = circleActiveCallsData(activeCalls);
+  const lang = i18n.language?.substring(0, 2) || 'en';
+  const currency = detail?.currency?.iden
+    ? [
+        detail.currency.iden,
+        detail.currency.name?.[lang] ?? detail.currency.name?.en,
+      ]
+        .filter(Boolean)
+        .join(' · ')
+    : undefined;
 
   return (
-    <section className={className}>
-      <div className='card welcome'>
-        <div className='card-container'>
-          <div>
-            <h3>
-              {_(
-                'Welcome to <br />{{productName}} brand administrator portal',
-                { productName: branding.productName }
-              )}
-            </h3>
-            <p>
-              {_('In this portal you can add clients, carriers and much more.')}
-            </p>
-            <a href='/doc/en/administration_portal/brand/index.html'>
-              <LightButton>{_('Get started')}</LightButton>
-            </a>
-          </div>
+    <DashboardGrid className={props.className}>
+      <Hero
+        greeting={username ? _('Hello, {{name}}', { name: username }) : null}
+        title={_('Welcome to the {{productName}} brand portal', {
+          productName,
+        })}
+        lead={_(
+          'Add clients, carriers and numbers, and keep an eye on live traffic across the {{brand}} brand.',
+          { brand: data.brand.name }
+        )}
+        actions={[
+          {
+            label: _('New client'),
+            path: `${clientsPath}/create`,
+            icon: <AddRoundedIcon />,
+          },
+          { label: _('View calls'), path: '/billable_calls', ghost: true },
+        ]}
+        chips={[
+          ...(calls
+            ? [{ value: calls.total, label: _('live calls now'), live: true }]
+            : []),
+          ...(registrations
+            ? [
+                {
+                  value: `${registrations.active} / ${registrations.total}`,
+                  label: _('devices registered'),
+                  icon: <DevicesRoundedIcon />,
+                },
+              ]
+            : []),
+        ]}
+      />
 
-          <img src='assets/img/dashboard-welcome.svg' />
-        </div>
-      </div>
-      <div className='card activity'>
-        <div className='title'>{_('Brand information')}</div>
+      <InfoCard
+        title={_('Brand information')}
+        subtitle={[data.brand.name, data.brand.nif && `TIN ${data.brand.nif}`]
+          .filter(Boolean)
+          .join(' · ')}
+        rows={[
+          { label: _('SIP domain'), value: data.brand.sipDomain, mono: true },
+          { label: _('Max calls'), value: limit(data.brand.maxCalls) },
+          { label: _('Currency'), value: currency },
+          { label: _('Timezone'), value: detail?.defaultTimezone?.tz },
+          { label: _('Postal code'), value: data.brand.postalCode },
+        ]}
+      />
 
-        <div className='content'>
-          <div className='row'>
-            <div className='time'>{_('Name')}</div>
-            <div className='value'>{data.brand.name}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('TIN')}</div>
-            <div className='value'>{data.brand.nif}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('Postal code')}</div>
-            <div className='value'>{data.brand.postalCode}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('SIP domain')}</div>
-            <div className='value'>{data.brand.sipDomain}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('Max calls')}</div>
-            <div className='value'>{data.brand.maxCalls}</div>
-          </div>
-        </div>
-      </div>
-      <div className='card amount'>
-        <div className='img-container'>
-          <SuiteCaseIcon />
-        </div>
+      <StatGrid
+        stats={[
+          {
+            label: _('Client', { count: 2 }),
+            value: data.clientNum,
+            icon: <ApartmentRoundedIcon />,
+            tone: 'emerald',
+            path: clientsPath,
+            linkLabel: _('View'),
+          },
+          {
+            label: _('DDI', { count: 2 }),
+            value: data.ddiNum,
+            icon: <TagRoundedIcon />,
+            tone: 'violet',
+            path: '/ddis',
+            linkLabel: _('View'),
+          },
+          {
+            label: _('Carrier', { count: 2 }),
+            value: data.carrierNum,
+            icon: <ElectricalServicesRoundedIcon />,
+            tone: 'amber',
+            path: '/carriers',
+            linkLabel: _('View'),
+          },
+          {
+            label: _('Registered devices'),
+            value: registrations?.active,
+            note: registrations
+              ? _('of {{total}}', { total: registrations.total })
+              : undefined,
+            icon: <PhoneInTalkRoundedIcon />,
+            tone: 'sky',
+          },
+        ]}
+      />
 
-        <div className='number'>{data.clientNum}</div>
+      <Donut
+        title={_('Active call', { count: 2 })}
+        subtitle={_('Live, refreshed every 30 s')}
+        total={calls?.total ?? 0}
+        totalLabel={_('live calls')}
+        parts={[
+          { label: _('Inbound'), value: calls?.inbound ?? 0, tone: 'emerald' },
+          {
+            label: _('Outbound'),
+            value: calls?.outbound ?? 0,
+            tone: 'violet',
+          },
+        ]}
+        extra={{
+          label: _('Capacity'),
+          value: Number(data.brand.maxCalls) > 0 ? data.brand.maxCalls : '∞',
+        }}
+      />
 
-        <div className='name'>{_('Client', { count: 2 })}</div>
-      </div>
+      <RecentTable
+        title={_('Recently added clients')}
+        subtitle={_('Newest first')}
+        rows={data.recentActivity}
+        seeAll={{ label: _('See all'), path: clientsPath }}
+        empty={_('No clients yet')}
+        columns={[
+          {
+            label: _('Client'),
+            render: (row) => (
+              <Who name={row.name} detail={row.domainUsers} mono />
+            ),
+          },
+          {
+            label: _('Type'),
+            render: (row) => {
+              const type = CLIENT_TYPES[row.type];
 
-      <div className='card amount'>
-        <div className='img-container'>
-          <DialpadIcon />
-        </div>
-
-        <div className='number'>{data.ddiNum}</div>
-
-        <div className='name'>{_('DDI', { count: 2 })}</div>
-
-        <Link to='/brand/ddis' className='link'>
-          {_('Go to DDIs')}
-        </Link>
-      </div>
-
-      <div className='card amount'>
-        <div className='img-container'>
-          <IconUsersDashboard />
-        </div>
-
-        <div className='number'>{data.carrierNum}</div>
-
-        <div className='name'>{_('Carrier', { count: 2 })}</div>
-
-        <Link to='/brand/carriers' className='link'>
-          {_('Go to Carriers')}
-        </Link>
-      </div>
-
-      <div className='card licenses'>
-        <div className='title'>{_('Active call', { count: 2 })}</div>
-
-        <div className='radial'>
-          <CircleChart {...circleProps} />
-          <div className='data'>
-            <div className='total'>{_('Total')}</div>
-            <div className='number'>{activeCalls?.total}</div>
-          </div>
-        </div>
-
-        <div className='legend'>
-          <div className='label'>
-            <Tooltip
-              title={`${activeCalls.outbound} outbound(s)`}
-              placement='bottom-start'
-              enterTouchDelay={0}
-            >
-              <div
-                className='color'
-                style={{ backgroundColor: '#89b58a' }}
-              ></div>
-            </Tooltip>
-            <div className='text'>{_('Outbound')}</div>
-          </div>
-
-          <div className='label'>
-            <Tooltip
-              title={`${activeCalls.inbound} inbound(s)`}
-              placement='bottom-start'
-              enterTouchDelay={0}
-            >
-              <div
-                className='color'
-                style={{ backgroundColor: '#dad9bb' }}
-              ></div>
-            </Tooltip>
-            <div className='text'>{_('Inbound')}</div>
-          </div>
-        </div>
-      </div>
-      <div className='card last'>
-        <div className='header'>
-          <div className='title'>{_('Last added clients')}</div>
-        </div>
-
-        <div className='table'>
-          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-            <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-              <TableHead>
-                <TableRow style={{ fontSize: '13px' }}>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('Name')}
-                  </TableCell>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('Type')}
-                  </TableCell>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('SIP domain')}
-                  </TableCell>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('Max calls')}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.recentActivity.map((row, key) => (
-                  <TableRow
-                    key={key}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component='th' scope='row'>
-                      {row.name}
-                    </TableCell>
-                    <TableCell>{row.type}</TableCell>
-                    <TableCell>{row.domainUsers}</TableCell>
-                    <TableCell>{row.maxCalls}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      </div>
-    </section>
+              return type ? (
+                <Pill tone={type.tone}>{_(type.label)}</Pill>
+              ) : (
+                <Pill tone='grey'>{row.type}</Pill>
+              );
+            },
+          },
+          {
+            label: _('Max calls'),
+            render: (row) => limit(row.maxCalls),
+          },
+        ]}
+      />
+    </DashboardGrid>
   );
 };
 
-export default styled(Dashboard)(({ theme }) => {
-  return {
-    [theme.breakpoints.down('md')]: {
-      '& ul': {
-        paddingInlineStart: '20px',
-      },
-      '& ul li.submenu li': {
-        paddingInlineStart: '40px',
-      },
-    },
-  };
-});
+export default Dashboard;

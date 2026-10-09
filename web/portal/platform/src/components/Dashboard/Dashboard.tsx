@@ -1,45 +1,31 @@
-import {
-  CircleChart,
-  CircleProps,
-} from '@irontec/ivoz-ui/components/Dashboard/CircleChart';
-import {
-  LightButton,
-  SolidButton,
-} from '@irontec/ivoz-ui/components/shared/Button/Button.styles';
-import useCancelToken from '@irontec/ivoz-ui/hooks/useCancelToken';
 import _ from '@irontec/ivoz-ui/services/translations/translate';
-import {
-  Paper,
-  styled,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tooltip,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useStoreActions } from 'store';
+import AddRoundedIcon from '@mui/icons-material/AddRounded';
+import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded';
+import GroupsRoundedIcon from '@mui/icons-material/GroupsRounded';
+import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded';
+import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded';
 
 import { useBranding } from '../Branding';
-import BrandIcon from './BrandIcon';
-import SuiteCaseIcon from './SuitCaseIcon';
-import UsersIcon from './UsersIcon';
-
-export interface DashboardProps {
-  className?: string;
-}
+import {
+  ActiveCallsSummary,
+  DashboardGrid,
+  Donut,
+  Hero,
+  InfoCard,
+  RecentTable,
+  StatGrid,
+  useMyResource,
+  Who,
+} from '../Redesign';
 
 interface DashboardAdmin {
-  username: string;
-  name: string;
-  lastname: string;
-  email: string;
+  username?: string;
+  name?: string;
+  lastname?: string;
+  email?: string;
 }
 
-interface DashboardRecentActivity {
+interface DashboardBrand {
   id: number;
   name: string;
   nif: string;
@@ -49,268 +35,140 @@ interface DashboardRecentActivity {
 
 interface DashboardData {
   admin: DashboardAdmin;
-  recentActivity: DashboardRecentActivity[];
+  recentActivity: DashboardBrand[];
   brandNumber: number;
   clientNumber: number;
   userNumber: number;
   productName: string;
 }
 
-interface ActiveCalls {
-  inbound: number;
-  outbound: number;
-  total: number;
+/** 0 means "no limit" for max calls. */
+const limit = (value: number | string | undefined) =>
+  Number(value) > 0 ? value : _('Unlimited');
+
+export interface DashboardProps {
+  className?: string;
 }
 
-const Dashboard = (props: DashboardProps) => {
-  const { className } = props;
-
-  const [data, setData] = useState<DashboardData | null>(null);
+const Dashboard = (props: DashboardProps): JSX.Element | null => {
   const branding = useBranding();
-  const [activeCalls, setActiveCalls] = useState<ActiveCalls | null>(null);
-  const apiGet = useStoreActions((store) => store.api.get);
-  const [, cancelToken] = useCancelToken();
+  const data = useMyResource<DashboardData>('/my/dashboard');
+  const calls = useMyResource<ActiveCallsSummary>('/my/active_calls', 30000);
 
-  useEffect(() => {
-    apiGet({
-      path: '/my/dashboard',
-      params: {},
-      cancelToken: cancelToken,
-      successCallback: async (response) => {
-        setData(response as DashboardData);
-      },
-    });
-
-    apiGet({
-      path: '/my/active_calls',
-      params: {},
-      cancelToken: cancelToken,
-      successCallback: async (response) => {
-        setActiveCalls(response as ActiveCalls);
-      },
-    });
-  }, [apiGet, cancelToken]);
-
-  if (!data || !activeCalls) {
+  if (!data) {
     return null;
   }
-  const circleActiveCallsData = (props: ActiveCalls): CircleProps => {
-    const { inbound, outbound, total } = props;
 
-    const inboundPercentage = (inbound / total) * 100;
-    const outboundPercentage = (outbound / total) * 100;
-
-    const circleProps: CircleProps = { data: [] };
-
-    if (inboundPercentage) {
-      circleProps.data.push({
-        key: 'inbound',
-        color: '#dad9bb',
-        percentage: `${inboundPercentage}%`,
-      });
-    }
-
-    if (outboundPercentage) {
-      circleProps.data.push({
-        key: 'outbound',
-        color: '#89b58a',
-        percentage: `${outboundPercentage}%`,
-      });
-    }
-
-    return circleProps;
-  };
-
-  const circleProps: CircleProps = circleActiveCallsData(activeCalls);
+  const productName = data.productName || branding.productName;
+  const fullName = [data.admin?.name, data.admin?.lastname]
+    .filter(Boolean)
+    .join(' ');
 
   return (
-    <section className={className}>
-      <div className='card welcome'>
-        <div className='card-container'>
-          <div>
-            <h3>
-              {_(
-                'Welcome to <br /> {{productName}} global administrator portal',
-                { productName: branding.productName }
-              )}
-            </h3>
-            <p>
-              {_(
-                'In this portal you can add brands, brand operators, portals URL and much more.'
-              )}
-            </p>
-            <a href='/doc/en/administration_portal/platform/index.html '>
-              <LightButton>{_('Get started')}</LightButton>
-            </a>
-          </div>
+    <DashboardGrid className={props.className}>
+      <Hero
+        greeting={
+          data.admin?.name || data.admin?.username
+            ? _('Hello, {{name}}', {
+                name: data.admin.name || data.admin.username,
+              })
+            : null
+        }
+        title={_('Welcome to the {{productName}} platform portal', {
+          productName,
+        })}
+        lead={_(
+          'Add brands and their operators, and keep an eye on live traffic across the platform.'
+        )}
+        actions={[
+          {
+            label: _('New brand'),
+            path: '/brands/create',
+            icon: <AddRoundedIcon />,
+          },
+          { label: _('View calls'), path: '/billable_calls', ghost: true },
+        ]}
+        chips={[
+          ...(calls
+            ? [{ value: calls.total, label: _('live calls now'), live: true }]
+            : []),
+          {
+            value: data.userNumber,
+            label: _('users across brands'),
+            icon: <PeopleAltRoundedIcon />,
+          },
+        ]}
+      />
 
-          <img src='assets/img/dashboard-welcome.svg' />
-        </div>
-      </div>
-      <div className='card activity'>
-        <div className='title'>{_('Operator information')}</div>
+      <InfoCard
+        title={_('Operator information')}
+        subtitle={fullName || data.admin?.username}
+        rows={[
+          { label: _('Username'), value: data.admin?.username, mono: true },
+          { label: _('Name'), value: fullName },
+          { label: _('Email'), value: data.admin?.email },
+        ]}
+      />
 
-        <div className='content'>
-          <div className='row'>
-            <div className='time'>{_('Iden')}</div>
-            <div className='value'>{data.admin.username}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('Name')}</div>
-            <div className='value'>{data.admin.name}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('Lastname')}</div>
-            <div className='value'>{data.admin.lastname}</div>
-          </div>
-          <div className='row'>
-            <div className='time'>{_('Email')}</div>
-            <div className='value'>{data.admin.email}</div>
-          </div>
-        </div>
-      </div>
-      <div className='card amount'>
-        <div className='img-container'>
-          <BrandIcon />
-        </div>
+      <StatGrid
+        stats={[
+          {
+            label: _('Brand', { count: 2 }),
+            value: data.brandNumber,
+            icon: <VerifiedRoundedIcon />,
+            tone: 'emerald',
+            path: '/brands',
+            linkLabel: _('View'),
+          },
+          {
+            label: _('Client', { count: 2 }),
+            value: data.clientNumber,
+            icon: <ApartmentRoundedIcon />,
+            tone: 'violet',
+          },
+          {
+            label: _('User', { count: 2 }),
+            value: data.userNumber,
+            icon: <GroupsRoundedIcon />,
+            tone: 'amber',
+          },
+        ]}
+      />
 
-        <div className='number'>{data.brandNumber}</div>
+      <Donut
+        title={_('Active call', { count: 2 })}
+        subtitle={_('Live, refreshed every 30 s')}
+        total={calls?.total ?? 0}
+        totalLabel={_('live calls')}
+        parts={[
+          { label: _('Inbound'), value: calls?.inbound ?? 0, tone: 'emerald' },
+          {
+            label: _('Outbound'),
+            value: calls?.outbound ?? 0,
+            tone: 'violet',
+          },
+        ]}
+      />
 
-        <div className='name'>{_('Brand', { count: 2 })}</div>
-
-        <Link to='/platform/brands' className='link'>
-          {_('Go to brands')}
-        </Link>
-      </div>
-
-      <div className='card amount'>
-        <div className='img-container'>
-          <SuiteCaseIcon />
-        </div>
-
-        <div className='number'>{data.clientNumber}</div>
-
-        <div className='name'>{_('Client', { count: 2 })}</div>
-      </div>
-
-      <div className='card amount'>
-        <div className='img-container'>
-          <UsersIcon />
-        </div>
-
-        <div className='number'>{data.userNumber}</div>
-
-        <div className='name'>{_('User', { count: 2 })}</div>
-      </div>
-
-      <div className='card licenses'>
-        <div className='title'>{_('Active call', { count: 2 })}</div>
-
-        <div className='radial'>
-          <CircleChart {...circleProps} />
-          <div className='data'>
-            <div className='total'>{_('Total')}</div>
-            <div className='number'>{activeCalls?.total}</div>
-          </div>
-        </div>
-
-        <div className='legend'>
-          <div className='label'>
-            <Tooltip
-              title={`${activeCalls.outbound} outbound(s)`}
-              placement='bottom-start'
-              enterTouchDelay={0}
-            >
-              <div
-                className='color'
-                style={{ backgroundColor: '#89b58a' }}
-              ></div>
-            </Tooltip>
-            <div className='text'>{_('Outbound')}</div>
-          </div>
-
-          <div className='label'>
-            <Tooltip
-              title={`${activeCalls.inbound} inbound(s)`}
-              placement='bottom-start'
-              enterTouchDelay={0}
-            >
-              <div
-                className='color'
-                style={{ backgroundColor: '#dad9bb' }}
-              ></div>
-            </Tooltip>
-            <div className='text'>{_('Inbound')}</div>
-          </div>
-        </div>
-      </div>
-      <div className='card last'>
-        <div className='header'>
-          <div className='title'>{_('Last added brands')}</div>
-          <Link to='/platform/brands/create'>
-            <SolidButton>+ {_('Add')}</SolidButton>
-          </Link>
-        </div>
-
-        <div className='table'>
-          <TableContainer component={Paper} sx={{ boxShadow: 'none' }}>
-            <Table sx={{ minWidth: 650 }} aria-label='simple table'>
-              <TableHead>
-                <TableRow style={{ fontSize: '13px' }}>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('Name')}
-                  </TableCell>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('TIN')}
-                  </TableCell>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('SIP domain', { count: 1 })}
-                  </TableCell>
-                  <TableCell
-                    style={{ fontSize: '13px', color: 'var(--color-text)' }}
-                  >
-                    {_('Max Calls')}
-                  </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.recentActivity.map((row, key) => (
-                  <TableRow
-                    key={key}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell component='th' scope='row'>
-                      {row.name}
-                    </TableCell>
-                    <TableCell>{row.nif}</TableCell>
-                    <TableCell>{row.sipDomain}</TableCell>
-                    <TableCell>{row.maxCalls}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </div>
-      </div>
-    </section>
+      <RecentTable
+        title={_('Recently added brands')}
+        subtitle={_('Newest first')}
+        rows={data.recentActivity}
+        seeAll={{ label: _('See all'), path: '/brands' }}
+        empty={_('No brands yet')}
+        columns={[
+          {
+            label: _('Brand', { count: 1 }),
+            render: (row) => (
+              <Who name={row.name} detail={row.sipDomain} mono />
+            ),
+          },
+          { label: _('TIN'), render: (row) => row.nif },
+          { label: _('Max calls'), render: (row) => limit(row.maxCalls) },
+        ]}
+      />
+    </DashboardGrid>
   );
 };
 
-export default styled(Dashboard)(({ theme }) => {
-  return {
-    [theme.breakpoints.down('md')]: {
-      '& ul': {
-        paddingInlineStart: '20px',
-      },
-      '& ul li.submenu li': {
-        paddingInlineStart: '40px',
-      },
-    },
-  };
-});
+export default Dashboard;

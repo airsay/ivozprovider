@@ -1,4 +1,3 @@
-import { Menu } from '@irontec/ivoz-ui/components/layout';
 import Loading from '@irontec/ivoz-ui/components/layout/Loading/Loading';
 import { StyledCloseIcon } from '@irontec/ivoz-ui/components/shared/Message.styles';
 import { RouteMap } from '@irontec/ivoz-ui/router/routeMapParser';
@@ -7,6 +6,7 @@ import MuiAlert from '@mui/material/Alert';
 import { useStoreActions, useStoreState } from 'store';
 
 import Header from '../Header';
+import PortalSidebar from './PortalSidebar';
 
 export interface AppRouteContentProps {
   routeMap: RouteMap;
@@ -32,7 +32,7 @@ export default function AppRouteContentWrapper(
     <div className={className}>
       <Loading />
       <Box className='app-wrapper'>
-        <Menu routeMap={routeMap} />
+        <PortalSidebar routeMap={routeMap} />
         <Box component='main'>
           <Box component='header' className='breadcrumb'>
             {loggedIn && <Header routeMap={routeMap} />}

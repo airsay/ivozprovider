@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreActions, useStoreState } from 'store';
 
+import { AuthLayout } from './Redesign';
+
 interface LoginProps {
   validator?: EntityValidator;
   email?: string;
@@ -56,5 +58,18 @@ export default function Login(props: LoginProps): JSX.Element | null {
     };
   };
 
-  return <DefaultLogin validator={validator} marshaller={marshaller} />;
+  return (
+    <AuthLayout
+      portal='user portal'
+      headline='Your calls, your way.'
+      lead='Call forwarding, voicemail and your call history.'
+      highlights={[
+        { title: 'Forwarding', detail: 'busy, no answer, always' },
+        { title: 'Voicemail', detail: 'and faxes' },
+        { title: 'Calls', detail: 'your recent history' },
+      ]}
+    >
+      <DefaultLogin validator={validator} marshaller={marshaller} />
+    </AuthLayout>
+  );
 }

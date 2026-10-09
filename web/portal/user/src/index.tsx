@@ -5,8 +5,11 @@ import { createRoot } from 'react-dom/client';
 import store from 'store';
 
 import App from './App';
+import { initRedesign } from './components/Redesign';
 import reportWebVitals from './reportWebVitals';
 import Theme from './Theme';
+
+initRedesign();
 
 const container = document.getElementById('root');
 const root = createRoot(container as Element);

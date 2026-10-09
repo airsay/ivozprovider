@@ -1,6 +1,5 @@
 import Avatar from '@irontec/ivoz-ui/components/layout/Header/Avatar';
 import Breadcrumbs from '@irontec/ivoz-ui/components/layout/Header/Breadcrumbs';
-import Settings from '@irontec/ivoz-ui/components/layout/Header/Settings/Settings';
 import {
   LightButton,
   SolidButton,
@@ -22,7 +21,9 @@ import {
 import { useState } from 'react';
 import { useStoreActions, useStoreState } from 'store';
 
+import i18n from '../../i18n';
 import { AboutCredits } from '../Branding';
+import { JumpTo, LanguageSwitcher, ThemeToggle, UserChip } from '../Redesign';
 
 export interface HeaderProps {
   routeMap: RouteMap;
@@ -50,29 +51,37 @@ export default function Header(props: HeaderProps): JSX.Element {
 
   return (
     <Box className={className}>
-      <Box className='start'>
+      <Box className='start' data-empty-title={i18n.t('Dashboard')}>
         <Breadcrumbs desktop={desktop} routeMap={routeMap} />
       </Box>
 
       <Box className='end'>
         {desktop && (
           <>
-            <Settings />
-            <Avatar>
-              <MenuItem key='about' onClick={() => setOpen(true)}>
-                <Typography textAlign='center'>{_('About')}</Typography>
-              </MenuItem>
-              <MenuItem key='logout' onClick={() => resetAuth()}>
-                <Typography textAlign='center'>{_('Logout')}</Typography>
-              </MenuItem>
-            </Avatar>
+            <JumpTo routeMap={routeMap} />
+            <ThemeToggle />
+            <LanguageSwitcher />
+            <UserChip role={_('Platform admin')}>
+              <Avatar>
+                <MenuItem key='about' onClick={() => setOpen(true)}>
+                  <Typography textAlign='center'>{_('About')}</Typography>
+                </MenuItem>
+                <MenuItem key='logout' onClick={() => resetAuth()}>
+                  <Typography textAlign='center'>{_('Logout')}</Typography>
+                </MenuItem>
+              </Avatar>
+            </UserChip>
           </>
         )}
 
         {!desktop && (
-          <LightButton onClick={() => toggleVisibility()}>
-            <MenuIcon />
-          </LightButton>
+          <>
+            <LanguageSwitcher />
+            <ThemeToggle />
+            <LightButton onClick={() => toggleVisibility()}>
+              <MenuIcon />
+            </LightButton>
+          </>
         )}
 
         {open && (

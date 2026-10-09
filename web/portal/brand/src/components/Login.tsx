@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useStoreActions, useStoreState } from 'store';
 
+import { AuthLayout } from './Redesign';
+
 interface LoginProps {
   validator?: EntityValidator;
   target?: string;
@@ -75,5 +77,18 @@ export default function Login(props: LoginProps): JSX.Element | null {
     return null;
   }
 
-  return <DefaultLogin validator={validator} />;
+  return (
+    <AuthLayout
+      portal='brand portal'
+      headline='Run your voice network from one calm place.'
+      lead='Clients, carriers, numbers and live calls across your brand.'
+      highlights={[
+        { title: 'Clients', detail: 'vPBX, retail, residential' },
+        { title: 'Carriers', detail: '& DDI providers' },
+        { title: 'Live calls', detail: 'in real time' },
+      ]}
+    >
+      <DefaultLogin validator={validator} />
+    </AuthLayout>
+  );
 }

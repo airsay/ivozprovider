@@ -18,6 +18,7 @@ import {
   TERVIAN_EMERALD,
   wordmarkLogo,
 } from './components/Branding';
+import { useColorMode } from './components/Redesign';
 import i18n from './i18n';
 
 interface ThemeProps {
@@ -40,6 +41,9 @@ export default function Theme(props: ThemeProps): JSX.Element {
   const [branding, setBranding] = useState<Branding>(defaultBranding);
   const themeActions = useStoreActions((actions) => actions.theme);
   const apiGet = useStoreActions((actions) => actions.api.get);
+
+  const colorMode = useColorMode();
+  const dark = colorMode === 'dark';
 
   const currentLanguage =
     i18n.language.substring(0, 2) === 'es' ? 'esES' : 'enUS';
@@ -92,11 +96,31 @@ export default function Theme(props: ThemeProps): JSX.Element {
   const theme = createTheme({
     ...locales[currentLanguage],
     palette: {
+      mode: colorMode,
       primary: {
         main: colorPrimary,
       },
       secondary: {
         main: colorSecondary,
+      },
+      ...(dark
+        ? {
+            background: { default: '#08110f', paper: '#0f1b18' },
+            text: { primary: '#ecf3f0', secondary: '#a8b8b2' },
+            divider: '#1c2d28',
+          }
+        : {
+            background: { default: '#f3f6f5', paper: '#ffffff' },
+            text: { primary: '#0f1714', secondary: '#53605b' },
+            divider: '#e3e9e7',
+          }),
+    },
+    shape: {
+      borderRadius: 12,
+    },
+    components: {
+      MuiPaper: {
+        styleOverrides: { root: { backgroundImage: 'none' } },
       },
     },
     typography: {

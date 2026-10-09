@@ -1,5 +1,4 @@
 import Breadcrumbs from '@irontec/ivoz-ui/components/layout/Header/Breadcrumbs';
-import Settings from '@irontec/ivoz-ui/components/layout/Header/Settings/Settings';
 import {
   LightButton,
   SolidButton,
@@ -21,7 +20,9 @@ import {
 import { useState } from 'react';
 import { useStoreActions, useStoreState } from 'store';
 
+import i18n from '../../i18n';
 import { AboutCredits } from '../Branding';
+import { JumpTo, LanguageSwitcher, ThemeToggle, UserChip } from '../Redesign';
 import { Avatar } from './Avatar';
 
 export interface headerProps {
@@ -46,14 +47,16 @@ export default function Header(props: headerProps): JSX.Element {
 
   return (
     <Box className={className}>
-      <Box className='start'>
+      <Box className='start' data-empty-title={i18n.t('Dashboard')}>
         <Breadcrumbs desktop={desktop} routeMap={routeMap} />
       </Box>
 
       <Box className='end'>
         {desktop && (
           <>
-            <Settings />
+            <JumpTo routeMap={routeMap} />
+            <ThemeToggle />
+            <LanguageSwitcher />
             {open && (
               <Dialog
                 open={open}
@@ -83,25 +86,29 @@ export default function Header(props: headerProps): JSX.Element {
                 </DialogActions>
               </Dialog>
             )}
-            <Avatar>
-              <MenuItem
-                key='about'
-                onClick={() => setOpen(true)}
-                sx={{ justifyContent: 'center' }}
-              >
-                <Typography textAlign='center'>{_('About')}</Typography>
-              </MenuItem>
-              <MenuItem
-                key='logout'
-                onClick={() => resetAuth()}
-                sx={{ justifyContent: 'center' }}
-              >
-                <Typography textAlign='center'>{_('Logout')}</Typography>
-              </MenuItem>
-            </Avatar>
+            <UserChip role={_('User portal')}>
+              <Avatar>
+                <MenuItem
+                  key='about'
+                  onClick={() => setOpen(true)}
+                  sx={{ justifyContent: 'center' }}
+                >
+                  <Typography textAlign='center'>{_('About')}</Typography>
+                </MenuItem>
+                <MenuItem
+                  key='logout'
+                  onClick={() => resetAuth()}
+                  sx={{ justifyContent: 'center' }}
+                >
+                  <Typography textAlign='center'>{_('Logout')}</Typography>
+                </MenuItem>
+              </Avatar>
+            </UserChip>
           </>
         )}
 
+        {!desktop && <LanguageSwitcher />}
+        {!desktop && <ThemeToggle />}
         {!desktop && (
           <LightButton
             onClick={() => {
