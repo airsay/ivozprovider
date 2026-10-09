@@ -25,23 +25,63 @@ export function apiErrorMessage(error: unknown): string {
     : 'Request failed';
 }
 
+/** The API's largest allowed page (maximum_items_per_page in api_platform.yaml). */
+const PAGE_SIZE = 10000;
+/** Safety stop, in case a resource ignores paging and repeats pages. */
+const MAX_PAGES = 50;
+
+/**
+ * Reads a whole collection. `_pagination=false` alone is not enough: the
+ * API only honours it on resources with pagination_client_enabled (e.g.
+ * countries, timezones), and other lists (transformation rule sets, proxy
+ * trunks, routing tags...) would come back as their first page only. So
+ * this asks for the largest page and keeps reading pages until one comes
+ * back short or adds nothing new.
+ */
 export async function fetchAll<T>(
   apiGet: ApiGet,
   path: string,
   params: Record<string, unknown> = {}
 ): Promise<T[]> {
-  let rows: T[] = [];
-  try {
-    await apiGet({
-      path,
-      params: { ...params, _pagination: false },
-      handleErrors: false,
-      successCallback: async (data: unknown) => {
-        rows = Array.isArray(data) ? (data as T[]) : [];
-      },
-    });
-  } catch (error) {
-    throw new Error(apiErrorMessage(error));
+  const rows: T[] = [];
+  const seen = new Set<unknown>();
+
+  for (let page = 1; page <= MAX_PAGES; page++) {
+    let batch: T[] = [];
+    try {
+      await apiGet({
+        path,
+        params: {
+          ...params,
+          _pagination: false,
+          _itemsPerPage: PAGE_SIZE,
+          _page: page,
+        },
+        handleErrors: false,
+        successCallback: async (data: unknown) => {
+          batch = Array.isArray(data) ? (data as T[]) : [];
+        },
+      });
+    } catch (error) {
+      throw new Error(apiErrorMessage(error));
+    }
+
+    let added = 0;
+    for (const row of batch) {
+      const id = (row as { id?: unknown })?.id;
+      if (id !== undefined && seen.has(id)) {
+        continue;
+      }
+      if (id !== undefined) {
+        seen.add(id);
+      }
+      rows.push(row);
+      added++;
+    }
+
+    if (batch.length < PAGE_SIZE || added === 0) {
+      break;
+    }
   }
 
   return rows;

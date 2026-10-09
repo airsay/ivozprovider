@@ -57,3 +57,45 @@ export function brandCountry(
 
   return typeof tzCountry === 'object' ? tzCountry.id : tzCountry;
 }
+
+type Ref = number | { id: number } | null | undefined;
+
+export interface BrandDefaults {
+  language?: Ref;
+  defaultTimezone?: (BrandDetail['defaultTimezone'] & { id?: number }) | null;
+  currency?: Ref;
+}
+
+export const refId = (value: Ref): number | null => {
+  if (value === null || value === undefined) {
+    return null;
+  }
+
+  return typeof value === 'object' ? value.id : value;
+};
+
+export interface RuleSetRef {
+  id: number;
+  name?: Record<string, string | null> | null;
+}
+
+/** The stock "E.164" numeric transformation (seeded with id 252). */
+export const E164_NAME = 'E.164';
+export const E164_SEED_ID = 252;
+
+/**
+ * Finds the E.164 rule set by its English name. If several sets share the
+ * name (e.g. a brand copy), the seeded one wins; otherwise none is chosen.
+ */
+export function e164RuleSet(ruleSets: RuleSetRef[]): number | null {
+  const matches = ruleSets.filter(
+    (set) =>
+      (set.name?.en ?? '').trim().toLowerCase() === E164_NAME.toLowerCase()
+  );
+  if (matches.length === 1) {
+    return matches[0].id;
+  }
+  const seeded = matches.find((set) => set.id === E164_SEED_ID);
+
+  return seeded ? seeded.id : null;
+}

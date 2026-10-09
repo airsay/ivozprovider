@@ -3,7 +3,15 @@ import { useEffect } from 'react';
 import { useStoreActions } from 'store';
 
 import { fetchAll, fetchOne } from '../../../components/CsvImport/api';
-import { brandCountry, BrandDetail, CountryRef } from './brandCountry';
+import {
+  brandCountry,
+  BrandDefaults,
+  BrandDetail,
+  CountryRef,
+  e164RuleSet,
+  refId,
+  RuleSetRef,
+} from './brandCountry';
 
 interface UseBrandCountryProps {
   create?: boolean;
@@ -11,10 +19,14 @@ interface UseBrandCountryProps {
 }
 
 /**
- * On a new client, pre-selects the reseller's country as the client's
- * Country code (see brandCountry.ts for where it comes from). It only
- * replaces the form's built-in default; a value the admin already picked is
- * left alone, and any failure leaves the form as it was.
+ * On a new client, pre-selects the reseller's values so the form shows them
+ * instead of "Default …":
+ *  - Country code: the reseller's country (see brandCountry.ts);
+ *  - Language, Default timezone, Currency: the brand's own values;
+ *  - Numeric transformation: E.164.
+ * A field the admin already changed is left alone, and any failure leaves
+ * the form as it was (the "Default …" values still work: the server fills
+ * language and timezone from the brand).
  */
 const useBrandCountry = (props: UseBrandCountryProps): void => {
   const { create, formik } = props;
@@ -32,18 +44,35 @@ const useBrandCountry = (props: UseBrandCountryProps): void => {
       if (brands.length !== 1) {
         return;
       }
-      const [brand, countries] = await Promise.all([
-        fetchOne<BrandDetail>(apiGet, `/brands/${brands[0].id}`),
+      const [brand, countries, ruleSets] = await Promise.all([
+        fetchOne<BrandDetail & BrandDefaults>(
+          apiGet,
+          `/brands/${brands[0].id}`
+        ),
         fetchAll<CountryRef>(apiGet, '/countries'),
+        fetchAll<RuleSetRef>(apiGet, '/transformation_rule_sets'),
       ]);
-      const countryId = brandCountry(brand, countries);
-      if (cancelled || countryId === null) {
+      if (cancelled) {
         return;
       }
-      if (formik.values.country !== formik.initialValues.country) {
-        return;
+
+      const wanted: Record<string, number | null> = {
+        country: brandCountry(brand, countries),
+        language: refId(brand.language),
+        defaultTimezone: refId(brand.defaultTimezone?.id),
+        currency: refId(brand.currency),
+        transformationRuleSet: e164RuleSet(ruleSets),
+      };
+
+      for (const [field, value] of Object.entries(wanted)) {
+        if (value === null) {
+          continue;
+        }
+        if (formik.values[field] !== formik.initialValues[field]) {
+          continue;
+        }
+        formik.setFieldValue(field, value);
       }
-      formik.setFieldValue('country', countryId);
     };
 
     run().catch(() => undefined);

@@ -2,7 +2,7 @@
 
 export enum AppConstants {
   VERSION = '4.8.0',
-  COMMIT = '56bf0c070',
-  LAST_UPDATED = '14/09/2026',
+  COMMIT = 'ff244ea8f',
+  LAST_UPDATED = '08/10/2026',
 }
 
