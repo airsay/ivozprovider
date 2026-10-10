@@ -1,4 +1,5 @@
 import './redesign.css';
+import './icons.css';
 
 import { initColorMode } from './colorMode';
 import { tagSolidButtons } from './solidButtons';
@@ -10,6 +11,7 @@ export { default as JumpTo } from './JumpTo';
 export { default as LanguageSwitcher } from './LanguageSwitcher';
 export type { ActiveCallsSummary } from './LiveCallsCard';
 export { default as LiveCallsCard } from './LiveCallsCard';
+export { default as PageHead } from './PageHead';
 export type { SidebarOrg, SidebarSection } from './Sidebar';
 export { default as Sidebar } from './Sidebar';
 export { default as ThemeToggle } from './ThemeToggle';

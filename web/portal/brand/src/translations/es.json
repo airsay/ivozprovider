@@ -444,7 +444,7 @@
   "Must start with '+' followed by zero or more digits.": "Debe comenzar con '+' seguido de cero o más dígitos.",
   "Must start with sip or sips followed by colon": "Debe comenzar con sip o sips seguido de dos puntos",
   "Name": "Nombre",
-  "Name shown as source when sending mails (e.g. Axion Communications Platform Notifications)": "Nombre mostrado como origen en los correos enviados (e.g. Notificaciones Axion Communications Platform). ",
+  "Name shown as source when sending mails (e.g. Axion Communications Platform Notifications)": "Nombre mostrado como origen en los correos enviados (e.g. Notificaciones Tervian One). ",
   "National": "Nacional",
   "National number length": "Longitud números nacionales",
   "Next execution": "Próxima ejecución",

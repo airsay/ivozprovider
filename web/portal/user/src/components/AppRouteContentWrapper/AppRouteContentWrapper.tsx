@@ -6,6 +6,7 @@ import MuiAlert from '@mui/material/Alert';
 import { useStoreActions, useStoreState } from 'store';
 
 import { Header } from '../Header';
+import { PageHead } from '../Redesign';
 import PortalSidebar from './PortalSidebar';
 
 export interface AppRouteContentProps {
@@ -51,6 +52,7 @@ export default function AppRouteContentWrapper(
               {flassMsg}
             </MuiAlert>
           )}
+          {loggedIn && <PageHead routeMap={routeMap} />}
           <Box component='section'>{children}</Box>
         </Box>
       </Box>

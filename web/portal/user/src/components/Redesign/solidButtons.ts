@@ -6,6 +6,9 @@
  * To restyle primary buttons, tag every button whose background is its own
  * --color (that is SolidButton) with .rd-solid, and style that class in
  * redesign.css. Each button is checked once, when it is first shown enabled.
+ * redesign.css styles the other buttons only once they carry
+ * data-rd-checked, so its own rules never hide a SolidButton from this
+ * check.
  *
  * This goes away once the ivoz-ui fork gives SolidButton its own class.
  */

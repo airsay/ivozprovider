@@ -101,7 +101,10 @@ const Dashboard = (props: DashboardProps): JSX.Element | null => {
     return null;
   }
 
-  const productName = data.productName || branding.productName;
+  // Always the resolved branding (Tervian One unless the portal is
+  // customised). /my/dashboard's productName falls back to the server's
+  // stock "Ivoz Provider" when no web portal matches the hostname.
+  const productName = branding.productName;
   // The first client type this brand offers: target of "New client".
   const clientType =
     Object.keys(CLIENT_TYPES).find((type) =>

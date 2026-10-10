@@ -22,7 +22,6 @@ const SECTIONS: SidebarSection[] = [
 
 interface PlatformDashboard {
   brandNumber?: number;
-  productName?: string;
 }
 
 export default function PortalSidebar(props: {
@@ -30,7 +29,8 @@ export default function PortalSidebar(props: {
 }): JSX.Element {
   const branding = useBranding();
   const dashboard = useMyResource<PlatformDashboard>('/my/dashboard');
-  const title = dashboard?.productName || branding.productName;
+  // Resolved branding, not /my/dashboard (whose fallback is "Ivoz Provider").
+  const title = branding.productName;
 
   return (
     <Sidebar

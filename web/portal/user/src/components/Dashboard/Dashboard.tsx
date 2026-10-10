@@ -58,7 +58,10 @@ const Dashboard = (props: DashboardProps): JSX.Element | null => {
     return null;
   }
 
-  const productName = data.productName || branding.productName;
+  // Always the resolved branding (Tervian One unless the portal is
+  // customised). /my/dashboard's productName falls back to the server's
+  // stock "Ivoz Provider" when no web portal matches the hostname.
+  const productName = branding.productName;
   const forwardCount = Array.isArray(forwards) ? forwards.length : undefined;
 
   return (

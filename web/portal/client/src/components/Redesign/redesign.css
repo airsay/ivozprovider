@@ -1467,6 +1467,569 @@ html.rd .rd-pill i {
 }
 
 /* ------------------------------------------------------------------ */
+/* Main screens: page head, lists, forms, detail, empty states         */
+/* ------------------------------------------------------------------ */
+
+/* Page head (PageHead.tsx) */
+html.rd .rd-pagehead {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 2px 0 -4px;
+}
+html.rd .rd-pagehead-icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  flex: none;
+  border-radius: 16px;
+  background: var(--rd-grad);
+  color: #fff;
+  box-shadow: 0 12px 26px -14px rgba(var(--color-primary-rgb), 0.9);
+}
+html.rd .rd-pagehead-icon svg {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+}
+html.rd .rd-pagehead h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+  color: var(--rd-title);
+}
+html.rd .rd-pagehead p {
+  margin: 3px 0 0;
+  font-size: 13.5px;
+  color: var(--rd-muted);
+}
+
+/* The card that holds a list or a form */
+html.rd main > section > div > .MuiBox-root > .card,
+html.rd main > section .card:has(> .list-content-header) {
+  padding: 18px 18px 8px;
+  border-radius: var(--rd-radius-lg);
+}
+
+/* List toolbar */
+html.rd .list-content-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  padding: 0 2px;
+}
+html.rd .list-content-header .buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+html.rd .list-content-header .start .MuiFormControl-root {
+  width: clamp(220px, 28vw, 340px);
+}
+html.rd .list-content-header .start .input-field {
+  height: 42px;
+  padding-left: 14px;
+  border-radius: 999px;
+  background: var(--rd-surface-2);
+  color: var(--rd-muted);
+}
+html.rd .list-content-header .start .input-field svg {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  margin-right: 6px;
+}
+html.rd .list-content-header .start .input-field fieldset {
+  border-color: var(--rd-border);
+  border-radius: 999px;
+}
+html.rd .list-content-header .MuiButton-root {
+  height: 42px;
+  min-width: 42px;
+  padding: 0 12px;
+  border-radius: 13px;
+  font-weight: 600;
+  text-transform: none;
+}
+html.rd .list-content-header .MuiButton-root[data-rd-checked]:not(.rd-solid) {
+  background: var(--rd-surface);
+  border: 1px solid var(--rd-border-strong);
+  color: var(--rd-text);
+  box-shadow: none;
+}
+html.rd .list-content-header .MuiButton-root[data-rd-checked]:not(.rd-solid):hover {
+  color: var(--color-primary);
+  border-color: rgba(var(--color-primary-rgb), 0.45);
+}
+html.rd .list-content-header .MuiButton-root.rd-solid {
+  padding: 0 16px 0 12px;
+  gap: 4px;
+}
+html.rd .list-content-header .MuiButton-root svg {
+  font-size: 19px;
+  width: 19px;
+  height: 19px;
+}
+html.rd .filter-chips .MuiChip-root {
+  height: 32px;
+  border-radius: 999px;
+  border: 0;
+  background: var(--rd-primary-soft);
+  color: var(--rd-on-primary-soft);
+  font-weight: 600;
+}
+
+/* Tables (lists, and any MUI table) */
+html.rd main section table.MuiTable-root {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+html.rd main section .MuiTableHead-root .MuiTableCell-head {
+  padding: 11px 14px;
+  background: var(--rd-surface-2);
+  border-bottom: 0;
+  color: var(--rd-muted);
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+html.rd main section .MuiTableHead-root .MuiTableCell-head.actions-cell {
+  /* ivoz-ui gives .actions-cell a flex layout, which shrinks this header
+   * cell to its content; keep it a full-height table cell. */
+  display: table-cell;
+  background: var(--rd-surface-2);
+}
+html.rd main section .MuiTableHead-root .MuiTableCell-head:first-child {
+  border-radius: 12px 0 0 12px;
+}
+html.rd main section .MuiTableHead-root .MuiTableCell-head:last-child {
+  border-radius: 0 12px 12px 0;
+}
+html.rd main section .MuiTableSortLabel-root {
+  color: inherit;
+}
+html.rd main section .MuiTableSortLabel-root.Mui-active {
+  color: var(--rd-title);
+}
+html.rd main section .MuiTableSortLabel-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+html.rd main section .MuiTableBody-root .MuiTableRow-root {
+  transition: background 100ms ease;
+}
+html.rd main section .MuiTableBody-root .MuiTableRow-root:hover {
+  background: var(--rd-surface-2);
+}
+html.rd main section .MuiTableBody-root .MuiTableCell-body {
+  padding: 12px 14px;
+  font-size: 14px;
+  color: var(--rd-text);
+  border-bottom: 1px solid var(--rd-border);
+}
+html.rd
+  main
+  section
+  .MuiTableBody-root
+  .MuiTableRow-root:last-child
+  .MuiTableCell-body {
+  border-bottom: 0;
+}
+/* The first data column reads as the row's name */
+html.rd
+  main
+  section
+  .MuiTableBody-root
+  td:first-child:not(:has(.MuiCheckbox-root)),
+html.rd main section .MuiTableBody-root td:has(> .MuiCheckbox-root) + td {
+  color: var(--rd-title);
+  font-weight: 600;
+}
+html.rd main section .MuiTableBody-root td svg[data-testid='WarningAmberIcon'] {
+  color: var(--rd-amber);
+}
+html.rd main section .MuiCheckbox-root {
+  color: var(--rd-border-strong);
+}
+html.rd main section .MuiCheckbox-root.Mui-checked,
+html.rd main section .MuiCheckbox-root.MuiCheckbox-indeterminate {
+  color: var(--color-primary);
+}
+html.rd main section .MuiCheckbox-root svg {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+/* Row actions */
+html.rd .actions-cell {
+  gap: 6px;
+}
+html.rd .actions-cell .MuiButton-root,
+html.rd .actions-cell .MuiIconButton-root {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  padding: 0;
+  border-radius: 11px;
+  border: 1px solid var(--rd-border);
+  background: var(--rd-surface);
+  color: var(--rd-muted);
+  box-shadow: none;
+}
+html.rd .actions-cell .MuiButton-root:hover,
+html.rd .actions-cell .MuiIconButton-root:hover {
+  color: var(--color-primary);
+  border-color: rgba(var(--color-primary-rgb), 0.4);
+  background: var(--rd-primary-soft);
+}
+html.rd .actions-cell svg {
+  font-size: 17px;
+  width: 17px;
+  height: 17px;
+}
+
+/* Pagination */
+html.rd main footer .pagination,
+html.rd main footer .MuiTablePagination-root {
+  color: var(--rd-muted);
+}
+html.rd main footer .MuiTablePagination-toolbar {
+  min-height: 52px;
+  padding-right: 4px;
+}
+html.rd main footer .MuiTablePagination-select {
+  border-radius: 10px;
+  background: var(--rd-surface);
+  border: 1px solid var(--rd-border);
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+html.rd main footer .MuiTablePagination-selectIcon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  right: 6px;
+  top: calc(50% - 8px);
+  color: var(--rd-muted);
+}
+html.rd main footer .MuiTablePagination-actions .MuiIconButton-root {
+  width: 34px;
+  height: 34px;
+  margin-left: 6px;
+  border-radius: 11px;
+  border: 1px solid var(--rd-border);
+  background: var(--rd-surface);
+  color: var(--rd-text);
+}
+html.rd
+  main
+  footer
+  .MuiTablePagination-actions
+  .MuiIconButton-root:not(.Mui-disabled):hover {
+  color: var(--color-primary);
+  border-color: rgba(var(--color-primary-rgb), 0.45);
+}
+html.rd main footer .MuiTablePagination-actions .Mui-disabled {
+  opacity: 0.45;
+}
+html.rd main footer .MuiTablePagination-actions svg {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+/* Empty list */
+html.rd main section section:has(> .empty-actions) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 24px;
+  border-radius: var(--rd-radius-lg);
+  border: 1px dashed var(--rd-border-strong);
+  background: var(--rd-surface);
+}
+html.rd main section section:has(> .empty-actions) > img[src$='empty.svg'] {
+  width: 132px;
+  height: 132px;
+  object-position: -9999px 0;
+  background: var(--rd-grad);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='58' fill='black' fill-opacity='0.12'/%3E%3Ccircle cx='60' cy='60' r='42' fill='black' fill-opacity='0.12'/%3E%3Cg transform='translate(33 33) scale(2.25)' fill='none' stroke='black' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='22 12 16 12 14 15 10 15 8 12 2 12'/%3E%3Cpath d='M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z'/%3E%3C/g%3E%3C/svg%3E")
+    center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='58' fill='black' fill-opacity='0.12'/%3E%3Ccircle cx='60' cy='60' r='42' fill='black' fill-opacity='0.12'/%3E%3Cg transform='translate(33 33) scale(2.25)' fill='none' stroke='black' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='22 12 16 12 14 15 10 15 8 12 2 12'/%3E%3Cpath d='M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z'/%3E%3C/g%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+html.rd main section section:has(> .empty-actions) > h3 {
+  margin: 22px 0 6px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--rd-title);
+}
+html.rd main section section:has(> .empty-actions) > p {
+  margin: 0 0 22px;
+  color: var(--rd-muted);
+}
+html.rd .empty-actions {
+  display: flex;
+  gap: 10px;
+}
+html.rd .empty-actions .MuiButton-root {
+  height: 42px;
+  min-width: 42px;
+  padding: 0 18px;
+  border-radius: 13px;
+  font-weight: 600;
+  text-transform: none;
+}
+html.rd .empty-actions .MuiButton-root[data-rd-checked]:not(.rd-solid) {
+  padding: 0;
+  width: 42px;
+  border: 1px solid var(--rd-border-strong);
+  background: var(--rd-surface);
+  color: var(--rd-text);
+}
+
+/* Forms */
+html.rd main section form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+html.rd main section form > div:not(:last-child) {
+  padding: 20px 20px 24px;
+  border-radius: 20px;
+  border: 1px solid var(--rd-border);
+  background: var(--rd-surface);
+}
+html.rd main section form h6.MuiTypography-h6 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0 0 14px;
+  border-bottom: 1px solid var(--rd-border);
+  font-size: 16.5px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: var(--rd-title);
+}
+html.rd main section form h6.MuiTypography-h6::before {
+  content: '';
+  width: 8px;
+  height: 22px;
+  flex: none;
+  border-radius: 4px;
+  background: var(--rd-grad);
+}
+html.rd main section form hr {
+  display: none;
+}
+html.rd main section form label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--rd-title);
+}
+html.rd main section form label svg[data-testid='HelpOutlineIcon'] {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  color: var(--rd-muted);
+}
+html.rd main section form .input-field,
+html.rd main section form .MuiOutlinedInput-root {
+  min-height: 46px;
+  border-radius: 14px;
+  background: var(--rd-surface-2);
+  transition: background 120ms ease, box-shadow 120ms ease;
+}
+html.rd main section form .MuiOutlinedInput-notchedOutline {
+  border-color: transparent;
+  border-radius: 14px;
+}
+html.rd
+  main
+  section
+  form
+  .MuiOutlinedInput-root:hover
+  .MuiOutlinedInput-notchedOutline {
+  border-color: var(--rd-border-strong);
+}
+html.rd main section form .MuiOutlinedInput-root.Mui-focused {
+  background: var(--rd-surface);
+  box-shadow: 0 0 0 4px rgba(var(--color-primary-rgb), 0.14);
+}
+html.rd
+  main
+  section
+  form
+  .MuiOutlinedInput-root.Mui-focused
+  .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-primary);
+  border-width: 1px;
+}
+html.rd
+  main
+  section
+  form
+  .MuiOutlinedInput-root.Mui-error
+  .MuiOutlinedInput-notchedOutline {
+  border-color: var(--color-danger);
+}
+html.rd main section form .MuiAutocomplete-endAdornment svg,
+html.rd main section form .MuiSelect-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--rd-muted);
+}
+html.rd main section form .MuiChip-root {
+  border-radius: 999px;
+  border: 0;
+  background: var(--rd-primary-soft);
+  color: var(--rd-on-primary-soft);
+  font-weight: 600;
+}
+html.rd main section form .MuiFormHelperText-root {
+  margin: 6px 2px 0;
+  font-size: 12px;
+}
+
+/* Forms without section titles (one untitled group per field): one card
+ * for the whole form instead of a card per field. */
+html.rd main section form:has(> div > h6:empty) {
+  gap: 4px;
+  padding: 20px 20px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--rd-border);
+  background: var(--rd-surface);
+}
+html.rd main section form:has(> div > h6:empty) > div:not(:last-child) {
+  margin: 0;
+  padding: 0 0 10px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+html.rd main section form:has(> div > h6:empty) > div:last-child {
+  box-shadow: none;
+}
+html.rd main section form h6.MuiTypography-h6:empty {
+  display: none;
+}
+
+/* A form's own sections are cards: the surrounding card steps back */
+html.rd main section .card:has(> div > form) {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Save bar: stays at the bottom of the screen while the form scrolls */
+html.rd main section form > div:last-child:has(button[type='submit']) {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 1px solid var(--rd-border);
+  background: color-mix(in srgb, var(--rd-surface) 86%, transparent);
+  backdrop-filter: blur(14px);
+  box-shadow: var(--rd-shadow-lg);
+}
+html.rd
+  main
+  section
+  form
+  > div:last-child:has(button[type='submit'])
+  .MuiButton-root {
+  height: 44px;
+  min-width: 120px;
+  padding: 0 22px;
+  border-radius: 13px;
+  font-weight: 650;
+  text-transform: none;
+}
+html.rd
+  main
+  section
+  form
+  > div:last-child:has(button[type='submit'])
+  .MuiButton-root[data-rd-checked]:not(.rd-solid) {
+  border: 1px solid var(--rd-border-strong);
+  background: var(--rd-surface);
+  color: var(--rd-title);
+}
+
+/* Dialogs */
+html.rd .MuiDialog-paper {
+  border: 1px solid var(--rd-border);
+  box-shadow: var(--rd-shadow-lg);
+}
+html.rd .MuiDialog-paper h2,
+html.rd .MuiDialogTitle-root {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--rd-title);
+}
+html.rd .MuiDialogActions-root .MuiButton-root {
+  height: 44px;
+  border-radius: 13px;
+  font-weight: 650;
+  text-transform: none;
+}
+html.rd .MuiBackdrop-root:not(.MuiBackdrop-invisible) {
+  background: rgba(8, 17, 15, 0.4);
+  backdrop-filter: blur(2px);
+}
+
+/* Menus and tooltips */
+html.rd .MuiMenu-paper .MuiMenuItem-root {
+  margin: 2px 4px;
+  border-radius: 10px;
+  font-size: 14px;
+  gap: 10px;
+}
+html.rd .MuiMenu-paper .MuiMenuItem-root svg {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: var(--rd-muted);
+}
+html.rd .MuiTooltip-tooltip {
+  border-radius: 8px;
+  background: var(--rd-title);
+  color: var(--rd-surface);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 10px;
+}
+
+/* Alerts */
+html.rd main > .MuiAlert-root {
+  border-radius: 16px;
+}
+
+/* ------------------------------------------------------------------ */
 /* Sign-in                                                             */
 /* ------------------------------------------------------------------ */
 
