@@ -123,7 +123,7 @@ class InvoiceTemplatePreviewGenerator
                 ),
             'brand' =>
                 array(
-                    'name' => 'Axion Communications Platform',
+                    'name' => 'Tervian One',
                     'nif' => 'B-95274890',
                     'postalAddress' => ' Uribitarte 6, 2º',
                     'postalCode' => '48001',

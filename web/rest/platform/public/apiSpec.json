@@ -2,7 +2,7 @@
     "swagger": "2.0",
     "basePath": "/api/platform/",
     "info": {
-        "title": "Ivoz Provider",
+        "title": "Tervian One",
         "version": "3",
         "description": "Platform REST API"
     },

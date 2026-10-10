@@ -1589,7 +1589,7 @@ html.rd main section table.MuiTable-root {
   border-spacing: 0;
 }
 html.rd main section .MuiTableHead-root .MuiTableCell-head {
-  padding: 11px 14px;
+  padding: 11px 12px;
   background: var(--rd-surface-2);
   border-bottom: 0;
   color: var(--rd-muted);
@@ -1629,7 +1629,7 @@ html.rd main section .MuiTableBody-root .MuiTableRow-root:hover {
   background: var(--rd-surface-2);
 }
 html.rd main section .MuiTableBody-root .MuiTableCell-body {
-  padding: 12px 14px;
+  padding: 12px;
   font-size: 14px;
   color: var(--rd-text);
   border-bottom: 1px solid var(--rd-border);
@@ -1668,15 +1668,74 @@ html.rd main section .MuiCheckbox-root svg {
   height: 20px;
 }
 
+/* Pills in list cells (modernTables.tsx) */
+html.rd .rd-pill-list {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 420px;
+  font-weight: 500;
+}
+html.rd .rd-pill-list .rd-pill,
+html.rd .cell > .rd-pill {
+  white-space: nowrap;
+}
+html.rd .rd-pill-more {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--rd-surface-3);
+  color: var(--rd-text);
+}
+html.rd main section .MuiTableBody-root td:has(.rd-pill-list) {
+  min-width: 170px;
+}
+/* Short codes (TIN, postal code, numbers) read better on one line */
+html.rd main section .MuiTableBody-root td .cell:not(:has(.rd-pill-list)) {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+html.rd main section .MuiTableBody-root td .rd-who b {
+  white-space: nowrap;
+}
+html.rd main section .MuiTableBody-root td .rd-who {
+  gap: 10px;
+}
+html.rd main section .MuiTableBody-root td .rd-who .rd-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  font-size: 12px;
+}
+
+/* Yes / no cells: a check mark or a quiet dash instead of checkboxes */
+html.rd .cell > svg[data-testid='CheckBoxIcon'],
+html.rd .cell > svg[data-testid='CheckBoxOutlineBlankIcon'] {
+  width: 20px;
+  height: 20px;
+}
+html.rd .cell > svg[data-testid='CheckBoxIcon'] {
+  --rd-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Ccircle cx='12' cy='12' r='10' /%3E%3Cpath d='m9 12 2 2 4-4' /%3E%3C/svg%3E");
+  color: var(--color-primary);
+}
+html.rd .cell > svg[data-testid='CheckBoxOutlineBlankIcon'] {
+  --rd-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpath d='M5 12h14' /%3E%3C/svg%3E");
+  color: var(--rd-muted);
+}
+
 /* Row actions */
 html.rd .actions-cell {
-  gap: 6px;
+  gap: 4px;
+  flex-wrap: nowrap;
 }
 html.rd .actions-cell .MuiButton-root,
 html.rd .actions-cell .MuiIconButton-root {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
   padding: 0;
   border-radius: 11px;
   border: 1px solid var(--rd-border);

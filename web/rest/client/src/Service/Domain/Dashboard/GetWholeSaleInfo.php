@@ -16,7 +16,7 @@ class GetWholeSaleInfo
     ) {
     }
 
-    public function execute(CompanyInterface $company, string $productName = 'Axion Communications Platform'): Dashboard
+    public function execute(CompanyInterface $company, string $productName = 'Tervian One'): Dashboard
     {
         $client = DashboardClient::fromCompany($company);
 

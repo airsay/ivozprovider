@@ -2,4 +2,4 @@ framework:
     mailer:
         dsn: '%env(MAILER_DSN)%'
         headers:
-            From: 'IvozProvider Notifications <no-reply@ivozprovider>'
+            From: 'Tervian One Notifications <no-reply@ivozprovider>'

@@ -1,6 +1,8 @@
 import { EntityList } from '@irontec/ivoz-ui/router/parseRoutes';
 import store from 'store';
 
+import { modernizeEntities } from '../components/Redesign/modernTables';
+
 const modules = import.meta.glob(
   [
     './*/*.tsx',
@@ -29,6 +31,9 @@ for (const relativePath in modules) {
     console.error('entityName', error);
   }
 }
+
+// Tervian redesign: pills and initials in list tables.
+modernizeEntities(entities);
 
 const storeActions = store.getActions();
 storeActions.entities.setEntities(entities);

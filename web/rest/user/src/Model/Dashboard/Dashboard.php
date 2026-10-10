@@ -60,7 +60,7 @@ class Dashboard
         string $terminal,
         string $email,
         string $outgoingDdi,
-        string $productName = 'Axion Communications Platform'
+        string $productName = 'Tervian One'
     ) {
 
         $this->userName = $userName;
